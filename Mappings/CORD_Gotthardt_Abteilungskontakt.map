@@ -1,0 +1,103 @@
+/// version = 0.1
+/// title = "Medizininformatik-Initiative CORD: CORD_Gotthardt_Abteilungskontakt"
+/// status = draft
+/// experimental = true
+
+map "https://www.medizininformatik-initiative.de/fhir/cord/StructureMap/CORD_Gotthardt_Abteilungskontakt" = "CORD_Gotthardt_Abteilungskontakt"
+
+uses "http://vonk.fire.ly/fhir/StructureDefinition/CSV" as source
+uses "http://hl7.org/fhir/StructureDefinition/Encounter" as target
+uses "http://hl7.org/fhir/StructureDefinition/Organization" as target
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" as target
+
+group MapBundle(source src : CSV, target tgt: Bundle)
+{
+    src -> tgt.type = 'collection';
+    src.record as record -> tgt.entry as entry,
+                            entry.resource = create('Encounter') as encounter
+                            then TransformEncounter(record, encounter), TransformOrganization(record, tgt);
+}
+
+/* Encounter */
+
+group TransformEncounter(source record : BackboneElement, target encounter: Encounter)
+{
+    record -> encounter.id = uuid() then 
+                             TransformEinrichtungskontaktMeta(record, encounter),
+                             TransformEinrichtungskontaktIdentifier(record, encounter),
+                             TransformEinrichtungskontaktKontext(record, encounter),
+                             TransformEinrichtungskontaktKlassifizierung(record, encounter),
+                             TransformEinrichtungskontaktP21(record, encounter),
+                             TransformEinrichtungskontaktZeitraum(record, encounter);
+}
+
+group TransformEinrichtungskontaktMeta(source record : BackboneElement, target encounter: Encounter)
+{
+    record -> encounter.meta as meta, meta.profile = 'https://www.medizininformatik-initiative.de/fhir/core/StructureDefinition/Encounter/KontaktGesundheitseinrichtung';
+    record -> encounter.status = 'unknown';
+}
+
+group TransformEinrichtungskontaktIdentifier(source record : BackboneElement, target encounter: Encounter)
+{
+    record.aufnahmenummer as aufnahmenummer -> encounter.identifier as identifier,
+                identifier.type = cc('http://terminology.hl7.org/CodeSystem/v2-0203', 'VN'),
+                identifier.system = 'http://medizininformatik-initiative.de/fhir/NamingSystem/Aufnahmenummer/Charité',
+                identifier.value = aufnahmenummer;
+}
+
+group TransformEinrichtungskontaktKontext(source record : BackboneElement, target encounter: Encounter)
+{
+    record.patientidentifikator as patientidentifikator -> encounter.subject as subject, 
+                                                           subject.identifier as identifier, 
+                                                           identifier.system = 'http://medizininformatik-initiative.de/fhir/NamingSystem/PID/Charité',
+                                                           identifier.value = patientidentifikator;
+
+    record.abteilung as abteilung -> encounter.serviceProvider as serviceProvider,
+                                                           serviceProvider.identifier as identifier, 
+                                                           identifier.system = 'http://medizininformatik-initiative.de/fhir/NamingSystem/Abteilungsidentifikator/Charité',
+                                                           identifier.value = abteilung;
+}
+
+group TransformEinrichtungskontaktKlassifizierung(source record : BackboneElement, target encounter: Encounter)
+{
+    record.kontaktebene as kontaktebene -> encounter.type = translate(kontaktebene, 'https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Encounter_Type', 'CodeableConcept');
+    record.kontaktklasse as kontaktklasse -> encounter.class = translate(kontaktklasse, 'https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Encounter_Class', 'coding');
+}
+
+group TransformEinrichtungskontaktP21(source record : BackboneElement, target encounter: Encounter)
+{
+    record.aufnahmeanlass as aufnahmeanlass -> encounter.hospitalization as hospitalization,
+                                                hospitalization.admitSource = cc('https://www.medizininformatik-initiative.de/fhir/core/modul-fall/CodeSystem/Aufnahmeanlass', aufnahmeanlass);
+    record.aufnahmegrund as aufnahmegrund -> encounter.reasonCode = cc('https://www.medizininformatik-initiative.de/fhir/modul-fall/core/CodeSystem/Aufnahmegrund', aufnahmegrund);
+    record.entlassungsgrund as entlassungsgrund -> encounter.hospitalization as hospitalization collate,
+                                                hospitalization.dischargeDisposition = cc('https://www.medizininformatik-initiative.de/fhir/core/modul-fall/CodeSystem/Entlassungsgrund', entlassungsgrund);
+}
+
+group TransformEinrichtungskontaktZeitraum(source record : BackboneElement, target encounter: Encounter)
+{
+    record.beginndatum as beginndatum -> encounter.period as period, period.start = dateOp(beginndatum, 'yyyy-MM-dd HH:mm:ss', 'dateTime');
+    record.enddatum as enddatum -> encounter.period as period collate, period.end = dateOp(enddatum, 'yyyy-MM-dd HH:mm:ss', 'dateTime');
+}
+
+/* Organization */
+
+group TransformOrganization(source record : BackboneElement, target bundle: Bundle)
+{
+    record.abteilung where "%bundle.entry.resource.where($this is Organization).identifier.where(value = %record.abteilung).exists().not()" -> bundle.entry as entry, 
+                                                                                             entry.resource = create('Organization') as organization, 
+                                                                                             organization.id = uuid() then
+                                                                                             TransformOrganizationMeta(record, organization),
+                                                                                             TransformOrganizationIdentifier(record, organization);
+}
+
+group TransformOrganizationMeta(source record : BackboneElement, target organization: Organization)
+{
+    record -> organization.type = cc('http://terminology.hl7.org/CodeSystem/organization-type', 'dept');
+}
+
+group TransformOrganizationIdentifier(source record : BackboneElement, target organization: Organization)
+{
+    record.abteilung as abteilung -> organization.identifier = id('http://medizininformatik-initiative.de/fhir/NamingSystem/Abteilungsidentifikator/Charité', abteilung);
+    record.einrichtungsidentifikator as einrichtungsidentifikator -> organization.partOf as partOf,
+                                                                     partOf.identifier = id('http://medizininformatik-initiative.de/fhir/NamingSystem/Einrichtungsidentifikator/Charité', einrichtungsidentifikator);
+}

@@ -1,0 +1,146 @@
+/// version = 0.1
+/// title = "Medizininformatik-Initiative CORD: CORD_Gotthardt_Person"
+/// status = draft
+
+map "https://www.medizininformatik-initiative.de/fhir/cord/StructureMap/CORD_Gotthardt_Person" = "CORD_Gotthardt_Person"
+
+uses "http://vonk.fire.ly/fhir/StructureDefinition/CSV" as source
+uses "http://hl7.org/fhir/StructureDefinition/Patient" as target
+uses "http://hl7.org/fhir/StructureDefinition/Observation" as target
+uses "http://hl7.org/fhir/StructureDefinition/Bundle" as target
+
+group MapBundle(source src : CSV, target tgt: Bundle)
+{
+    src -> tgt.type = 'collection';
+    src.record as record -> tgt.entry as entry, 
+                            entry.resource = create('Patient') as patient 
+                            then TransformPatient(record, patient);
+
+    src.record as record -> tgt.entry as entry, 
+                            entry.resource = create('Observation') as observation 
+                            then TransformObservation(record, observation);
+}
+
+/* Patient */
+
+group TransformPatient(source record : BackboneElement, target patient: Patient)
+{
+    record -> patient.id = uuid() then 
+                           TransformPatientMeta(record, patient),
+                           TransformPatientIdentifier(record, patient),
+                           TransformPatientName(record, patient),
+                           TransformPatientAddress(record, patient),
+                           TransformPatientOther(record, patient);
+}
+
+group TransformPatientMeta(source record : BackboneElement, target patient: Patient)
+{
+    record.patientkontext as patientkontext -> patient.meta as meta, meta.`source` = patientkontext;
+    record -> patient.meta as meta collate, meta.profile = 'https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Patient';
+}
+
+group TransformPatientIdentifier(source record : BackboneElement, target patient: Patient)
+{
+    record.versichertennummer as versichertennummer -> patient.identifier as gkvIdentifier, 
+                                                        gkvIdentifier.use = 'official',
+                                                        gkvIdentifier.type = cc('http://fhir.de/CodeSystem/identifier-type-de-basis', 'GKV'),
+                                                        gkvIdentifier.system = 'http://fhir.de/NamingSystem/gkv/kvid-10',
+                                                        gkvIdentifier.value = versichertennummer;
+                      
+    record.ikversicherung as ikversicherung -> patient.identifier as gkvIdentifier collate,
+                                                        gkvIdentifier.assigner as assigner,
+                                                        assigner.identifier = create('identifier') as assignerIdentifier,
+                                                        assignerIdentifier.use = 'official',
+                                                        assignerIdentifier.type = cc('http://terminology.hl7.org/CodeSystem/v2-0203', 'XX'),
+                                                        assignerIdentifier.system = 'http://fhir.de/NamingSystem/arge-ik/iknr',
+                                                        assignerIdentifier.value = ikversicherung;
+
+    // For now we need to create the PID after the GKV identifier, otherwise ikversicherung will be assigned to the PID
+    record.patientidentifikator as patientidentifikator -> patient.identifier as pid, 
+                                                        pid.use = 'usual',
+                                                        pid.type = cc('http://terminology.hl7.org/CodeSystem/v2-0203', 'MR'),
+                                                        pid.system = 'http://medizininformatik-initiative.de/fhir/NamingSystem/PID/Charité',
+                                                        pid.value = patientidentifikator,
+                                                        pid.assigner as assigner,
+                                                        assigner.identifier = create('identifier') as assignerIdentifier,
+                                                        assignerIdentifier.type = cc('http://terminology.hl7.org/CodeSystem/v2-0203', 'XX'),
+                                                        assignerIdentifier.system = 'https://www.medizininformatik-initiative.de/fhir/core/CodeSystem/core-location-identifier',
+                                                        assignerIdentifier.value = 'Charité';
+}
+
+group TransformPatientName(source record : BackboneElement, target patient: Patient)
+{
+    record.nachname as nachname -> patient.name as name,
+                                   name.use = 'official',
+                                   name.family = nachname;
+    
+    record.vorname as vorname -> patient.name as name collate,
+                                 name.given = vorname;
+
+    record.geburtsname as geburtsname -> patient.name as name,
+                                    name.use = 'maiden',
+                                    name.family = geburtsname;
+}
+
+group TransformPatientAddress(source record : BackboneElement, target patient: Patient)
+{
+    record.wohnort as wohnort -> patient.address as address,
+                                 address.use = 'home',
+                                 address.type = 'both',
+                                 address.city = wohnort,
+                                 address.country = 'DE';
+
+    record.plz as plz -> patient.address as address collate,
+                                 address.postalCode = plz;
+
+    record -> patient.address as address collate,
+                      address.line as line,
+                      line.extension as extension,
+                      extension.url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
+                      extension.valueCode = 'unknown';
+}
+
+group TransformPatientOther(source record : BackboneElement, target patient : Patient)
+{
+    record.geschlecht as geschlecht -> patient.gender = translate(geschlecht, 'https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Patient_Gender', 'code');
+    record.geburtsdatum as geburtsdatum -> patient.birthDate = dateOp(geburtsdatum, 'yyyy-MM-dd', 'date');
+    record.patientverstorben as patientverstorben where "$this.patientverstorben = 'nein'" -> patient.deceasedBoolean = false;
+}
+
+/* Observation */
+
+group TransformObservation(source record : BackboneElement, target observation: Observation)
+{
+    record -> observation.id = uuid() then 
+                               TransformObservationMeta(record, observation),
+                               TransformObservationCode(record, observation),
+                               TransformObservationValue(record, observation);
+}
+
+group TransformObservationMeta(source record: BackboneElement, target observation : Observation)
+{
+    record.informationsquelle as informationsquelle -> observation.meta as meta, meta.`source` = informationsquelle;
+    record -> observation.meta as meta collate, meta.profile = 'https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Vitalstatus';
+    record.patientidentifikator as patientidentifikator -> observation.subject as subject, 
+                                                           subject.identifier as identifier, 
+                                                           identifier.system = 'http://medizininformatik-initiative.de/fhir/NamingSystem/PID/Charité',
+                                                           identifier.value = patientidentifikator;
+}
+
+group TransformObservationCode(source record: BackboneElement, target observation : Observation)
+{
+    record -> observation.status = 'final';
+    record -> observation.category = cc('http://hl7.org/fhir/CodeSystem/observation-category', 'survey');
+    record -> observation.code = cc('http://loinc.org', '67162-8');
+}
+
+group TransformObservationValue(source record: BackboneElement, target observation : Observation)
+{
+    record.letzterlebendzeitpunkt as letzterlebendzeitpunkt -> observation.effective = dateOp(letzterlebendzeitpunkt, 'yyyy-MM-dd HH:mm:ss', 'dateTime');
+    record where "letzterlebendzeitpunkt.exists().not()" -> observation.effectiveDateTime as effective, 
+                                                            effective.extension as extension,
+                                                            extension.url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason',
+                                                            extension.valueCode = 'unknown';
+
+    record -> observation.value = cc('https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSytem/Vitalstatus', 'L', 'Patient lebt');
+}

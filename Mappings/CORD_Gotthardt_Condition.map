@@ -1,0 +1,133 @@
+/// version = 0.1
+/// title = "CORD MII CSV to FHIR Mapping (Patient)"
+/// status = draft
+/// experimental = true
+
+map "http://vonk.fire.ly/fhir/StructureMap/CORD_Gotthardt_Diagnose" = "CORD_Gotthardt_Diagnose"
+
+uses "http://vonk.fire.ly/fhir/StructureDefinition/CSV" as source
+uses "http://hl7.org/fhir/StructureDefinition/Condition" as target
+
+group MapBundle(source src: CSV, target bundle: Bundle)
+{
+  src -> bundle.type = 'collection';
+
+  src.record as record -> bundle.entry as entry, 
+                          entry.resource = create('Condition') as condition 
+                          then TransformDiagnose(record, condition);
+}
+
+group TransformDiagnose(source record : BackboneElement, target condition: Condition)
+{
+  record -> condition.id = uuid() then TransformMeta(record, condition),
+                                            TransformPatient(record, condition),
+                                            TransformEncounter(record, condition),
+                                            TransformIcdCode(record, condition),
+                                            TransformAlphaIdCode(record, condition),
+                                            TransformOrphaCode(record, condition),
+                                            TransformDate(record, condition);
+}
+
+group TransformMeta(source record : BackboneElement, target condition: Condition)
+{
+  record -> condition.meta as meta, meta.profile = 'https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose';
+  record.klinischerstatus as klinischerstatus -> condition.clinicalStatus = translate(klinischerstatus, 'https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Condition_Status', 'CodeableConcept');
+}
+
+group TransformPatient(source record : BackboneElement, target condition: Condition)
+{
+  record.patientidentifikator as pid -> condition.subject as subject, subject.identifier = id('http://medizininformatik-initiative.de/fhir/NamingSystem/PID/Charité', pid);
+}
+
+group TransformEncounter(source record : BackboneElement, target condition: Condition)
+{
+  record.aufnahmenummer as aufnahmenummer -> condition.encounter as encounter, encounter.identifier = id('http://medizininformatik-initiative.de/fhir/NamingSystem/Aufnahmenummer/Charité', aufnahmenummer);
+}
+
+group TransformIcdCode(source record : BackboneElement, target condition: Condition)
+{
+  record.freitextbeschreibung as freitextbeschreibung -> condition.code as code, code.text = freitextbeschreibung;
+  record.diagnoseerlaeuterung -> condition.note;
+
+  record.`icd_katalog` as icdKatalog -> condition.code as code collate, code.coding as coding, coding.version = icdKatalog;
+  record.`icd_text` as icdText -> condition.code as code collate, code.coding as coding collate, coding.display = icdText;
+  record -> condition.code as code collate, code.coding as coding collate, coding.system = 'http://fhir.de/CodeSystem/dimdi/icd-10-gm';
+  record.`icd_ausrufezeichen` as icdAusrufezeichen, record.`icd_katalog` as icdKatalog -> condition.code as code collate, 
+                                                      code.coding as coding collate, 
+                                                      coding.extension as extension, 
+                                                      extension.url = 'http://fhir.de/StructureDefinition/icd-10-gm-ausrufezeichen', 
+                                                      extension.value = create('coding') as extValue, 
+                                                      extValue.code = icdAusrufezeichen, 
+                                                      extValue.system = 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',
+                                                      extValue.version = icdKatalog;
+  record.`icd_manifestation` as icdManifestation, record.`icd_katalog` as icdKatalog -> condition.code as code collate, 
+                                                      code.coding as coding collate, 
+                                                      coding.extension as extension, 
+                                                      extension.url = 'http://fhir.de/StructureDefinition/icd-10-gm-manifestationscode', 
+                                                      extension.value = create('coding') as extValue, 
+                                                      extValue.code = icdManifestation, 
+                                                      extValue.system = 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',
+                                                      extValue.version = icdKatalog;
+  record.`icd_primaerkode` as icdPrimaerkode, record.`icd_katalog` as icdKatalog -> condition.code as code collate, 
+                                                      code.coding as coding collate, 
+                                                      coding.extension as extension, 
+                                                      extension.url = 'http://fhir.de/StructureDefinition/icd-10-gm-primaercode', 
+                                                      extension.value = create('coding') as extValue, 
+                                                      extValue.code = icdPrimaerkode, 
+                                                      extValue.system = 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',
+                                                      extValue.version = icdKatalog;
+
+  record.icd_primaerkode as icdPrimaerkode where "icd_primaerkode.exists() and icd_manifestation.exists().not() and icd_ausrufezeichen.exists().not()" -> condition.code as code collate, 
+            code.coding as coding collate,
+            coding.code = icdPrimaerkode;
+
+  record where "icd_primaerkode.exists() and icd_manifestation.exists().not() and icd_ausrufezeichen.exists()" -> condition.code as code collate, 
+            code.coding as coding collate,
+            coding.code = evaluate(record, 'icd_primaerkode + \' \' + icd_ausrufezeichen');
+
+  record where "icd_primaerkode.exists() and icd_manifestation.exists() and icd_ausrufezeichen.exists().not()" -> condition.code as code collate, 
+            code.coding as coding collate,
+            coding.code = evaluate(record, 'icd_primaerkode + \' \' + icd_manifestation');
+ 
+  record where "icd_primaerkode.exists() and icd_manifestation.exists() and icd_ausrufezeichen.exists()" -> condition.code as code collate, 
+            code.coding as coding collate,
+            coding.code = evaluate(record, 'icd_primaerkode + \' \' + icd_manifestation + \' \' + icd_ausrufezeichen');
+}
+
+group TransformAlphaIdCode(source record : BackboneElement, target condition: Condition)
+{
+  record.`alphaid_kode` as alphaIDKode -> condition.code as code, 
+                           code.coding as coding, 
+                           coding.system = 'http://fhir.de/CodeSystem/dimdi/alpha-id',
+                           coding.code = alphaIDKode then TransformAlphaIdText(record, coding);
+}
+
+group TransformAlphaIdText(source record : BackboneElement, target code: Coding)
+{
+  record.`alphaid_text` -> code.display;
+}
+
+group TransformOrphaCode(source record : BackboneElement, target condition: Condition)
+{
+  record.`orpha_kode` as orphaKode -> condition.code as code, 
+                           code.coding as coding, 
+                           coding.system = 'http://www.orpha.net',
+                           coding.code = orphaKode then TransformOrphaText(record, coding);
+}
+
+group TransformOrphaText(source record : BackboneElement, target code: Coding)
+{
+  record.`orpha_text` -> code.display;
+}
+
+group TransformDate(source record : BackboneElement, target condition: Condition)
+{
+  record.dokumentationsdatum as dokumentationsdatum -> condition.recordedDate = dateOp(dokumentationsdatum, 'yyyy-MM-dd', 'date');
+  record.klinischrelevanterzeitraumvon as klinischrelevanterzeitraumvon -> condition.onset = create('Period') as period, period.start = dateOp(klinischrelevanterzeitraumvon, 'yyyy-MM-dd', 'date');
+    record.klinischrelevanterzeitraumbis as klinischrelevanterzeitraumbis -> condition.onset = create('Period') as period collate, period.end = dateOp(klinischrelevanterzeitraumbis, 'yyyy-MM-dd', 'date');
+}
+
+group TransformOther(source record : BackboneElement, target condition: Condition)
+{
+    record.diagnoseerlaeuterung -> condition.note;
+}
