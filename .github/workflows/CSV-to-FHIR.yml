@@ -38,5 +38,5 @@ jobs:
           VONK_BASE_URL: "https://server.fire.ly/"
         uses: fjogeleit/http-request-action@master
         with:
-          url: ${{ VONK_BASE_URL }}/metadata
+          url: ${{ env.VONK_BASE_URL }}/metadata
           method: 'GET'
