@@ -41,5 +41,6 @@ jobs:
         with:
           url: ${{ env.VONK_BASE_URL }}/metadata
           method: 'GET'
+          timeout: 10000
       - name: Show Response
         run: echo ${{ steps.metadata.outputs.response }}
