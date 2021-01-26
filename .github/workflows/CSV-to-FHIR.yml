@@ -34,9 +34,12 @@ jobs:
           ls
                 
       - name: GET metadata
+        id: metadata
         env:
-          VONK_BASE_URL: "https://server.fire.ly/"
+          VONK_BASE_URL: "https://server.fire.ly"
         uses: fjogeleit/http-request-action@master
         with:
           url: ${{ env.VONK_BASE_URL }}/metadata
           method: 'GET'
+      - name: Show Response
+        run: echo ${{ steps.metadata.outputs.response }}
