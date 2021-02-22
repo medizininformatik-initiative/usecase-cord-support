@@ -1,0 +1,35 @@
+{
+    "resourceType":"ConceptMap",
+    "id":"CORD_Gotthardt_Patient_Gender",
+    "name":"CORD_Gotthardt_Patient_Gender",
+    "status":"draft",
+    "group": [
+        {
+            "element": [
+                {
+                    "target": [
+                        {
+                            "code":"female",
+                            "display":"Female",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"w"
+                },
+                {
+                    "target": [
+                        {
+                            "code":"male",
+                            "display":"Male",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"m"
+                }
+            ],
+            "source":"https://www.medizininformatik-initiative.de/fhir/cord/CodeSystem/PatientGender",
+            "target":"http://hl7.org/fhir/administrative-gender"
+        }
+    ],
+    "url":"https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Patient_Gender"
+}

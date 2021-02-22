@@ -1,0 +1,35 @@
+{
+    "resourceType":"ConceptMap",
+    "id":"CORD_Gotthardt_Encounter_Type",
+    "name":"CORD_Gotthardt_Encounter_Type",
+    "status":"draft",
+    "group": [
+        {
+            "element": [
+                {
+                    "target": [
+                        {
+                            "code":"einrichtungskontakt",
+                            "display":"Einrichtungskontakt",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"Einrichtung"
+                },
+                {
+                    "target": [
+                        {
+                            "code":"abteilungskontakt",
+                            "display":"Abteilungskontakt",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"Abteilung"
+                }
+            ],
+            "source":"https://www.medizininformatik-initiative.de/fhir/cord/CodeSystem/EncounterType",
+            "target":"https://www.medizininformatik-initiative.de/fhir/core/modul-fall/CodeSystem/Kontaktebene"
+        }
+    ],
+    "url":"https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Encounter_Type"
+}

@@ -1,0 +1,25 @@
+{
+    "resourceType":"ConceptMap",
+    "id":"CORD_Gotthardt_Condition_Status",
+    "name":"CORD_Gotthardt_Condition_Status",
+    "status":"draft",
+    "group": [
+        {
+            "element": [
+                {
+                    "target": [
+                        {
+                            "code":"active",
+                            "display":"Active",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"Aktuell"
+                }
+            ],
+            "source":"https://www.medizininformatik-initiative.de/fhir/cord/CodeSystem/ConditionStatus",
+            "target":"http://terminology.hl7.org/CodeSystem/condition-clinical"
+        }
+    ],
+    "url":"https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Condition_Status"
+}

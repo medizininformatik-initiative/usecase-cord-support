@@ -1,0 +1,61 @@
+{
+    "resourceType":"ConceptMap",
+    "id":"CORD_Gotthardt_Encounter_Class",
+    "name":"CORD_Gotthardt_Encounter_Class",
+    "status":"draft",
+    "group": [
+        {
+            "element": [
+                {
+                    "target": [
+                        {
+                            "code":"IMP",
+                            "display":"inpatient encounter",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"stationär"
+                }
+            ],
+            "source":"https://www.medizininformatik-initiative.de/fhir/cord/CodeSystem/EncounterClass",
+            "target":"http://terminology.hl7.org/CodeSystem/v3-ActCode"
+        },
+        {
+            "element": [
+                {
+                    "target": [
+                        {
+                            "code":"AMB",
+                            "display":"ambulatory",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"stationär"
+                },
+                {
+                    "target": [
+                        {
+                            "code":"operation",
+                            "display":"Operation",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"OP"
+                },
+                {
+                    "target": [
+                        {
+                            "code":"normalstationaer",
+                            "display":"normalstationaer",
+                            "equivalence":"equal"
+                        }
+                    ],
+                    "code":"vollstationär"
+                }
+            ],
+            "source":"https://www.medizininformatik-initiative.de/fhir/cord/CodeSystem/EncounterClass",
+            "target":"https://www.medizininformatik-initiative.de/fhir/core/CodeSystem/EncounterClassAdditionsDE"
+        }
+    ],
+    "url":"https://www.medizininformatik-initiative.de/fhir/cord/ConceptMap/CORD_Gotthardt_Encounter_Class"
+}
