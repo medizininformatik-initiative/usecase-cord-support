@@ -11,21 +11,22 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
 #### A.0.2           Daten
 
-     https://mii-agiop-cord.life.uni-leipzig.de/fhir
+<https://mii-agiop-cord.life.uni-leipzig.de/fhir>
+
 
 ### A.1.            Ablage FHIRExtinguisher 
 --- 
 #### A.1.1.          Tool download bereich FHIR-Extinguisher 
 
-    https://github.com/JohannesOehm/FhirExtinguisher
+<https://github.com/JohannesOehm/FhirExtinguisher>
 
 #### A.1.2.          Projektbereich FHIR-Extinguisher (z.B. für Fehlermeldungen, Präsentationen, …)
 
-    https://github.com/JohannesOehm/FhirExtinguisher
+<https://github.com/JohannesOehm/FhirExtinguisher>
 
 #### A.1.3.          Anleitung/Musterlösung FHIRExtinguisher 
 
-    https://github.com/medizininformatik-initiative/usecase-cord
+<https://github.com/medizininformatik-initiative/usecase-cord>
 
 ### A.2.            Ablage R-Auswertungen Alterspyramiden 
 --- 
@@ -34,20 +35,21 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
 #### A.2.2.          Anleitung/Musterlösung R-Auswertung Alterspyramiden
 
-    https://github.com/medizininformatik-initiative/usecase-cord
+<https://github.com/medizininformatik-initiative/usecase-cord>
 
-#### Readme          Verweis auf R-Archiv (CRAN)
-    Cran: https://CRAN.R-project.org/package=fhircrackr
-    Quellcode: https://github.com/POLAR-fhiR/fhircrackr
+#### Im A.2 Readme Verweis auf R-Archiv fhircrackr (CRAN)
+Cran: <https://CRAN.R-project.org/package=fhircrackr>
+
+Quellcode: <https://github.com/POLAR-fhiR/fhircrackr>
 ### A.3.             Ablage Ergebniszusammenführung mit EasySMPC 
 --- 
 #### A.3.1.          Tool EasySMPC  
 
-    https://github.com/prasser/easy-smpc/releases/tag/v1.0.0-alpha
+<https://github.com/prasser/easy-smpc/releases/tag/v1.0.0-alpha>
 
 #### A.3.2.          Projektbereich EasySMPC 
 
-    https://github.com/prasser/easy-smpc
+<https://github.com/prasser/easy-smpc>
 
 #### A.3.3.          Anleitung /Musterlösung EasySMPC Zusammenführung Alterspyramiden
 
