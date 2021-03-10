@@ -2,7 +2,7 @@
 Im Projktathon 4, der Untergliederung Von Aufgabenblock C werden
 ##  C: Diagnosenkoinzidenz
 --- 
-### C.0.             Aufgabenstellung & Daten (Überschrift)
+### C.0.             Aufgabenstellung & Daten 
 --- 
 #### C.0.1            Aufgabenstellung
 
@@ -12,7 +12,7 @@ Im Projktathon 4, der Untergliederung Von Aufgabenblock C werden
 
 #### C.0.3            CORD-MI-Cookbook
 
-C.1.             Ablage zur fhircrackr und R-Aggregationen (Überschrift)
+C.1.             Ablage zur fhircrackr und R-Aggregationen
 --- 
 #### C.1.1.           Projektbereich (z.B. für Präsentation, Fehlermeldungen,... )
 

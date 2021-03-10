@@ -45,7 +45,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
     https://github.com/prasser/easy-smpc/releases/tag/v1.0.0-alpha
 
-#### A.3.2.          Projektbereich EasySMPC: 
+#### A.3.2.          Projektbereich EasySMPC 
 
     https://github.com/prasser/easy-smpc
 
