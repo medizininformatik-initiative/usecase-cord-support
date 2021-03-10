@@ -1,10 +1,10 @@
 # Table of Contents 
 Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
-## A Aufgabenblock A: Alterspyramiden für ausgewählte Diagnosen
+## Aufgabenblock A: Alterspyramiden für ausgewählte Diagnosen
 --- 
 
-### A.0.            Aufgabenstellung & Daten (Überschrift)
+### A.0.            Aufgabenstellung & Daten 
 ---
 
 #### A.0.1           Aufgabenstellung
@@ -13,7 +13,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
      https://mii-agiop-cord.life.uni-leipzig.de/fhir
 
-### A.1.            Ablage FHIRExtinguisher (Überschrift)
+### A.1.            Ablage FHIRExtinguisher 
 --- 
 #### A.1.1.          Tool FHIR-Extinguisher 
 
@@ -27,7 +27,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
     https://github.com/medizininformatik-initiative/usecase-cord
 
-### A.2.            Ablage R-Auswertungen Alterspyramiden (Überschrift)
+### A.2.            Ablage R-Auswertungen Alterspyramiden 
 --- 
 #### A.2.1.          Verweis auf R-Archiv (CRAN)
     Cran: https://CRAN.R-project.org/package=fhircrackr
@@ -39,7 +39,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
     https://github.com/medizininformatik-initiative/usecase-cord
 
-### A.3.             Ablage Ergebniszusammenführung mit EasySMPC (Überschrift)
+### A.3.             Ablage Ergebniszusammenführung mit EasySMPC 
 --- 
 #### A.3.1.          Tool EasySMPC  
 
