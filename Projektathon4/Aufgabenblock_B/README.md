@@ -14,20 +14,16 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock B werden
 
 ### B.1.             Ablage zur fhircrackr und R -Auswertungen Zeitreihen 
 ---
-#### B.1.1.           Readme.md (B.1.2 und B.1.3 wird in text Beschrieben, ggf., Bild)
+#### B.1.1.           Projektbereich R- Auswertungen (z.B. für Präsentation, Fehlermeldungen,.. )
 
-#### B.1.2.           Verweis auf R-Archiv in Readme.md (CRAN)
+#### B.1.2.           Musterlösung fhircrackr Aufgabenblock B Zeitreihen mit R-Auswertungen
+
+    https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)
+
+#### Readme mit Verweis auf R-Archiv (CRAN) für fhircrackr und anleitung
 
     Cran: https://CRAN.R-project.org/package=fhircrackr
     Quellcode: https://github.com/POLAR-fhiR/fhircrackr
-
-#### B.1.3.           Anleitung (Innerhalb von Github Readme wird der Verwendung von fhircrackr und der   Anleitung beschrieben),
-
-#### B.1.4.           Projektbereich R- Auswertungen (z.B. für Präsentation, Fehlermeldungen,.. )
-
-#### B.1.5.           Musterlösung fhircrackr Aufgabenblock B Zeitreihen mit R-Auswertungen
-
-    https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)
 
 ### B.2.             Ablage Ergebniszusammenführung mit fdrtd 
 ---
