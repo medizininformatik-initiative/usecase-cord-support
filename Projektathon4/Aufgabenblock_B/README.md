@@ -8,7 +8,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock B werden
 
 #### B.0.2            Daten
 
-    https://mii-agiop-cord.life.uni-leipzig.de/fhir
+<https://mii-agiop-cord.life.uni-leipzig.de/fhir>
 
 #### B.0.3            CORD-MI-Cookbook
 
@@ -18,23 +18,24 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock B werden
 
 #### B.1.2.           Musterlösung fhircrackr Aufgabenblock B Zeitreihen mit R-Auswertungen
 
-    https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)
+<https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)>
 
-#### Readme mit Verweis auf R-Archiv (CRAN) für fhircrackr und anleitung
+#### Im B.1. Readme Verweis auf R-Archiv fhircrackr (CRAN) 
 
-    Cran: https://CRAN.R-project.org/package=fhircrackr
-    Quellcode: https://github.com/POLAR-fhiR/fhircrackr
+Cran: <https://CRAN.R-project.org/package=fhircrackr>
+
+Quellcode: <https://github.com/POLAR-fhiR/fhircrackr>
 
 ### B.2.             Ablage Ergebniszusammenführung mit fdrtd 
 ---
 #### B.2.1.           Den Download-Bereich für das Tool 
 
-    https://pypi.org/project/fdrtd/
+<https://pypi.org/project/fdrtd/>
 
 #### B.2.2.           Projektbereich fdrtd bspw. zur Meldung von Fehlern
 
-    mailto:support@fdrtd.com
+<mailto:support@fdrtd.com>
 
 #### B.2.3.           Anleitung/Musterlösung fdrtd Zusammenführung Zeitreihen
 
-    https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)
+<https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)>
