@@ -1,8 +1,8 @@
 # Table of Contents 
-Im Projektathon 4, der Untergliederung Von Aufgabenblock B werden
+Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock B werden
 ## B.      Aufgabenblock B: 
 ---
-### B.0.             Aufgabenstellung & Daten (Überschrift)
+### B.0.             Aufgabenstellung & Daten 
 ---
 #### B.0.1            Aufgabenstellung
 
@@ -12,11 +12,11 @@ Im Projektathon 4, der Untergliederung Von Aufgabenblock B werden
 
 #### B.0.3            CORD-MI-Cookbook
 
-### B.1.             Ablage zur fhircrackr und R -Auswertungen Zeitreihen (Überschrift)
+### B.1.             Ablage zur fhircrackr und R -Auswertungen Zeitreihen 
 ---
 #### B.1.1.           Readme.md (B.1.2 und B.1.3 wird in text Beschrieben, ggf., Bild)
 
-#### B.1.2.           Verweis auf R-Archiv in Readme.md (CRAN?)
+#### B.1.2.           Verweis auf R-Archiv in Readme.md (CRAN)
 
     Cran: https://CRAN.R-project.org/package=fhircrackr
     Quellcode: https://github.com/POLAR-fhiR/fhircrackr
@@ -29,13 +29,13 @@ Im Projektathon 4, der Untergliederung Von Aufgabenblock B werden
 
     https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)
 
-### B.2.             Ablage Ergebniszusammenführung mit fdrtd (Überschrift)
+### B.2.             Ablage Ergebniszusammenführung mit fdrtd 
 ---
-#### B.2.1.           Den Download-Bereich für das Tool: 
+#### B.2.1.           Den Download-Bereich für das Tool 
 
     https://pypi.org/project/fdrtd/
 
-#### B.2.2.           Projektbereich fdrtd bspw. zur Meldung von Fehlern:
+#### B.2.2.           Projektbereich fdrtd bspw. zur Meldung von Fehlern
 
     mailto:support@fdrtd.com
 
