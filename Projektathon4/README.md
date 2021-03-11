@@ -1,10 +1,10 @@
 # Table of Contents 
 
-### A [Aufgabenblock A: Alterspyramiden für ausgewählte Diagnosen](../Aufgabenblock_A/)
+### A [Aufgabenblock A: Alterspyramiden für ausgewählte Diagnosen](./Aufgabenblock_A/)
 
-### B [Aufgabenblock B: Zeitreihen für ausgewählten Diagnosen](../Aufgabenblock_B/)
+### B [Aufgabenblock B: Zeitreihen für ausgewählten Diagnosen](./Aufgabenblock_B/)
 
-### C [Aufgabenblock C: Diagnosen-Koinzidenz für Mukoviszidose und Entbindung](../Aufgabenblock_B/) 
+### C [Aufgabenblock C: Diagnosen-Koinzidenz für Mukoviszidose und Entbindung](./Aufgabenblock_C/) 
 
 ### D Daten
 --- 
