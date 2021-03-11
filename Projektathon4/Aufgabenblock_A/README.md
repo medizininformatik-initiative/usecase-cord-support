@@ -12,9 +12,6 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 #### A.0.2           [Daten](../Aufgabenblock_A/a_0_aufgabenstellung_und_daten/)
 
 
-<https://mii-agiop-cord.life.uni-leipzig.de/fhir>
-
-
 ### A.1.            [Ablage FHIRExtinguisher](../Aufgabenblock_A/a_1_ablage_fhirextinguisher/)
  
 --- 
