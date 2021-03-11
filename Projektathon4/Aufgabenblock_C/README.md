@@ -8,8 +8,6 @@ Im Projktathon 4, der Untergliederung Von Aufgabenblock C werden
 
 #### C.0.2            [Daten](../Aufgabenblock_C/c_0_aufgabenstellung_und_daten) 
     
-<https://mii-agiop-cord.life.uni-leipzig.de/fhir>
-
 #### C.0.3            CORD-MI-Cookbook
 
 C.1.             Ablage zur fhircrackr und R-Aggregationen
