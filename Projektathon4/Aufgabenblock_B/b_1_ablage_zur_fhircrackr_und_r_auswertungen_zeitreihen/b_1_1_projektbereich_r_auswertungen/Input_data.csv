@@ -1,0 +1,650 @@
+PatientIdentifikator;Einrichtungsidentifikator;AngabeDiag2;AngabeDiag1;AngabeGeschlecht;AngabeGeburtsdatum;TextDiagnose1;TextDiagnose2
+P-0002911;260123453_Cynthia;-;E84.0;m;01.04.2014;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009650;260123451_Airolo;-;O80;f;01.04.1990;Spontangeburt eines Einlings;-
+P-0003464;260123453_Cynthia;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0003594;260123453_Cynthia;-;O80;f;01.04.1995;Spontangeburt eines Einlings;-
+P-0003754;260123453_Cynthia;-;E84.0;m;01.10.2015;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004070;260123453_Cynthia;-;E84.0;m;01.07.1942;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004094;260123453_Cynthia;-;O80;f;01.07.2000;Spontangeburt eines Einlings;-
+P-0004103;260123453_Cynthia;-;E84.0;f;01.10.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004397;260123451_Airolo;-;O80;f;16.07.1969;Spontangeburt eines Einlings;-
+P-0004837;260123451_Airolo;-;O80;m;16.12.1940;Spontangeburt eines Einlings;-
+P-0005005;260123451_Airolo;-;O80;f;16.12.1982;Spontangeburt eines Einlings;-
+P-0005248;260123451_Airolo;-;O80;f;16.10.1949;Spontangeburt eines Einlings;-
+P-0005285;260123451_Airolo;-;O80;f;16.04.1983;Spontangeburt eines Einlings;-
+P-0009889;260123451_Airolo;-;E84.0;m;16.12.2009;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009911;260123451_Airolo;-;E84.0;f;01.07.2000;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005428;260123451_Airolo;-;O80;m;16.10.1967;Spontangeburt eines Einlings;-
+P-0006122;260123451_Airolo;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0006239;260123451_Airolo;-;O80;m;16.04.1949;Spontangeburt eines Einlings;-
+P-0006700;260123451_Airolo;-;O80;f;01.04.1940;Spontangeburt eines Einlings;-
+P-0006715;260123451_Airolo;-;E84.0;m;16.04.1983;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006922;260123451_Airolo;-;E84.0;m;01.04.1977;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007211;260123451_Airolo;-;O80;f;01.12.1959;Spontangeburt eines Einlings;-
+P-0007629;260123451_Airolo;-;E84.0;f;16.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010200;260123453_Cynthia;-;E84.0;m;01.12.1982;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010201;260123453_Cynthia;-;E84.1;f;01.01.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0010204;260123453_Cynthia;-;E84.80;f;01.12.2001;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0010205;260123453_Cynthia;-;E84.87;f;16.12.1990;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0010206;260123453_Cynthia;-;E84.88;f;16.07.2009;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0008484;260123451_Airolo;-;O80;m;01.04.2019;Spontangeburt eines Einlings;-
+P-0008674;260123451_Airolo;-;E84.0;m;01.12.1948;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009344;260123451_Airolo;-;O80;m;01.12.1980;Spontangeburt eines Einlings;-
+P-0009449;260123451_Airolo;-;O80;f;16.04.1999;Spontangeburt eines Einlings;-
+P-0009468;260123451_Airolo;-;O80;m;16.04.2009;Spontangeburt eines Einlings;-
+P-0009804;260123451_Airolo;-;E84.0;m;01.07.1936;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010355;260123453_Cynthia;-;O80;f;16.07.2001;Spontangeburt eines Einlings;-
+P-0010446;260123453_Cynthia;-;O80;f;16.04.1989;Spontangeburt eines Einlings;-
+P-0010481;260123453_Cynthia;-;E84.0;m;01.07.2014;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010906;260123453_Cynthia;-;E84.0;f;16.07.1992;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011462;260123453_Cynthia;-;E84.0;m;01.10.2009;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011766;260123453_Cynthia;-;O80;f;16.10.1999;Spontangeburt eines Einlings;-
+P-0011874;260123453_Cynthia;-;O80;m;01.01.1982;Spontangeburt eines Einlings;-
+P-0011956;260123453_Cynthia;-;O80;f;16.04.1999;Spontangeburt eines Einlings;-
+P-0012137;260123453_Cynthia;-;E84.0;f;16.12.1995;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010608;260123453_Cynthia;-;O80;m;16.04.1951;Spontangeburt eines Einlings;-
+P-0013701;260123453_Cynthia;-;O80;f;01.10.1985;Spontangeburt eines Einlings;-
+P-0013806;260123453_Cynthia;-;E84.0;m;16.12.1991;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014036;260123453_Cynthia;-;O80;f;16.12.1999;Spontangeburt eines Einlings;-
+P-0014922;260123453_Cynthia;-;O80;m;01.12.1937;Spontangeburt eines Einlings;-
+P-0010752;260123453_Cynthia;-;O80;f;01.12.1953;Spontangeburt eines Einlings;-
+P-0014951;260123453_Cynthia;-;O80;f;01.01.1947;Spontangeburt eines Einlings;-
+P-0015115;260123453_Cynthia;-;O80;f;16.10.1992;Spontangeburt eines Einlings;-
+P-0015577;260123453_Cynthia;-;O80;f;16.10.2017;Spontangeburt eines Einlings;-
+P-0016169;260123453_Cynthia;-;O80;f;16.01.1978;Spontangeburt eines Einlings;-
+P-0016478;260123453_Cynthia;-;O80;f;16.04.1971;Spontangeburt eines Einlings;-
+P-0016480;260123453_Cynthia;-;O80;f;01.12.2009;Spontangeburt eines Einlings;-
+P-0017436;260123453_Cynthia;-;O80;f;16.12.1949;Spontangeburt eines Einlings;-
+P-0017607;260123453_Cynthia;-;E84.0;f;16.07.2000;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017717;260123453_Cynthia;-;O80;f;16.04.1981;Spontangeburt eines Einlings;-
+P-0017815;260123453_Cynthia;-;O80;f;16.04.1948;Spontangeburt eines Einlings;-
+P-0018147;260123453_Cynthia;-;E84.0;f;16.07.1987;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011200;260123453_Cynthia;-;E84.0;m;01.12.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011201;260123453_Cynthia;-;E84.1;f;01.04.2008;Zystische Fibrose mit Darmmanifestationen;-
+P-0011204;260123453_Cynthia;-;E84.80;m;01.04.2018;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0011205;260123453_Cynthia;-;E84.87;f;16.12.2001;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0011206;260123453_Cynthia;-;E84.88;m;16.12.2006;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0011706;260123453_Cynthia;-;E84.0;m;16.04.1966;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012121;260123453_Cynthia;-;E84.0;f;01.07.1979;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001200;260123453_Cynthia;-;E84.0;f;01.12.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001201;260123453_Cynthia;-;E84.1;f;01.12.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0001204;260123453_Cynthia;-;E84.80;f;01.04.1997;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0001205;260123453_Cynthia;-;E84.87;f;16.07.1983;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0001206;260123453_Cynthia;-;E84.88;f;16.12.1992;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0012200;260123453_Cynthia;-;E84.0;f;01.07.1996;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012201;260123453_Cynthia;-;E84.1;m;01.07.2004;Zystische Fibrose mit Darmmanifestationen;-
+P-0012204;260123453_Cynthia;-;E84.80;f;01.10.1973;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0012205;260123453_Cynthia;-;E84.87;m;16.12.1993;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0012402;260123453_Cynthia;-;O80;m;01.01.1962;Spontangeburt eines Einlings;-
+P-0013119;260123453_Cynthia;-;O80;f;16.01.1935;Spontangeburt eines Einlings;-
+P-0013200;260123453_Cynthia;-;E84.0;f;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013201;260123453_Cynthia;-;E84.1;m;01.07.2007;Zystische Fibrose mit Darmmanifestationen;-
+P-0013204;260123453_Cynthia;-;E84.80;f;01.04.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0013205;260123453_Cynthia;-;E84.87;m;16.04.2002;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0013206;260123453_Cynthia;-;E84.88;f;16.07.1963;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0013260;260123453_Cynthia;-;O80;m;01.12.1969;Spontangeburt eines Einlings;-
+P-0013303;260123453_Cynthia;-;E84.0;f;01.01.1992;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013328;260123453_Cynthia;-;E84.0;m;16.12.1985;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013551;260123453_Cynthia;-;O80;f;01.12.2008;Spontangeburt eines Einlings;-
+P-0013649;260123453_Cynthia;-;O80;f;16.10.1947;Spontangeburt eines Einlings;-
+P-0013671;260123453_Cynthia;-;O80;m;01.04.1949;Spontangeburt eines Einlings;-
+P-0013809;260123453_Cynthia;-;O80;m;16.12.1945;Spontangeburt eines Einlings;-
+P-0013920;260123453_Cynthia;-;O80;f;01.12.1953;Spontangeburt eines Einlings;-
+P-0014036;260123453_Cynthia;-;O80;f;16.12.1999;Spontangeburt eines Einlings;-
+P-0014200;260123453_Cynthia;-;E84.0;m;01.01.1993;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014200;260123453_Cynthia;-;E84.0;m;01.01.1993;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014201;260123453_Cynthia;-;E84.1;m;01.04.2016;Zystische Fibrose mit Darmmanifestationen;-
+P-0014204;260123453_Cynthia;-;E84.80;f;01.12.2019;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0014205;260123453_Cynthia;-;E84.87;f;16.12.2005;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0014206;260123453_Cynthia;-;E84.88;m;16.10.1966;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0014259;260123453_Cynthia;-;O80;m;16.04.1954;Spontangeburt eines Einlings;-
+P-0014397;260123453_Cynthia;-;O80;m;16.12.1960;Spontangeburt eines Einlings;-
+P-0001391;260123453_Cynthia;-;O80;m;01.12.1956;Spontangeburt eines Einlings;-
+P-0001414;260123453_Cynthia;-;O80;m;01.12.2016;Spontangeburt eines Einlings;-
+P-0015200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0015204;260123453_Cynthia;-;E84.80;f;01.12.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0015205;260123453_Cynthia;-;E84.87;f;16.10.1984;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0015206;260123453_Cynthia;-;E84.88;m;16.04.1983;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0015418;260123453_Cynthia;-;O80;f;16.10.1980;Spontangeburt eines Einlings;-
+P-0015849;260123453_Cynthia;-;O80;m;16.04.1960;Spontangeburt eines Einlings;-
+P-0015907;260123453_Cynthia;-;O80;f;16.12.1973;Spontangeburt eines Einlings;-
+P-0016019;260123453_Cynthia;-;O80;m;16.01.1960;Spontangeburt eines Einlings;-
+P-0016200;260123453_Cynthia;-;E84.0;m;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016201;260123453_Cynthia;-;E84.1;f;01.12.1985;Zystische Fibrose mit Darmmanifestationen;-
+P-0016204;260123453_Cynthia;-;E84.80;f;01.01.1987;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0016205;260123453_Cynthia;-;E84.87;m;16.12.2009;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0016206;260123453_Cynthia;-;E84.88;f;16.07.1956;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0016891;260123453_Cynthia;-;O80;f;01.10.1978;Spontangeburt eines Einlings;-
+P-0001721;260123453_Cynthia;-;O80;f;01.10.1936;Spontangeburt eines Einlings;-
+P-0017200;260123453_Cynthia;-;E84.0;f;01.12.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017201;260123453_Cynthia;-;E84.1;m;01.04.1995;Zystische Fibrose mit Darmmanifestationen;-
+P-0017204;260123453_Cynthia;-;E84.80;m;01.07.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0017204;260123453_Cynthia;-;E84.80;m;01.07.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0017205;260123453_Cynthia;-;E84.87;f;16.07.2015;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0017206;260123453_Cynthia;-;E84.88;m;16.10.1933;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0017536;260123453_Cynthia;-;O80;f;16.07.1960;Spontangeburt eines Einlings;-
+P-0017762;260123453_Cynthia;-;O80;f;01.12.1930;Spontangeburt eines Einlings;-
+P-0018110;260123453_Cynthia;-;O80;f;01.12.2009;Spontangeburt eines Einlings;-
+P-0018200;260123453_Cynthia;-;E84.0;f;01.07.1970;Zystische Fibrose mit Lungenmanifestationen;-
+P-0018201;260123453_Cynthia;-;E84.1;m;01.12.1986;Zystische Fibrose mit Darmmanifestationen;-
+P-0018204;260123453_Cynthia;-;E84.80;m;01.01.1982;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0018205;260123453_Cynthia;-;E84.87;f;16.07.1982;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0018206;260123453_Cynthia;-;E84.88;f;16.12.1950;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0018250;260123453_Cynthia;-;O80;f;01.12.1970;Spontangeburt eines Einlings;-
+P-0000114;260123453_Cynthia;-;O80;m;01.04.1948;Spontangeburt eines Einlings;-
+P-0000444;260123451_Airolo;-;E84.0;f;01.12.1969;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000200;260123453_Cynthia;-;E84.0;m;01.01.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0000204;260123453_Cynthia;-;E84.80;m;01.01.1989;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0000205;260123453_Cynthia;-;E84.87;f;16.12.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0000206;260123453_Cynthia;-;E84.88;m;16.07.1947;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0000209;260123453_Cynthia;-;E84.0;f;16.12.1934;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001074;260123453_Cynthia;-;E84.0;f;01.07.2003;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001291;260123453_Cynthia;-;O80;f;01.04.1956;Spontangeburt eines Einlings;-
+P-0001391;260123453_Cynthia;-;O80;m;01.12.1956;Spontangeburt eines Einlings;-
+P-0001414;260123453_Cynthia;-;O80;m;01.12.2016;Spontangeburt eines Einlings;-
+P-0001721;260123453_Cynthia;-;O80;f;01.10.1936;Spontangeburt eines Einlings;-
+P-0002142;260123453_Cynthia;-;O80;m;01.04.1957;Spontangeburt eines Einlings;-
+P-0002658;260123453_Cynthia;-;O80;f;16.01.1984;Spontangeburt eines Einlings;-
+P-0003013;260123453_Cynthia;-;O80;m;01.12.1948;Spontangeburt eines Einlings;-
+P-0002142;260123453_Cynthia;-;O80;m;01.04.1957;Spontangeburt eines Einlings;-
+P-0002159;260123453_Cynthia;-;E84.0;f;16.04.2002;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002200;260123453_Cynthia;-;E84.0;f;01.07.1940;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002201;260123453_Cynthia;-;E84.1;f;01.12.2003;Zystische Fibrose mit Darmmanifestationen;-
+P-0002204;260123453_Cynthia;-;E84.80;f;01.12.1994;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0002205;260123453_Cynthia;-;E84.87;m;16.01.2017;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0002206;260123453_Cynthia;-;E84.88;m;16.12.1962;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0002259;260123453_Cynthia;-;E84.0;m;16.12.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003439;260123453_Cynthia;-;O80;m;16.10.1959;Spontangeburt eines Einlings;-
+P-0003606;260123453_Cynthia;-;O80;f;16.01.1977;Spontangeburt eines Einlings;-
+P-0005250;260123451_Airolo;-;O80;f;01.12.1990;Spontangeburt eines Einlings;-
+P-0005470;260123451_Airolo;-;O80;f;01.10.1992;Spontangeburt eines Einlings;-
+P-0005829;260123451_Airolo;-;O80;f;16.04.1997;Spontangeburt eines Einlings;-
+P-0005996;260123451_Airolo;-;O80;f;16.07.1991;Spontangeburt eines Einlings;-
+P-0006234;260123451_Airolo;-;E84.0;m;01.12.1960;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006783;260123451_Airolo;-;O80;f;01.10.1986;Spontangeburt eines Einlings;-
+P-0007104;260123451_Airolo;-;E84.0;f;01.12.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007284;260123451_Airolo;-;O80;f;01.01.1985;Spontangeburt eines Einlings;-
+P-0007634;260123451_Airolo;-;O80;f;01.04.1998;Spontangeburt eines Einlings;-
+P-0007751;260123451_Airolo;-;E84.0;f;01.10.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007846;260123451_Airolo;-;O80;f;16.10.1981;Spontangeburt eines Einlings;-
+P-0008057;260123451_Airolo;-;O80;f;16.10.1990;Spontangeburt eines Einlings;-
+P-0008126;260123451_Airolo;-;O80;f;16.12.1995;Spontangeburt eines Einlings;-
+P-0008180;260123451_Airolo;-;O80;f;01.04.1994;Spontangeburt eines Einlings;-
+P-0008187;260123451_Airolo;-;E84.0;m;16.04.2008;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008255;260123451_Airolo;-;O80;f;16.10.1982;Spontangeburt eines Einlings;-
+P-0008515;260123451_Airolo;-;E84.0;m;16.10.2009;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009103;260123451_Airolo;-;E84.0;m;01.12.1993;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009247;260123451_Airolo;-;O80;f;16.10.1990;Spontangeburt eines Einlings;-
+P-0009354;260123451_Airolo;-;O80;f;01.01.1991;Spontangeburt eines Einlings;-
+P-0009427;260123451_Airolo;-;E84.0;f;16.12.2013;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009650;260123451_Airolo;-;O80;f;01.04.1990;Spontangeburt eines Einlings;-
+P-0009853;260123451_Airolo;-;O80;f;01.10.1990;Spontangeburt eines Einlings;-
+P-0010271;260123453_Cynthia;-;E84.0;m;01.01.1933;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002837;260123453_Cynthia;-;E84.0;f;16.12.2000;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002935;260123453_Cynthia;-;E84.0;m;16.07.1979;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002988;260123453_Cynthia;-;E84.0;f;16.01.1952;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010608;260123453_Cynthia;-;O80;m;16.04.1951;Spontangeburt eines Einlings;-
+P-0010716;260123453_Cynthia;-;E84.0;f;16.10.1982;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010752;260123453_Cynthia;-;O80;f;01.12.1953;Spontangeburt eines Einlings;-
+P-0011901;260123453_Cynthia;-;E84.0;f;01.10.1984;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012402;260123453_Cynthia;-;O80;m;01.01.1962;Spontangeburt eines Einlings;-
+P-0012533;260123453_Cynthia;-;E84.0;f;01.12.1977;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003201;260123453_Cynthia;-;E84.1;m;01.07.1942;Zystische Fibrose mit Darmmanifestationen;-
+P-0003205;260123453_Cynthia;-;E84.87;f;16.12.2011;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0003205;260123453_Cynthia;-;E84.87;f;16.12.2011;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0003206;260123453_Cynthia;-;E84.88;f;16.10.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0012778;260123453_Cynthia;-;E84.0;m;16.12.1962;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012857;260123453_Cynthia;-;O80;m;16.04.1952;Spontangeburt eines Einlings;-
+P-0013119;260123453_Cynthia;-;O80;f;16.01.1935;Spontangeburt eines Einlings;-
+P-0013260;260123453_Cynthia;-;O80;m;01.12.1969;Spontangeburt eines Einlings;-
+P-0013343;260123453_Cynthia;-;E84.0;f;01.04.1945;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013551;260123453_Cynthia;-;O80;f;01.12.2008;Spontangeburt eines Einlings;-
+P-0013649;260123453_Cynthia;-;O80;f;16.10.1947;Spontangeburt eines Einlings;-
+P-0013671;260123453_Cynthia;-;O80;m;01.04.1949;Spontangeburt eines Einlings;-
+P-0013809;260123453_Cynthia;-;O80;m;16.12.1945;Spontangeburt eines Einlings;-
+P-0013920;260123453_Cynthia;-;O80;f;01.12.1953;Spontangeburt eines Einlings;-
+P-0014036;260123453_Cynthia;-;O80;f;16.12.1999;Spontangeburt eines Einlings;-
+P-0014193;260123453_Cynthia;-;E84.0;m;01.12.1952;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014259;260123453_Cynthia;-;O80;m;16.04.1954;Spontangeburt eines Einlings;-
+P-0014397;260123453_Cynthia;-;O80;m;16.12.1960;Spontangeburt eines Einlings;-
+P-0014725;260123453_Cynthia;-;E84.0;f;16.04.1951;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015056;260123453_Cynthia;-;O80;m;16.12.2019;Spontangeburt eines Einlings;-
+P-0003439;260123453_Cynthia;-;O80;m;16.10.1959;Spontangeburt eines Einlings;-
+P-0003480;260123453_Cynthia;-;E84.0;m;01.04.1958;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015418;260123453_Cynthia;-;O80;f;16.10.1980;Spontangeburt eines Einlings;-
+P-0015490;260123453_Cynthia;-;E84.0;m;01.04.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015849;260123453_Cynthia;-;O80;m;16.04.1960;Spontangeburt eines Einlings;-
+P-0015907;260123453_Cynthia;-;O80;f;16.12.1973;Spontangeburt eines Einlings;-
+P-0016019;260123453_Cynthia;-;O80;m;16.01.1960;Spontangeburt eines Einlings;-
+P-0016891;260123453_Cynthia;-;O80;f;01.10.1978;Spontangeburt eines Einlings;-
+P-0003599;260123453_Cynthia;-;E84.0;f;16.10.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003606;260123453_Cynthia;-;O80;f;16.01.1977;Spontangeburt eines Einlings;-
+P-0003780;260123453_Cynthia;-;E84.0;f;01.12.1967;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017536;260123453_Cynthia;-;O80;f;16.07.1960;Spontangeburt eines Einlings;-
+P-0017751;260123453_Cynthia;-;O80;m;01.10.1938;Spontangeburt eines Einlings;-
+P-0017762;260123453_Cynthia;-;O80;f;01.12.1930;Spontangeburt eines Einlings;-
+P-0017834;260123453_Cynthia;-;E84.0;f;01.12.1969;Zystische Fibrose mit Lungenmanifestationen;-
+P-0018250;260123453_Cynthia;-;O80;f;01.12.1970;Spontangeburt eines Einlings;-
+P-0000096;260123453_Cynthia;-;E84.0;f;16.12.1982;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000199;260123453_Cynthia;-;O80;f;16.10.1992;Spontangeburt eines Einlings;-
+P-0000200;260123453_Cynthia;-;E84.0;m;01.01.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0000204;260123453_Cynthia;-;E84.80;m;01.01.1989;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0000205;260123453_Cynthia;-;E84.87;f;16.12.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0000206;260123453_Cynthia;-;E84.88;m;16.07.1947;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0000690;260123451_Airolo;-;O80;m;01.10.1977;Spontangeburt eines Einlings;-
+P-0000762;260123451_Airolo;-;E84.0;f;01.04.1989;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000825;260123453_Cynthia;-;E84.0;m;16.12.2014;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001200;260123453_Cynthia;-;E84.0;f;01.12.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001201;260123453_Cynthia;-;E84.1;f;01.12.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0001204;260123453_Cynthia;-;E84.80;f;01.04.1997;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0001205;260123453_Cynthia;-;E84.87;f;16.07.1983;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0001206;260123453_Cynthia;-;E84.88;f;16.12.1992;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0001427;260123453_Cynthia;-;E84.0;f;16.04.1992;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002200;260123453_Cynthia;-;E84.0;f;01.07.1940;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002201;260123453_Cynthia;-;E84.1;f;01.12.2003;Zystische Fibrose mit Darmmanifestationen;-
+P-0002204;260123453_Cynthia;-;E84.80;f;01.12.1994;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0002205;260123453_Cynthia;-;E84.87;m;16.01.2017;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0002206;260123453_Cynthia;-;E84.88;m;16.12.1962;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0002837;260123453_Cynthia;-;E84.0;f;16.12.2000;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003201;260123453_Cynthia;-;E84.1;m;01.07.1942;Zystische Fibrose mit Darmmanifestationen;-
+P-0003205;260123453_Cynthia;-;E84.87;f;16.12.2011;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0003206;260123453_Cynthia;-;E84.88;f;16.10.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0003504;260123453_Cynthia;-;O80;m;01.12.1968;Spontangeburt eines Einlings;-
+P-0003580;260123453_Cynthia;-;E84.0;f;01.07.1963;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004200;260123453_Cynthia;-;E84.0;m;01.04.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004201;260123453_Cynthia;-;E84.1;f;01.07.1992;Zystische Fibrose mit Darmmanifestationen;-
+P-0004204;260123453_Cynthia;-;E84.80;f;01.07.2003;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0004205;260123453_Cynthia;-;E84.87;m;16.12.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0004205;260123453_Cynthia;-;E84.87;m;16.12.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0004206;260123453_Cynthia;-;E84.88;f;16.12.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0003735;260123453_Cynthia;-;E84.0;f;16.04.1994;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004200;260123453_Cynthia;-;E84.0;m;01.04.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004201;260123453_Cynthia;-;E84.1;f;01.07.1992;Zystische Fibrose mit Darmmanifestationen;-
+P-0004204;260123453_Cynthia;-;E84.80;f;01.07.2003;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0004205;260123453_Cynthia;-;E84.87;m;16.12.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0004206;260123453_Cynthia;-;E84.88;f;16.12.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0004421;260123451_Airolo;-;O80;f;01.12.1954;Spontangeburt eines Einlings;-
+P-0004636;260123451_Airolo;-;E84.0;f;16.12.1974;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005200;260123451_Airolo;-;E84.0;f;01.04.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005201;260123451_Airolo;-;E84.1;f;01.07.1982;Zystische Fibrose mit Darmmanifestationen;-
+P-0005204;260123451_Airolo;-;E84.80;f;01.12.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0005205;260123451_Airolo;-;E84.87;f;16.01.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0005206;260123451_Airolo;-;E84.88;f;16.12.1949;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0005636;260123451_Airolo;-;E84.0;m;16.10.1935;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005780;260123451_Airolo;-;O80;f;01.04.1973;Spontangeburt eines Einlings;-
+P-0006200;260123451_Airolo;-;E84.0;m;01.04.2004;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006201;260123451_Airolo;-;E84.1;m;01.12.2015;Zystische Fibrose mit Darmmanifestationen;-
+P-0006204;260123451_Airolo;-;E84.80;m;01.12.1999;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0006205;260123451_Airolo;-;E84.87;f;16.10.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0006206;260123451_Airolo;-;E84.88;m;16.04.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0006338;260123451_Airolo;-;O80;m;16.07.1958;Spontangeburt eines Einlings;-
+P-0006360;260123451_Airolo;-;E84.0;f;01.12.1991;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006410;260123451_Airolo;-;O80;f;01.07.1971;Spontangeburt eines Einlings;-
+P-0007200;260123451_Airolo;-;E84.0;m;01.10.1971;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007201;260123451_Airolo;-;E84.1;m;01.12.2005;Zystische Fibrose mit Darmmanifestationen;-
+P-0007204;260123451_Airolo;-;E84.80;m;01.01.1981;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0007205;260123451_Airolo;-;E84.87;m;16.10.2006;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0007206;260123451_Airolo;-;E84.88;f;16.07.1939;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0007206;260123451_Airolo;-;E84.88;f;16.07.1939;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0007228;260123451_Airolo;-;O80;f;16.10.2016;Spontangeburt eines Einlings;-
+P-0008200;260123451_Airolo;-;E84.0;m;01.01.1987;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008201;260123451_Airolo;-;E84.1;f;01.01.1991;Zystische Fibrose mit Darmmanifestationen;-
+P-0008204;260123451_Airolo;-;E84.80;m;01.04.1979;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0008205;260123451_Airolo;-;E84.87;f;16.12.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0008206;260123451_Airolo;-;E84.88;m;16.10.1959;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0008382;260123451_Airolo;-;O80;f;01.04.1992;Spontangeburt eines Einlings;-
+P-0009200;260123451_Airolo;-;E84.0;f;01.12.2005;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009201;260123451_Airolo;-;E84.1;f;01.10.2014;Zystische Fibrose mit Darmmanifestationen;-
+P-0009204;260123451_Airolo;-;E84.80;m;01.10.1991;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0009205;260123451_Airolo;-;E84.87;m;16.07.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0009206;260123451_Airolo;-;E84.88;f;16.01.1968;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0009318;260123451_Airolo;-;O80;f;16.10.2001;Spontangeburt eines Einlings;-
+P-0009451;260123451_Airolo;-;E84.0;m;01.12.1957;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009626;260123451_Airolo;-;E84.0;m;16.04.1958;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010200;260123453_Cynthia;-;E84.0;m;01.12.1982;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010201;260123453_Cynthia;-;E84.1;f;01.01.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0010204;260123453_Cynthia;-;E84.80;f;01.12.2001;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0010205;260123453_Cynthia;-;E84.87;f;16.12.1990;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0010206;260123453_Cynthia;-;E84.88;f;16.07.2009;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0010749;260123453_Cynthia;-;O80;m;16.04.1976;Spontangeburt eines Einlings;-
+P-0000701;260123451_Airolo;-;E84.0;f;01.07.2003;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010802;260123453_Cynthia;-;O80;f;01.10.1947;Spontangeburt eines Einlings;-
+P-0010810;260123453_Cynthia;-;O80;f;01.12.1960;Spontangeburt eines Einlings;-
+P-0010918;260123453_Cynthia;-;E84.0;m;16.07.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010920;260123453_Cynthia;-;O80;f;01.12.1989;Spontangeburt eines Einlings;-
+P-0010940;260123453_Cynthia;-;O80;m;01.12.1964;Spontangeburt eines Einlings;-
+P-0011120;260123453_Cynthia;-;O80;f;01.07.1937;Spontangeburt eines Einlings;-
+P-0011200;260123453_Cynthia;-;E84.0;m;01.12.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011200;260123453_Cynthia;-;E84.0;m;01.12.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011201;260123453_Cynthia;-;E84.1;f;01.04.2008;Zystische Fibrose mit Darmmanifestationen;-
+P-0011201;260123453_Cynthia;-;E84.1;f;01.04.2008;Zystische Fibrose mit Darmmanifestationen;-
+P-0011204;260123453_Cynthia;-;E84.80;m;01.04.2018;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0011205;260123453_Cynthia;-;E84.87;f;16.12.2001;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0011205;260123453_Cynthia;-;E84.87;f;16.12.2001;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0011206;260123453_Cynthia;-;E84.88;m;16.12.2006;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0011791;260123453_Cynthia;-;O80;f;01.10.1940;Spontangeburt eines Einlings;-
+P-0011844;260123453_Cynthia;-;O80;m;01.12.1935;Spontangeburt eines Einlings;-
+P-0012049;260123453_Cynthia;-;E84.0;m;16.04.1954;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012200;260123453_Cynthia;-;E84.0;f;01.07.1996;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012201;260123453_Cynthia;-;E84.1;m;01.07.2004;Zystische Fibrose mit Darmmanifestationen;-
+P-0012204;260123453_Cynthia;-;E84.80;f;01.10.1973;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0012205;260123453_Cynthia;-;E84.87;m;16.12.1993;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0012206;260123453_Cynthia;-;E84.88;m;16.04.1964;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0012490;260123453_Cynthia;-;O80;f;01.01.1965;Spontangeburt eines Einlings;-
+P-0004997;260123451_Airolo;-;E84.0;f;16.10.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005200;260123451_Airolo;-;E84.0;f;01.04.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005201;260123451_Airolo;-;E84.1;f;01.07.1982;Zystische Fibrose mit Darmmanifestationen;-
+P-0005204;260123451_Airolo;-;E84.80;f;01.12.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0005205;260123451_Airolo;-;E84.87;f;16.01.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0005205;260123451_Airolo;-;E84.87;f;16.01.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0005206;260123451_Airolo;-;E84.88;f;16.12.1949;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0013200;260123453_Cynthia;-;E84.0;f;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013201;260123453_Cynthia;-;E84.1;m;01.07.2007;Zystische Fibrose mit Darmmanifestationen;-
+P-0013204;260123453_Cynthia;-;E84.80;f;01.04.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0013205;260123453_Cynthia;-;E84.87;m;16.04.2002;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0013206;260123453_Cynthia;-;E84.88;f;16.07.1963;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0013207;260123453_Cynthia;-;E84.0;m;16.10.1968;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013396;260123453_Cynthia;-;O80;f;16.04.1986;Spontangeburt eines Einlings;-
+P-0013412;260123453_Cynthia;-;O80;f;01.07.1995;Spontangeburt eines Einlings;-
+P-0014200;260123453_Cynthia;-;E84.0;m;01.01.1993;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014201;260123453_Cynthia;-;E84.1;m;01.04.2016;Zystische Fibrose mit Darmmanifestationen;-
+P-0014204;260123453_Cynthia;-;E84.80;f;01.12.2019;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0014205;260123453_Cynthia;-;E84.87;f;16.12.2005;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0014206;260123453_Cynthia;-;E84.88;m;16.10.1966;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0015200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0015204;260123453_Cynthia;-;E84.80;f;01.12.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0015204;260123453_Cynthia;-;E84.80;f;01.12.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0015205;260123453_Cynthia;-;E84.87;f;16.10.1984;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0015206;260123453_Cynthia;-;E84.88;m;16.04.1983;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0005250;260123451_Airolo;-;O80;f;01.12.1990;Spontangeburt eines Einlings;-
+P-0005351;260123451_Airolo;-;E84.0;f;01.07.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015993;260123453_Cynthia;-;E84.0;m;01.12.1951;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016010;260123453_Cynthia;-;O80;f;01.12.1994;Spontangeburt eines Einlings;-
+P-0016200;260123453_Cynthia;-;E84.0;m;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016201;260123453_Cynthia;-;E84.1;f;01.12.1985;Zystische Fibrose mit Darmmanifestationen;-
+P-0016204;260123453_Cynthia;-;E84.80;f;01.01.1987;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0016205;260123453_Cynthia;-;E84.87;m;16.12.2009;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0016205;260123453_Cynthia;-;E84.87;m;16.12.2009;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0016206;260123453_Cynthia;-;E84.88;f;16.07.1956;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0016715;260123453_Cynthia;-;O80;f;16.10.1940;Spontangeburt eines Einlings;-
+P-0017030;260123453_Cynthia;-;O80;m;01.10.1951;Spontangeburt eines Einlings;-
+P-0017200;260123453_Cynthia;-;E84.0;f;01.12.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017201;260123453_Cynthia;-;E84.1;m;01.04.1995;Zystische Fibrose mit Darmmanifestationen;-
+P-0017204;260123453_Cynthia;-;E84.80;m;01.07.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0017205;260123453_Cynthia;-;E84.87;f;16.07.2015;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0017206;260123453_Cynthia;-;E84.88;m;16.10.1933;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0005470;260123451_Airolo;-;O80;f;01.10.1992;Spontangeburt eines Einlings;-
+P-0018200;260123453_Cynthia;-;E84.0;f;01.07.1970;Zystische Fibrose mit Lungenmanifestationen;-
+P-0018201;260123453_Cynthia;-;E84.1;m;01.12.1986;Zystische Fibrose mit Darmmanifestationen;-
+P-0018204;260123453_Cynthia;-;E84.80;m;01.01.1982;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0018205;260123453_Cynthia;-;E84.87;f;16.07.1982;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0018206;260123453_Cynthia;-;E84.88;f;16.12.1950;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0018256;260123453_Cynthia;-;O80;f;16.10.1972;Spontangeburt eines Einlings;-
+P-0000118;260123453_Cynthia;-;E84.0;m;16.01.1942;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000148;260123453_Cynthia;-;O80;f;16.01.1987;Spontangeburt eines Einlings;-
+P-0000282;260123453_Cynthia;-;O80;m;01.10.1995;Spontangeburt eines Einlings;-
+P-0000496;260123451_Airolo;-;O80;m;16.12.1950;Spontangeburt eines Einlings;-
+P-0000917;260123451_Airolo;-;O80;f;16.07.1948;Spontangeburt eines Einlings;-
+P-0001228;260123453_Cynthia;-;O80;f;16.12.2008;Spontangeburt eines Einlings;-
+P-0001573;260123453_Cynthia;-;E84.0;m;01.12.1947;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001741;260123453_Cynthia;-;O80;m;01.01.1955;Spontangeburt eines Einlings;-
+P-0005829;260123451_Airolo;-;O80;f;16.04.1997;Spontangeburt eines Einlings;-
+P-0002608;260123453_Cynthia;-;E84.0;m;16.01.1947;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003071;260123453_Cynthia;-;O80;f;01.01.1956;Spontangeburt eines Einlings;-
+P-0003107;260123453_Cynthia;-;O80;f;16.12.1993;Spontangeburt eines Einlings;-
+P-0003294;260123453_Cynthia;-;E84.0;m;01.12.1930;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003322;260123453_Cynthia;-;O80;f;01.04.2019;Spontangeburt eines Einlings;-
+P-0003373;260123453_Cynthia;-;O80;m;01.12.1944;Spontangeburt eines Einlings;-
+P-0003538;260123453_Cynthia;-;O80;m;16.01.1963;Spontangeburt eines Einlings;-
+P-0003713;260123453_Cynthia;-;O80;m;01.04.1934;Spontangeburt eines Einlings;-
+P-0003802;260123453_Cynthia;-;E84.0;f;01.04.1980;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003969;260123453_Cynthia;-;O80;f;16.01.1947;Spontangeburt eines Einlings;-
+P-0004200;260123453_Cynthia;-;O80;m;01.04.2006;Spontangeburt eines Einlings;-
+P-0005996;260123451_Airolo;-;O80;f;16.07.1991;Spontangeburt eines Einlings;-
+P-0004269;260123451_Airolo;-;E84.0;f;16.04.1999;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004272;260123451_Airolo;-;O80;m;01.01.1953;Spontangeburt eines Einlings;-
+P-0004520;260123451_Airolo;-;O80;f;01.04.1961;Spontangeburt eines Einlings;-
+P-0004645;260123451_Airolo;-;O80;m;16.04.1940;Spontangeburt eines Einlings;-
+P-0004761;260123451_Airolo;-;O80;m;01.10.1954;Spontangeburt eines Einlings;-
+P-0004948;260123451_Airolo;-;O80;m;16.10.1968;Spontangeburt eines Einlings;-
+P-0005209;260123451_Airolo;-;E84.0;f;16.01.1966;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005507;260123451_Airolo;-;E84.0;m;16.10.1956;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005675;260123451_Airolo;-;O80;m;16.04.1952;Spontangeburt eines Einlings;-
+P-0005866;260123451_Airolo;-;O80;m;16.04.1981;Spontangeburt eines Einlings;-
+P-0005898;260123451_Airolo;-;E84.0;m;16.12.1965;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005907;260123451_Airolo;-;O80;m;16.12.1975;Spontangeburt eines Einlings;-
+P-0006069;260123451_Airolo;-;O80;f;16.04.1955;Spontangeburt eines Einlings;-
+P-0006338;260123451_Airolo;-;O80;m;16.07.1958;Spontangeburt eines Einlings;-
+P-0006200;260123451_Airolo;-;E84.0;m;01.04.2004;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006201;260123451_Airolo;-;E84.1;m;01.12.2015;Zystische Fibrose mit Darmmanifestationen;-
+P-0006204;260123451_Airolo;-;E84.80;m;01.12.1999;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0006205;260123451_Airolo;-;E84.87;f;16.10.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0006206;260123451_Airolo;-;E84.88;m;16.04.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0007075;260123451_Airolo;-;O80;f;16.04.1968;Spontangeburt eines Einlings;-
+P-0007522;260123451_Airolo;-;O80;m;01.04.1965;Spontangeburt eines Einlings;-
+P-0007719;260123451_Airolo;-;O80;m;16.04.1947;Spontangeburt eines Einlings;-
+P-0007879;260123451_Airolo;-;E84.0;m;16.07.1946;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008124;260123451_Airolo;-;O80;m;01.04.1948;Spontangeburt eines Einlings;-
+P-0008539;260123451_Airolo;-;O80;f;16.04.1942;Spontangeburt eines Einlings;-
+P-0009165;260123451_Airolo;-;E84.0;m;16.07.1937;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009227;260123451_Airolo;-;E84.0;m;16.01.1984;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010437;260123453_Cynthia;-;O80;m;16.12.1934;Spontangeburt eines Einlings;-
+P-0010981;260123453_Cynthia;-;O80;f;01.07.1984;Spontangeburt eines Einlings;-
+P-0011113;260123453_Cynthia;-;O80;f;01.01.1950;Spontangeburt eines Einlings;-
+P-0011160;260123453_Cynthia;-;O80;f;01.10.2014;Spontangeburt eines Einlings;-
+P-0011253;260123453_Cynthia;-;O80;m;01.10.1974;Spontangeburt eines Einlings;-
+P-0011282;260123453_Cynthia;-;E84.0;m;01.01.1943;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006783;260123451_Airolo;-;O80;f;01.10.1986;Spontangeburt eines Einlings;-
+P-0011362;260123453_Cynthia;-;O80;m;01.04.2019;Spontangeburt eines Einlings;-
+P-0011422;260123453_Cynthia;-;O80;m;01.04.1932;Spontangeburt eines Einlings;-
+P-0011936;260123453_Cynthia;-;E84.0;m;16.12.1946;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012000;260123453_Cynthia;-;O80;f;01.07.1998;Spontangeburt eines Einlings;-
+P-0012565;260123453_Cynthia;-;O80;m;16.04.1952;Spontangeburt eines Einlings;-
+P-0012602;260123453_Cynthia;-;E84.0;m;01.07.1953;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012810;260123453_Cynthia;-;O80;f;01.01.1929;Spontangeburt eines Einlings;-
+P-0013221;260123453_Cynthia;-;O80;f;01.04.2003;Spontangeburt eines Einlings;-
+P-0013243;260123453_Cynthia;-;E84.0;m;01.07.1952;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013373;260123453_Cynthia;-;O80;f;01.10.1957;Spontangeburt eines Einlings;-
+P-0007090;260123451_Airolo;-;E84.0;f;01.04.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013950;260123453_Cynthia;-;E84.0;f;01.12.1955;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014522;260123453_Cynthia;-;O80;f;01.12.1960;Spontangeburt eines Einlings;-
+P-0014855;260123453_Cynthia;-;E84.0;m;16.10.1959;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015196;260123453_Cynthia;-;O80;f;16.12.1943;Spontangeburt eines Einlings;-
+P-0015201;260123453_Cynthia;-;O80;m;01.04.2010;Spontangeburt eines Einlings;-
+P-0015639;260123453_Cynthia;-;O80;m;16.10.1996;Spontangeburt eines Einlings;-
+P-0007200;260123451_Airolo;-;E84.0;m;01.10.1971;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007201;260123451_Airolo;-;E84.1;m;01.12.2005;Zystische Fibrose mit Darmmanifestationen;-
+P-0007204;260123451_Airolo;-;E84.80;m;01.01.1981;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0007205;260123451_Airolo;-;E84.87;m;16.10.2006;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0007206;260123451_Airolo;-;E84.88;f;16.07.1939;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0007284;260123451_Airolo;-;O80;f;01.01.1985;Spontangeburt eines Einlings;-
+P-0007359;260123451_Airolo;-;E84.0;f;16.07.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016198;260123453_Cynthia;-;O80;f;16.10.1992;Spontangeburt eines Einlings;-
+P-0016529;260123453_Cynthia;-;E84.0;m;16.12.1957;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016739;260123453_Cynthia;-;O80;m;16.04.1951;Spontangeburt eines Einlings;-
+P-0016743;260123453_Cynthia;-;O80;f;01.12.1960;Spontangeburt eines Einlings;-
+P-0016750;260123453_Cynthia;-;E84.0;m;01.04.1978;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016934;260123453_Cynthia;-;E84.0;f;01.04.1978;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017077;260123453_Cynthia;-;E84.0;m;16.04.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017202;260123453_Cynthia;-;O80;f;01.12.1992;Spontangeburt eines Einlings;-
+P-0017292;260123453_Cynthia;-;E84.0;m;01.12.1958;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017392;260123453_Cynthia;-;E84.0;m;01.04.1947;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017579;260123453_Cynthia;-;E84.0;m;16.12.1940;Zystische Fibrose mit Lungenmanifestationen;-
+P-0018076;260123453_Cynthia;-;O80;m;16.01.1949;Spontangeburt eines Einlings;-
+P-0000200;260123453_Cynthia;-;E84.0;m;01.01.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0000204;260123453_Cynthia;-;E84.80;m;01.01.1989;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0000205;260123453_Cynthia;-;E84.87;f;16.12.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0000206;260123453_Cynthia;-;E84.88;m;16.07.1947;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0001200;260123453_Cynthia;-;E84.0;f;01.12.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001201;260123453_Cynthia;-;E84.1;f;01.12.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0001204;260123453_Cynthia;-;E84.80;f;01.04.1997;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0001205;260123453_Cynthia;-;E84.87;f;16.07.1983;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0001206;260123453_Cynthia;-;E84.88;f;16.12.1992;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0001494;260123453_Cynthia;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0001561;260123453_Cynthia;-;O80;f;01.10.2000;Spontangeburt eines Einlings;-
+P-0001750;260123453_Cynthia;-;O80;f;01.10.1981;Spontangeburt eines Einlings;-
+P-0002200;260123453_Cynthia;-;E84.0;f;01.07.1940;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002201;260123453_Cynthia;-;E84.1;f;01.12.2003;Zystische Fibrose mit Darmmanifestationen;-
+P-0002204;260123453_Cynthia;-;E84.80;f;01.12.1994;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0002205;260123453_Cynthia;-;E84.87;m;16.01.2017;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0002206;260123453_Cynthia;-;E84.88;m;16.12.1962;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0002369;260123453_Cynthia;-;E84.0;m;16.07.1965;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002397;260123453_Cynthia;-;O80;f;16.04.1998;Spontangeburt eines Einlings;-
+P-0007634;260123451_Airolo;-;O80;f;01.04.1998;Spontangeburt eines Einlings;-
+P-0007682;260123451_Airolo;-;E84.0;m;01.10.1999;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002681;260123453_Cynthia;-;E84.0;m;01.04.2008;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0003201;260123453_Cynthia;-;E84.1;m;01.07.1942;Zystische Fibrose mit Darmmanifestationen;-
+P-0003201;260123453_Cynthia;-;E84.1;m;01.07.1942;Zystische Fibrose mit Darmmanifestationen;-
+P-0003204;260123453_Cynthia;-;E84.80;f;01.04.1932;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0003204;260123453_Cynthia;-;E84.80;f;01.04.1932;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0003205;260123453_Cynthia;-;E84.87;f;16.12.2011;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0003206;260123453_Cynthia;-;E84.88;f;16.10.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0003464;260123453_Cynthia;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0003594;260123453_Cynthia;-;O80;f;01.04.1995;Spontangeburt eines Einlings;-
+P-0004200;260123453_Cynthia;-;E84.0;m;01.04.2006;Zystische Fibrose mit Lungenmanifestationen;-
+P-0004201;260123453_Cynthia;-;E84.1;f;01.07.1992;Zystische Fibrose mit Darmmanifestationen;-
+P-0004204;260123453_Cynthia;-;E84.80;f;01.07.2003;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0004205;260123453_Cynthia;-;E84.87;m;16.12.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0004206;260123453_Cynthia;-;E84.88;f;16.12.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0004837;260123451_Airolo;-;O80;m;16.12.1940;Spontangeburt eines Einlings;-
+P-0007846;260123451_Airolo;-;O80;f;16.10.1981;Spontangeburt eines Einlings;-
+P-0008047;260123451_Airolo;-;E84.0;f;16.04.2009;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008057;260123451_Airolo;-;O80;f;16.10.1990;Spontangeburt eines Einlings;-
+P-0005200;260123451_Airolo;-;E84.0;f;01.04.1981;Zystische Fibrose mit Lungenmanifestationen;-
+P-0005201;260123451_Airolo;-;E84.1;f;01.07.1982;Zystische Fibrose mit Darmmanifestationen;-
+P-0005204;260123451_Airolo;-;E84.80;f;01.12.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0005205;260123451_Airolo;-;E84.87;f;16.01.1979;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0005206;260123451_Airolo;-;E84.88;f;16.12.1949;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0005248;260123451_Airolo;-;O80;f;16.10.1949;Spontangeburt eines Einlings;-
+P-0005285;260123451_Airolo;-;O80;f;16.04.1983;Spontangeburt eines Einlings;-
+P-0006200;260123451_Airolo;-;E84.0;m;01.04.2004;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006201;260123451_Airolo;-;E84.1;m;01.12.2015;Zystische Fibrose mit Darmmanifestationen;-
+P-0006204;260123451_Airolo;-;E84.80;m;01.12.1999;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0006205;260123451_Airolo;-;E84.87;f;16.10.2014;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0006206;260123451_Airolo;-;E84.88;m;16.04.1944;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0006239;260123451_Airolo;-;O80;m;16.04.1949;Spontangeburt eines Einlings;-
+P-0006582;260123451_Airolo;-;E84.0;f;01.04.1965;Zystische Fibrose mit Lungenmanifestationen;-
+P-0006700;260123451_Airolo;-;O80;f;01.04.1940;Spontangeburt eines Einlings;-
+P-0007200;260123451_Airolo;-;E84.0;m;01.10.1971;Zystische Fibrose mit Lungenmanifestationen;-
+P-0007201;260123451_Airolo;-;E84.1;m;01.12.2005;Zystische Fibrose mit Darmmanifestationen;-
+P-0007204;260123451_Airolo;-;E84.80;m;01.01.1981;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0007205;260123451_Airolo;-;E84.87;m;16.10.2006;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0007206;260123451_Airolo;-;E84.88;f;16.07.1939;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0008180;260123451_Airolo;-;O80;f;01.04.1994;Spontangeburt eines Einlings;-
+P-0008200;260123451_Airolo;-;E84.0;m;01.01.1987;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008201;260123451_Airolo;-;E84.1;f;01.01.1991;Zystische Fibrose mit Darmmanifestationen;-
+P-0008204;260123451_Airolo;-;E84.80;m;01.04.1979;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0008205;260123451_Airolo;-;E84.87;f;16.12.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0008206;260123451_Airolo;-;E84.88;m;16.10.1959;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0008255;260123451_Airolo;-;O80;f;16.10.1982;Spontangeburt eines Einlings;-
+P-0007717;260123451_Airolo;-;E84.0;f;16.10.1931;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008200;260123451_Airolo;-;E84.0;m;01.01.1987;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008201;260123451_Airolo;-;E84.1;f;01.01.1991;Zystische Fibrose mit Darmmanifestationen;-
+P-0008201;260123451_Airolo;-;E84.1;f;01.01.1991;Zystische Fibrose mit Darmmanifestationen;-
+P-0008205;260123451_Airolo;-;E84.87;f;16.12.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0008206;260123451_Airolo;-;E84.88;m;16.10.1959;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0008332;260123451_Airolo;-;E84.0;f;01.04.1958;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008346;260123451_Airolo;-;E84.0;f;16.04.1980;Zystische Fibrose mit Lungenmanifestationen;-
+P-0008517;260123451_Airolo;-;O80;f;16.12.2018;Spontangeburt eines Einlings;-
+P-0008647;260123451_Airolo;-;E84.0;f;16.10.1941;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009063;260123451_Airolo;-;E84.0;m;01.12.1976;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009200;260123451_Airolo;-;E84.0;f;01.12.2005;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009201;260123451_Airolo;-;E84.1;f;01.10.2014;Zystische Fibrose mit Darmmanifestationen;-
+P-0009204;260123451_Airolo;-;E84.80;m;01.10.1991;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0009205;260123451_Airolo;-;E84.87;m;16.07.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0009206;260123451_Airolo;-;E84.88;f;16.01.1968;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0010200;260123453_Cynthia;-;E84.0;m;01.12.1982;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010201;260123453_Cynthia;-;E84.1;f;01.01.1998;Zystische Fibrose mit Darmmanifestationen;-
+P-0010204;260123453_Cynthia;-;E84.80;f;01.12.2001;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0010205;260123453_Cynthia;-;E84.87;f;16.12.1990;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0010206;260123453_Cynthia;-;E84.88;f;16.07.2009;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0010293;260123453_Cynthia;-;E84.0;m;01.10.2013;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010348;260123453_Cynthia;-;E84.0;f;16.07.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0010355;260123453_Cynthia;-;O80;f;16.07.2001;Spontangeburt eines Einlings;-
+P-0010446;260123453_Cynthia;-;O80;f;16.04.1989;Spontangeburt eines Einlings;-
+P-0010584;260123453_Cynthia;-;E84.0;m;01.01.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011200;260123453_Cynthia;-;E84.0;m;01.12.2019;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011201;260123453_Cynthia;-;E84.1;f;01.04.2008;Zystische Fibrose mit Darmmanifestationen;-
+P-0011204;260123453_Cynthia;-;E84.80;m;01.04.2018;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0011205;260123453_Cynthia;-;E84.87;f;16.12.2001;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0011206;260123453_Cynthia;-;E84.88;m;16.12.2006;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0011432;260123453_Cynthia;-;E84.0;f;01.10.2005;Zystische Fibrose mit Lungenmanifestationen;-
+P-0011766;260123453_Cynthia;-;O80;f;16.10.1999;Spontangeburt eines Einlings;-
+P-0012200;260123453_Cynthia;-;E84.0;f;01.07.1996;Zystische Fibrose mit Lungenmanifestationen;-
+P-0012201;260123453_Cynthia;-;E84.1;m;01.07.2004;Zystische Fibrose mit Darmmanifestationen;-
+P-0012204;260123453_Cynthia;-;E84.80;f;01.10.1973;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0012205;260123453_Cynthia;-;E84.87;m;16.12.1993;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0012206;260123453_Cynthia;-;E84.88;m;16.04.1964;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0012831;260123453_Cynthia;-;O80;f;01.12.1995;Spontangeburt eines Einlings;-
+P-0013200;260123453_Cynthia;-;E84.0;f;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013201;260123453_Cynthia;-;E84.1;m;01.07.2007;Zystische Fibrose mit Darmmanifestationen;-
+P-0013204;260123453_Cynthia;-;E84.80;f;01.04.2000;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0013205;260123453_Cynthia;-;E84.87;m;16.04.2002;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0013206;260123453_Cynthia;-;E84.88;f;16.07.1963;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0013336;260123453_Cynthia;-;E84.0;f;16.12.2016;Zystische Fibrose mit Lungenmanifestationen;-
+P-0013701;260123453_Cynthia;-;O80;f;01.10.1985;Spontangeburt eines Einlings;-
+P-0013941;260123453_Cynthia;-;O80;f;01.01.1981;Spontangeburt eines Einlings;-
+P-0014036;260123453_Cynthia;-;O80;f;16.12.1999;Spontangeburt eines Einlings;-
+P-0014200;260123453_Cynthia;-;E84.0;m;01.01.1993;Zystische Fibrose mit Lungenmanifestationen;-
+P-0014201;260123453_Cynthia;-;E84.1;m;01.04.2016;Zystische Fibrose mit Darmmanifestationen;-
+P-0014204;260123453_Cynthia;-;E84.80;f;01.12.2019;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0014205;260123453_Cynthia;-;E84.87;f;16.12.2005;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0014206;260123453_Cynthia;-;E84.88;m;16.10.1966;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0014275;260123453_Cynthia;-;E84.0;f;16.07.2003;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015010;260123453_Cynthia;-;O80;f;01.07.1940;Spontangeburt eines Einlings;-
+P-0015115;260123453_Cynthia;-;O80;f;16.10.1992;Spontangeburt eines Einlings;-
+P-0015200;260123453_Cynthia;-;E84.0;f;01.07.1997;Zystische Fibrose mit Lungenmanifestationen;-
+P-0015201;260123453_Cynthia;-;E84.1;m;01.04.2010;Zystische Fibrose mit Darmmanifestationen;-
+P-0015204;260123453_Cynthia;-;E84.80;f;01.12.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0015205;260123453_Cynthia;-;E84.87;f;16.10.1984;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0015206;260123453_Cynthia;-;E84.88;m;16.04.1983;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0015554;260123453_Cynthia;-;O80;f;01.12.1986;Spontangeburt eines Einlings;-
+P-0016169;260123453_Cynthia;-;O80;f;16.01.1978;Spontangeburt eines Einlings;-
+P-0016200;260123453_Cynthia;-;E84.0;m;01.04.1972;Zystische Fibrose mit Lungenmanifestationen;-
+P-0016201;260123453_Cynthia;-;E84.1;f;01.12.1985;Zystische Fibrose mit Darmmanifestationen;-
+P-0016204;260123453_Cynthia;-;E84.80;f;01.01.1987;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0016205;260123453_Cynthia;-;E84.87;m;16.12.2009;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0016206;260123453_Cynthia;-;E84.88;f;16.07.1956;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0009200;260123451_Airolo;-;E84.0;f;01.12.2005;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009201;260123451_Airolo;-;E84.1;f;01.10.2014;Zystische Fibrose mit Darmmanifestationen;-
+P-0009204;260123451_Airolo;-;E84.80;m;01.10.1991;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0009205;260123451_Airolo;-;E84.87;m;16.07.1998;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0009206;260123451_Airolo;-;E84.88;f;16.01.1968;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0009247;260123451_Airolo;-;O80;f;16.10.1990;Spontangeburt eines Einlings;-
+P-0017200;260123453_Cynthia;-;E84.0;f;01.12.2018;Zystische Fibrose mit Lungenmanifestationen;-
+P-0017204;260123453_Cynthia;-;E84.80;m;01.07.2011;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0017205;260123453_Cynthia;-;E84.87;f;16.07.2015;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0017206;260123453_Cynthia;-;E84.88;m;16.10.1933;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0017428;260123453_Cynthia;-;O80;f;16.10.1986;Spontangeburt eines Einlings;-
+P-0017717;260123453_Cynthia;-;O80;f;16.04.1981;Spontangeburt eines Einlings;-
+P-0018021;260123453_Cynthia;-;O80;f;01.12.1974;Spontangeburt eines Einlings;-
+P-0018200;260123453_Cynthia;-;E84.0;f;01.07.1970;Zystische Fibrose mit Lungenmanifestationen;-
+P-0018201;260123453_Cynthia;-;E84.1;m;01.12.1986;Zystische Fibrose mit Darmmanifestationen;-
+P-0018204;260123453_Cynthia;-;E84.80;m;01.01.1982;Zystische Fibrose mit Lungen- und Darm-Manifestation;-
+P-0018205;260123453_Cynthia;-;E84.87;f;16.07.1982;Zystische Fibrose mit sonstigen multiplen Manifestationen;-
+P-0018206;260123453_Cynthia;-;E84.88;f;16.12.1950;Zystische Fibrose mit sonstigen Manifestationen;-
+P-0018258;260123453_Cynthia;-;O80;f;16.01.1982;Spontangeburt eines Einlings;-
+P-0000622;260123451_Airolo;-;E84.0;f;01.10.1952;Zystische Fibrose mit Lungenmanifestationen;-
+P-0000663;260123451_Airolo;-;E84.0;f;01.04.1953;Zystische Fibrose mit Lungenmanifestationen;-
+P-0009354;260123451_Airolo;-;O80;f;01.01.1991;Spontangeburt eines Einlings;-
+P-0000970;260123451_Airolo;-;O80;m;01.07.1935;Spontangeburt eines Einlings;-
+P-0001038;260123453_Cynthia;-;E84.0;f;16.04.2015;Zystische Fibrose mit Lungenmanifestationen;-
+P-0001122;260123453_Cynthia;-;O80;f;01.10.1998;Spontangeburt eines Einlings;-
+P-0001494;260123453_Cynthia;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0001750;260123453_Cynthia;-;O80;f;01.10.1981;Spontangeburt eines Einlings;-
+P-0002273;260123453_Cynthia;-;E84.0;m;01.04.1954;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002333;260123453_Cynthia;-;O80;m;01.12.1934;Spontangeburt eines Einlings;-
+P-0002352;260123453_Cynthia;-;E84.0;m;01.12.1995;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002397;260123453_Cynthia;-;O80;f;16.04.1998;Spontangeburt eines Einlings;-
+P-0002601;260123453_Cynthia;-;O80;f;01.04.1993;Spontangeburt eines Einlings;-
+P-0002728;260123453_Cynthia;-;E84.0;m;16.10.1943;Zystische Fibrose mit Lungenmanifestationen;-
+P-0002732;260123453_Cynthia;-;E84.0;f;01.10.1941;Zystische Fibrose mit Lungenmanifestationen;-
