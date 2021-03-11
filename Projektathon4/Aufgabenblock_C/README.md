@@ -4,9 +4,9 @@ Im Projktathon 4, der Untergliederung Von Aufgabenblock C werden
 --- 
 ### C.0.             Aufgabenstellung & Daten 
 --- 
-#### C.0.1            Aufgabenstellung
+#### C.0.1            [Aufgabenstellung](../c_0_aufgabenstellung_und_daten/)
 
-#### C.0.2            Daten 
+#### C.0.2            [Daten](../c_0_aufgabenstellung_und_daten) 
     
 <https://mii-agiop-cord.life.uni-leipzig.de/fhir>
 
@@ -14,10 +14,10 @@ Im Projktathon 4, der Untergliederung Von Aufgabenblock C werden
 
 C.1.             Ablage zur fhircrackr und R-Aggregationen
 --- 
-#### C.1.1.           Projektbereich (z.B. für Präsentation, Fehlermeldungen,... )
+#### C.1.1.           [Projektbereich (z.B. für Präsentation, Fehlermeldungen,... )](../c_1_ablage_zur_fhircrackr_und_r_aggregationen) 
 
-#### C.1.2.          Musterlösung fhircrackr Aufgabenblock C
-<https://github.com/medizininformatik-initiative/usecase-cord/tree/master/Projektathon4/Aufgabenblock_C>
+#### C.1.2.          [Musterlösung fhircrackr Aufgabenblock C](../c_1_ablage_zur_fhircrackr_und_r_aggregationen) 
+
 #### Im C.1 Readme Verweis auf R-Archiv fhircrackr (CRAN), Anleitung 
 Cran: <https://CRAN.R-project.org/package=fhircrackr>
 
