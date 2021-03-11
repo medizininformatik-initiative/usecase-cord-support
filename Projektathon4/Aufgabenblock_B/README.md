@@ -8,8 +8,6 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock B werden
 
 #### B.0.2            [Daten](../Aufgabenblock_B/b_0_aufgabenstellung_und_daten/b_0_2_daten/)
 
-<https://mii-agiop-cord.life.uni-leipzig.de/fhir>
-
 #### B.0.3            CORD-MI-Cookbook
 
 ### B.1.             [Ablage zur fhircrackr und R -Auswertungen Zeitreihen](../Aufgabenblock_B/b_1_ablage_zur_fhircrackr_und_r_auswertungen_zeitreihen/) 
