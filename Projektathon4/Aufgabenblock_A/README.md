@@ -20,7 +20,7 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
 <https://github.com/JohannesOehm/FhirExtinguisher>
 
-#### A.1.2.          [Projektbereich FHIR-Extinguisher (z.B. für Fehlermeldungen, Präsentationen, …)]
+#### A.1.2.          Projektbereich FHIR-Extinguisher (z.B. für Fehlermeldungen, Präsentationen, …)
 Nicht vorhanden
 
 #### A.1.3.          Anleitung/Musterlösung FHIRExtinguisher
@@ -39,13 +39,13 @@ Musterlösung-Anleitung für FHIRExtinguisher im Aufgabenblock A noch nicht vorh
 Cran: <https://CRAN.R-project.org/package=fhircrackr>
 
 Quellcode: <https://github.com/POLAR-fhiR/fhircrackr>
-### A.3.             [Ablage Ergebniszusammenführung mit EasySMPC] 
+### A.3.             Ablage Ergebniszusammenführung mit EasySMPC 
 --- 
-#### A.3.1.          [Tool EasySMPC] 
+#### A.3.1.          Tool EasySMPC 
 
 <https://github.com/prasser/easy-smpc/releases/tag/v1.0.0-alpha>
 
-#### A.3.2.          [Projektbereich EasySMPC]
+#### A.3.2.          Projektbereich EasySMPC
 
 <https://github.com/prasser/easy-smpc> 
 
