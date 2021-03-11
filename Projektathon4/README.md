@@ -9,6 +9,8 @@
 ### D Daten
 --- 
 Im Projektathon 4, den Musterdaten ist auf Leipzig FHIR server erreichbar 
+
+GUI: <https://mii-agiop-cord.life.uni-leipzig.de/>
 <https://mii-agiop-cord.life.uni-leipzig.de/fhir>.
 
 Den Musterdaten gilt für Aufgabenblock A, Aufgabenblock B und Aufgabenblock C
