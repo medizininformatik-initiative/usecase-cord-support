@@ -53,5 +53,5 @@ Quellcode: <https://github.com/POLAR-fhiR/fhircrackr>
 
 <https://github.com/prasser/easy-smpc> 
 
-#### A.3.3.          [Anleitung /Musterlösung EasySMPC Zusammenführung Alterspyramiden ] (../Aufgabenblock_A/a_3_ablage_zur_ergebniszusammenfuehrung_mit_easysmpc/a_3_3_musterloesung_easysmpc/)
+#### A.3.3.          [Anleitung /Musterlösung EasySMPC Zusammenführung Alterspyramiden](../Aufgabenblock_A/a_3_ablage_zur_ergebniszusammenfuehrung_mit_easysmpc/a_3_3_musterloesung_easysmpc/)
 
