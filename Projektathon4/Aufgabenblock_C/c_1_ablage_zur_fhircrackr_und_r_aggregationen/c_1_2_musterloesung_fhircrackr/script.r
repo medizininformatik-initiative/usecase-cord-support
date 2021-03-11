@@ -12,7 +12,16 @@ options(warn=-1)# to suppress warnings
 #Condition resource with patient resource in a bundle for ICD-10 GM Diagnoses Code O80, O80 Z37.0! (associated birth)
 ###############################################################################################################################################################################################################################################################
 #O80 und Z37.0!
-condition_patient_bundle<- fhir_search("https://mii-agiop-cord.life.uni-leipzig.de/fhir/Condition?code=O80,O80%20Z37.0%21&_include=Condition:subject:Patient")
+
+search_request <- paste0('https://mii-agiop-cord.life.uni-leipzig.de/fhir/', # HAPI FHIR server end point
+                        'Condition?',# der resource typ zu suchen, Condition resource typ beinhaltet diagnose
+                        'code=O80,O80%20Z37.0%21',# suche nach ICD-10 GM Codes. E84.0, E84.1, E84.8, E84.80, E84.87, E84.88, E84.9 
+                        '&_include=Condition:subject:Patient') # hier könnte die Patienten oder Encounter Ressourcen ausgewählt werden
+
+
+condition_patient_bundle <- fhir_search(request=search_request, max_bundles=Inf)
+
+#condition_patient_bundle<- fhir_search("https://mii-agiop-cord.life.uni-leipzig.de/fhir/Condition?code=O80,O80%20Z37.0%21&_include=Condition:subject:Patient")
 
 #############################################################################################################################################################################################
 # Specify the columns of interest in design parameter including condition and patient resource
@@ -21,7 +30,6 @@ condition_patient_bundle<- fhir_search("https://mii-agiop-cord.life.uni-leipzig.
 design_cond <- list(
 	Conditions = list(
 		"//Condition",
-		#list(
 		cols       = list(
 			C.CID  = "id",#condition id
 			C.PID  = "subject/reference",# patient id
@@ -43,7 +51,11 @@ design_cond <- list(
 			P.GESCHLECHT  = "gender",# patient gender to be replaced later
 			P.GEBD   = "birthDate",# birth date to calculate age bins
 			P.PLZ = "address/postalCode"# plz
-
+		),
+		style = list(
+			sep = "/",
+			brackets = NULL,
+			rm_empty_cols = FALSE
 		)
 	)
 )
