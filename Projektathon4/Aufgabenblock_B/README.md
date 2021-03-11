@@ -28,14 +28,14 @@ Quellcode: <https://github.com/POLAR-fhiR/fhircrackr>
 
 ### B.2.             [Ablage Ergebniszusammenführung mit fdrtd](../Aufgabenblock_B/b_2_ablage_ergebniszusammenführung_mit_fdrtd/) 
 ---
-#### B.2.1.           [Den Download-Bereich für das Tool]
+#### B.2.1.           Den Download-Bereich für das Tool
 
 <https://pypi.org/project/fdrtd/>
 
-#### B.2.2.           [Projektbereich fdrtd bspw. zur Meldung von Fehlern]
+#### B.2.2.           Projektbereich fdrtd bspw. zur Meldung von Fehlern
 
 mailto:<support@fdrtd.com>
 
-#### B.2.3.           [Anleitung/Musterlösung fdrtd Zusammenführung Zeitreihen]
+#### B.2.3.           Anleitung/Musterlösung fdrtd Zusammenführung Zeitreihen
 
 <https://github.com/fdrtd/about/wiki/CORD-MI-tutorial-(2021-Q1)>
