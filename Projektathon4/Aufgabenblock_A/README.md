@@ -20,8 +20,8 @@ Im Projektathon 4, der Ablage Untergliederung Von Aufgabenblock A werden
 
 <https://github.com/JohannesOehm/FhirExtinguisher>
 
-#### A.1.2.          Projektbereich FHIR-Extinguisher (z.B. für Fehlermeldungen, Präsentationen, …)
-Nicht vorhanden
+#### A.1.2.          [Projektbereich FHIR-Extinguisher (z.B. für Fehlermeldungen, Präsentationen, …)](../Aufgabenblock_A/a_1_ablage_fhirextinguisher/a_1_2_projektbereich/)
+
 
 #### A.1.3.          Anleitung/Musterlösung FHIRExtinguisher
 
