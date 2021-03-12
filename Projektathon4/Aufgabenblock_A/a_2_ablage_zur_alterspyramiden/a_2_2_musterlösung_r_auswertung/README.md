@@ -15,7 +15,7 @@
          Sys.getenv("HTTPS_PROXY“)
          
          
-         If the above mentioned variables are empty and you are executing it from inside hospital network the set the proxy server as follows
+         If the above mentioned variables are empty and if you are executing the code from inside hospital network then set the proxy server as follows
          
    3.b. To set proxy variables use the following Code
      
