@@ -25,10 +25,10 @@
 #### Steps:
 ---
 1. Download the script.r file 
-2. [Download the input data input_data.csv from] (../Aufgabenblock_A/a_2_ablage_zur_alterspyramiden/a_2_1_projektbereich/)
+2. [Download the input data input_data.csv from](../Aufgabenblock_A/a_2_ablage_zur_alterspyramiden/a_2_1_projektbereich/)
 
 3. Rename the output file 
 
-   a. If you are using windows OS you can use double slash to map the output path. For eg., "c:\\users\\yourusername\\Documents\\repo\\Output\\result.csv)
+   a. If you are using windows OS you can use double slash to map the output path. For eg., "c:\\users\\yourusername\\Documents\\repo\\Output\\result.csv
   
     b. If you are using linux OS you can use the file path like as follows "r/repo/Output/result.csv")
