@@ -29,6 +29,6 @@
 
 3. Rename the output file 
 
-   a. If you are using windows OS you can use double slash to map the output path. For eg., "c:\\users\\yourusername\\Documents\\repo\\Output\\result.csv
+   a. If you are using windows OS you can use double slash to map the output path. For eg., "c:\\users\\yourusername\\Documents\\repo\\Output\\result.csv"
   
-    b. If you are using linux OS you can use the file path like as follows "r/repo/Output/result.csv")
+    b. If you are using linux OS you can use the file path like as follows "r/repo/Output/result.csv"
