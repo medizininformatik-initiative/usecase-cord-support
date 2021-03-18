@@ -6,7 +6,7 @@ search_request <- paste0(
   'https://mii-agiop-cord.life.uni-leipzig.de/fhir/',
   'Condition?',
   'code=J12.8%20U07.1%21,U08.9%20U09.9%21',
-# ',M30.3', #choose, if you want to search for kawasaki
+ ',M30.3', #choose, if you want to search for kawasaki
   ''
 )
  
@@ -58,8 +58,8 @@ covid_conditions_tmp <- covid_conditions_tmp[covid_conditions_tmp$system == 'htt
 covid_conditions <- covid_conditions_tmp[!duplicated(covid_conditions_tmp$patient_id),]
  
 # remove Patient/ from subject/reference and Encounter from encounter/reference
-covid_conditions$patient_id <- sub("Patient/", "", covid_conditions[,6])
-covid_conditions$encounter_id <- sub("Encounter/", "", covid_conditions[,7])
+covid_conditions$patient_id <- sub("Patient/", "", covid_conditions[,5])
+covid_conditions$encounter_id <- sub("Encounter/", "", covid_conditions[,6])
  
 # separate patient_id into Airolo, Bapu, Cynthia institution_id
 covid_conditions$institution_id <- unlist(strsplit(covid_conditions$patient_id,'-P-'))[ c(TRUE,FALSE) ]
@@ -97,4 +97,4 @@ g +
  
 ###############################################
 write.csv(df_final,file= "df_final.csv")
-###############################################
+###############################################s
