@@ -1,0 +1,1 @@
+In this documentation, you will find the instruction of Personal Health Train with the use case of CORD workshop task C, in which we will introduce how to distribute data and how to use PHT station software.
