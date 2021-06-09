@@ -50,18 +50,22 @@ public class Main {
         }
         
         // Parse
-        Data data = IO.loadData(input);
+        Data patientLevelData = IO.loadPatientLevelData(input);
+        Data diagnosisLevelData = IO.loadDiagnosisLevelData(input);
         
         // Aggregation step 1
-        IO.writeOutput(Agg1.aggregate1(data), new File(input.getParent()+"/agg-1.1.csv"));
-        IO.writeOutput(Agg1.aggregate2(data), new File(input.getParent()+"/agg-1.2.csv"));
-        IO.writeOutput(Agg1.aggregate3(data), new File(input.getParent()+"/agg-1.3.csv"));
-        IO.writeOutput(Agg1.aggregate4(data), new File(input.getParent()+"/agg-1.4.csv"));
-        
+        IO.writeOutput(Agg1.aggregate1(patientLevelData), new File(input.getParent()+"/agg-1.1.csv"));
+        IO.writeOutput(Agg1.aggregate2(patientLevelData), new File(input.getParent()+"/agg-1.2.csv"));
+        IO.writeOutput(Agg1.aggregate3(patientLevelData), new File(input.getParent()+"/agg-1.3.csv"));
+        IO.writeOutput(Agg1.aggregate4(patientLevelData), new File(input.getParent()+"/agg-1.4.csv"));
+
         // Aggregation step 2
-        IO.writeOutput(Agg3.aggregate1(data), new File(input.getParent()+"/agg-2.1.csv"));
-        IO.writeOutput(Agg3.aggregate2(data), new File(input.getParent()+"/agg-2.2.csv"));
-        IO.writeOutput(Agg3.aggregate3(data), new File(input.getParent()+"/agg-2.3.csv"));
-        IO.writeOutput(Agg3.aggregate4(data), new File(input.getParent()+"/agg-2.4.csv"));
+        IO.writeOutput(Agg2.aggregate1(diagnosisLevelData), new File(input.getParent()+"/agg-2.1.csv"));
+        
+        // Aggregation step 3
+        IO.writeOutput(Agg3.aggregate1(patientLevelData), new File(input.getParent()+"/agg-3.1.csv"));
+        IO.writeOutput(Agg3.aggregate2(patientLevelData), new File(input.getParent()+"/agg-3.2.csv"));
+        IO.writeOutput(Agg3.aggregate3(patientLevelData), new File(input.getParent()+"/agg-3.3.csv"));
+        IO.writeOutput(Agg3.aggregate4(patientLevelData), new File(input.getParent()+"/agg-3.4.csv"));
     }
 }

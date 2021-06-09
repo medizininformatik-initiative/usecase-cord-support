@@ -186,8 +186,11 @@ public class Anon {
 		
 		/* Add data*/
 		for (Entry<List<String>, Integer> entry : aggregation.entrySet()) {
+			int count = entry.getValue();
+			// int lower = count / 5;
+			// int upper = count + 5;
 			List<String> row = entry.getKey();
-			row.add(String.valueOf(entry.getValue()));
+			row.add(String.valueOf(count));
 			result.add(row.toArray(new String[row.size()]));
 		}
 		

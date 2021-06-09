@@ -91,7 +91,6 @@ public class IO {
 	/** Risk threshold*/
 	public static final Integer RISK_THRESHOLD = 5;
 
-
     /**
      * File loading
      * @param inputFile
@@ -99,7 +98,7 @@ public class IO {
      * @throws IOException 
      * @throws ParseException 
      */
-    public static Data loadData(File inputFile) throws IOException, ParseException {
+    public static Data loadPatientLevelData(File inputFile) throws IOException, ParseException {
     	
         // Import process
         DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
@@ -118,7 +117,37 @@ public class IO {
         
         // Load input file
         DataHandle handle = Data.create(sourceSpecification).getHandle();
-        return convert(handle);
+        return convertPatientLevel(handle);
+    }
+
+
+    /**
+     * File loading
+     * @param inputFile
+     * @return
+     * @throws IOException 
+     * @throws ParseException 
+     */
+    public static Data loadDiagnosisLevelData(File inputFile) throws IOException, ParseException {
+    	
+        // Import process
+        DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
+        
+        // Clean columns
+        sourceSpecification.addColumn(0, FIELD_PATIENT_PSEUDONYM, DataType.STRING);
+        sourceSpecification.addColumn(1, FIELD_PATIENT_AGE, DataType.INTEGER);
+        sourceSpecification.addColumn(2, FIELD_PATIENT_SEX, DataType.createOrderedString(
+        		new String[] {VALUE_PATIENT_SEX_MALE, VALUE_PATIENT_SEX_FEMALE, VALUE_PATIENT_SEX_DIVERSE, VALUE_PATIENT_SEX_UNKNOWN}));
+        sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING);
+        sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, DataType.STRING);
+        sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, DataType.STRING);
+        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING);
+        sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
+        sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
+        
+        // Load input file
+        DataHandle handle = Data.create(sourceSpecification).getHandle();
+        return convertDiagnosisLevel(handle);
     }
     
     /**
@@ -127,7 +156,7 @@ public class IO {
      * @return
      * @throws ParseException 
      */
-    private static Data convert(DataHandle handle) throws ParseException {
+    private static Data convertPatientLevel(DataHandle handle) throws ParseException {
     	
     	// Result
     	List<String[]> data = new ArrayList<>();
@@ -203,6 +232,65 @@ public class IO {
 			done.add(pseudonym);
     	}
 
+
+    	// Return
+    	return Data.create(data);
+	}
+
+    /**
+     * Convert to new handle
+     * @param handle
+     * @return
+     * @throws ParseException 
+     */
+    private static Data convertDiagnosisLevel(DataHandle handle) throws ParseException {
+    	
+    	// Result
+    	List<String[]> data = new ArrayList<>();
+    	
+    	// Header
+    	String[] header = new String[] {
+    			FIELD_PATIENT_PSEUDONYM,
+    			FIELD_PATIENT_AGE,
+    			FIELD_PATIENT_SEX,
+    			FIELD_CENTER_NAME,
+    			FIELD_CENTER_ZIP,
+    			FIELD_PATIENT_ZIP,
+    			FIELD_PATIENT_DIAGNOSIS,
+    			FIELD_PATIENT_DISTANCE_LINEAR,
+    			FIELD_PATIENT_DISTANCE_ROUTE
+    	};
+    	
+    	// Header
+    	data.add(header);
+    	
+    	// List all patients
+    	for (int i=0; i < handle.getNumRows(); i++) {
+    		
+			// Data
+			String pseudonym = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_PSEUDONYM));
+			String age = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_AGE));
+			String sex = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_SEX));
+			String centerName = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_NAME));
+			String centerZip = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_ZIP));
+			String zip = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP));
+			String diagnosis = clean(handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_DIAGNOSIS)));
+			String linear = String.valueOf(Math.round(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_LINEAR))));
+			String route = String.valueOf(Math.round(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_ROUTE))));
+    		
+			// Add
+			data.add(new String[] {
+				pseudonym,
+				age,
+				sex,
+				centerName,
+				centerZip,
+				zip,
+				diagnosis,
+				linear,
+				route
+			});
+    	}
 
     	// Return
     	return Data.create(data);
