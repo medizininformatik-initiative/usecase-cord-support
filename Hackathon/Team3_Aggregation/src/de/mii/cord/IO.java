@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.deidentifier.arx.AttributeType.Hierarchy;
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.DataHandle;
 import org.deidentifier.arx.DataSource;
@@ -72,7 +73,9 @@ public class IO {
 	public static final String FIELD_PATIENT_DISTANCE_LINEAR = "Entfernung-Luftlinie";
 	/** Final field */
 	public static final String FIELD_PATIENT_DISTANCE_ROUTE = "Entfernung-Route";
-    
+	/** Count*/
+	public static final String FIELD_COUNT = "Anzahl";
+	
 	/** Value*/
 	public static final String VALUE_PATIENT_SEX_MALE = "M";
 	/** Value*/
@@ -85,9 +88,10 @@ public class IO {
 	/** Value*/
 	public static final String FORMAT_DISTANCE = "##0.##";
 
-	/** Value*/
-	public static final String[] VALUES_PATIENT_DIAGNOSIS = getTracerDiagnoses();
-	
+	/** Risk threshold*/
+	public static final Integer RISK_THRESHOLD = 5;
+
+
     /**
      * File loading
      * @param inputFile
@@ -108,7 +112,7 @@ public class IO {
         sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING);
         sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, DataType.STRING);
         sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, DataType.STRING);
-        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING); // DataType.createOrderedString(VALUES_PATIENT_DIAGNOSIS));
+        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING);
         sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
         sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
         
@@ -214,20 +218,6 @@ public class IO {
 	}
 
 	/**
-     * Reads all tracer diagnoses
-     * @return
-     * @throws IOException
-     */
-    private static String[] getTracerDiagnoses() {
-    	try {
-	    	Data data = Data.create(IO.class.getResourceAsStream("tracer.csv"), CHARSET);
-	    	return data.getHandle().getDistinctValues(0);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
      * Writes the data, shuffles rows
      * @param result 
      * @param output
@@ -237,4 +227,36 @@ public class IO {
         CSVDataOutput writer = new CSVDataOutput(output, ';');
 		writer.write(result.getHandle().iterator());
     }
+
+    /**
+     * Loads a hierarchy
+     * @return
+     */
+	public static Hierarchy loadAgeHierarchy() throws IOException {
+		return Hierarchy.create(IO.class.getResourceAsStream("age.csv"), IO.CHARSET);
+	}
+
+    /**
+     * Loads a hierarchy
+     * @return
+     */
+	public static Hierarchy loadDiagnosisHierarchy() throws IOException {
+		return Hierarchy.create(IO.class.getResourceAsStream("diagnosis.csv"), IO.CHARSET);
+	}
+
+    /**
+     * Loads a hierarchy
+     * @return
+     */
+	public static Hierarchy loadDistanceHierarchy() throws IOException {
+		return Hierarchy.create(IO.class.getResourceAsStream("distance.csv"), IO.CHARSET);
+	}
+
+    /**
+     * Loads a hierarchy
+     * @return
+     */
+	public static Hierarchy loadZipHierarchy() throws IOException {
+		return Hierarchy.create(IO.class.getResourceAsStream("zip.csv"), IO.CHARSET);
+	}
 }

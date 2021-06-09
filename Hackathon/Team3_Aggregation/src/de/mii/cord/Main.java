@@ -23,7 +23,6 @@ import java.text.ParseException;
 
 import org.deidentifier.arx.Data;
 import org.deidentifier.arx.exceptions.RollbackRequiredException;
-import org.deidentifier.arx.io.CSVDataOutput;
 
 /**
  * Main entry point
@@ -53,11 +52,10 @@ public class Main {
         // Parse
         Data data = IO.loadData(input);
         
-        // Output
-        File output = new File(input.getParent()+"/output.csv");
-
-        // Write
-        CSVDataOutput writer = new CSVDataOutput(output);
-        writer.write(data.getHandle().iterator());
+        // Aggregation step 1
+        IO.writeOutput(Agg1.aggregate1(data), new File(input.getParent()+"/agg-1.1.csv"));
+        IO.writeOutput(Agg1.aggregate2(data), new File(input.getParent()+"/agg-1.2.csv"));
+        IO.writeOutput(Agg1.aggregate3(data), new File(input.getParent()+"/agg-1.3.csv"));
+        IO.writeOutput(Agg1.aggregate4(data), new File(input.getParent()+"/agg-1.4.csv"));
     }
 }
