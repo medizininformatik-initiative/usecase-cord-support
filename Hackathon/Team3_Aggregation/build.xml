@@ -40,6 +40,11 @@
                 <path path="src" />
             </classpath>
         </javac>
+        <copy todir="build/lib/de/mii/cord" overwrite="true">
+            <fileset dir="src/de/mii/cord" defaultexcludes="yes">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
     </target>
 
     <target name="jars" depends="compile, buildExternalLibs">
