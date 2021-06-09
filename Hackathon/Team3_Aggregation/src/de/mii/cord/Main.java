@@ -59,9 +59,9 @@ public class Main {
         IO.writeOutput(Agg1.aggregate4(data), new File(input.getParent()+"/agg-1.4.csv"));
         
         // Aggregation step 2
-        IO.writeOutput(Agg2.aggregate1(data), new File(input.getParent()+"/agg-2.1.csv"));
-        IO.writeOutput(Agg2.aggregate2(data), new File(input.getParent()+"/agg-2.2.csv"));
-        IO.writeOutput(Agg2.aggregate3(data), new File(input.getParent()+"/agg-2.3.csv"));
-        IO.writeOutput(Agg2.aggregate4(data), new File(input.getParent()+"/agg-2.4.csv"));
+        IO.writeOutput(Agg3.aggregate1(data), new File(input.getParent()+"/agg-2.1.csv"));
+        IO.writeOutput(Agg3.aggregate2(data), new File(input.getParent()+"/agg-2.2.csv"));
+        IO.writeOutput(Agg3.aggregate3(data), new File(input.getParent()+"/agg-2.3.csv"));
+        IO.writeOutput(Agg3.aggregate4(data), new File(input.getParent()+"/agg-2.4.csv"));
     }
 }

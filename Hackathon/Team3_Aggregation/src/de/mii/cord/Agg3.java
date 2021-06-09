@@ -30,7 +30,7 @@ import de.mii.cord.Anon.Selection;
  * Second set of aggregates
  * @author Fabian Prasser
  */
-public class Agg2 {
+public class Agg3 {
 	
 	private static final int ICD_GENERALIZATION_LEVEL = 2;
 
