@@ -10,6 +10,7 @@ Aggregat 1.1: Name Zentrum, PLZ Zentrum, Altersgruppe, Anzahl
 Aggregat 1.2: Name Zentrum, PLZ Zentrum, Geschlecht, Anzahl
 Aggregat 1.3: Name Zentrum, PLZ Zentrum, Entfernungskategorie, Anzahl
 Aggregat 1.4: Name Zentrum, PLZ Zentrum, Altersgruppe, Geschlecht, Anzahl
+
 Aggregat 2: Fokus auf einzelne Diagnosen
 
 * Wie Aggregate 1, aber ergänzt um Diagnose (vergröbert, z.B. 3-Steller oder Gruppe)

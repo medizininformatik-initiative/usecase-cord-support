@@ -31,6 +31,8 @@ import de.mii.cord.Anon.Selection;
  * @author Fabian Prasser
  */
 public class Agg2 {
+	
+	private static final int ICD_GENERALIZATION_LEVEL = 2;
 
 	/**
 	 * First aggregation in this class
@@ -46,8 +48,8 @@ public class Agg2 {
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP)}),
 								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_AGE, IO.loadAgeHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), 1)}),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
 								new KAnonymity(IO.RISK_THRESHOLD));
 
 	}
@@ -66,8 +68,8 @@ public class Agg2 {
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP)}),
 								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_SEX, null, 0),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), 1)}),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
 								new KAnonymity(IO.RISK_THRESHOLD));
 
 	}
@@ -86,8 +88,8 @@ public class Agg2 {
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP)}),
 								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_DISTANCE_LINEAR, IO.loadDistanceHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), 1)}),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
 								new KAnonymity(IO.RISK_THRESHOLD));
 	}
 
@@ -106,8 +108,8 @@ public class Agg2 {
 																	new Selection(IO.FIELD_CENTER_ZIP)}),
 								Arrays.asList( new Generalization[] { 	new Generalization(	IO.FIELD_PATIENT_AGE, IO.loadAgeHierarchy(), 1),
 																		new Generalization(	IO.FIELD_PATIENT_SEX, null, 0),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), 1),
-																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), 1)}),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
 								new KAnonymity(IO.RISK_THRESHOLD));
 	}
 }
