@@ -63,5 +63,11 @@ public class Main {
         IO.writeOutput(Agg2.aggregate2(patientLevelData), new File(input.getParent()+"/agg-2.2.csv"));
         IO.writeOutput(Agg2.aggregate3(patientLevelData), new File(input.getParent()+"/agg-2.3.csv"));
         IO.writeOutput(Agg2.aggregate4(patientLevelData), new File(input.getParent()+"/agg-2.4.csv"));
+
+        // Aggregation step 3
+        IO.writeOutput(Agg3.aggregate1(patientLevelData), new File(input.getParent()+"/agg-3.1.csv"));
+        IO.writeOutput(Agg3.aggregate2(patientLevelData), new File(input.getParent()+"/agg-3.2.csv"));
+        IO.writeOutput(Agg3.aggregate3(patientLevelData), new File(input.getParent()+"/agg-3.3.csv"));
+        IO.writeOutput(Agg3.aggregate4(patientLevelData), new File(input.getParent()+"/agg-3.4.csv"));
     }
 }

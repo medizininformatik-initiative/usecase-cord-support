@@ -207,7 +207,7 @@ public class IO {
 			String sex = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_SEX));
 			String centerName = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_NAME));
 			String centerZip = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_ZIP));
-			String zip = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP));
+			String zip = String.valueOf(Integer.valueOf(handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP))));
 			String diagnosis1 = clean(diagnoses.get(pseudonym).get(0));
 			String diagnosis2 = diagnoses.get(pseudonym).size() > 1 ? clean(diagnoses.get(pseudonym).get(1)) : "";
 			String linear = String.valueOf(Math.round(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_LINEAR))));
