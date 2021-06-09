@@ -16,3 +16,26 @@ Wie Aggregate 1, aber ergänzt um Diagnose (vergröbert, z.B. 3-Steller oder Grupp
 
 * Aggregatgruppe 3: Fokus auf Wohnort & Diagnose
 Wie Aggregate 2, aber ergänzt um Bundesland des Wohnorts
+
+# How to run
+
+Move to the team 4 folder and execute:
+
+java -jar jars/cord-anonymization-v0.0.1.jar config/data.csv
+
+# Input file format
+
+The input file needs to have the following columns (in this order from left to right):
+
+Pseudonym
+Alter
+Geschlecht
+Name des Zentrums
+PLZ des Zentrums
+PLZ des Patienten
+Diagnose
+Entfernung-Luftlinie
+Entfernung-Route
+
+"Geschlecht" needs to be encoded as "M", "W", "U" or "D".
+For the exact format, please take a look at the example dataset located in config/data.csv

@@ -12,40 +12,6 @@
     <!-- defines the version number -->
     <property name="version" value="0.0.1" />
 
-    <!-- define git command -->
-    <macrodef name="git">
-        <attribute name="command" />
-        <attribute name="dir" default="" />
-        <element name="args" optional="true" />
-        <sequential>
-            <echo message="git @{command}" />
-            <exec executable="git" dir="@{dir}" failonerror="true">
-                <arg value="@{command}" />
-                <args />
-            </exec>
-        </sequential>
-    </macrodef>
-
-    <!-- define git-tag -->
-    <macrodef name="git-tag">
-        <attribute name="comment" />
-        <attribute name="dir" default="" />
-        <attribute name="version" />
-        <sequential>
-            <echo>Tagging @{dir} @{version} </echo>
-            <git command="tag" dir="@{dir}">
-                <args>
-                    <arg line="-a @{version}" />
-                    <arg line="-m '@{comment}'" />
-                </args>
-            </git>
-        </sequential>
-    </macrodef>
-
-    <target name="release" depends="jars">
-        <git-tag version="v${version}" comment="v${version}" />
-    </target>
-
     <target name="clean">
         <delete dir="jars" failonerror="true" />
         <delete dir="build/extLibs" failonerror="true" />
