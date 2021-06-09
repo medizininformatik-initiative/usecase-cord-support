@@ -7,8 +7,17 @@ if (!require('geosphere')) install.packages('geosphere')# to calculate bird flig
 Die luftlinie funktion verwendet Haversein method 
 ## Biespiel Funktion 
 
-birdflight_distance <- function(v)
+Variablen:
 
+  source_long: Quell Standort longitude
+  
+  source_lat: Quell Standort latitude
+  
+  dest_long: Ziel longitude
+  
+  dest_lat: Ziel latitude
+
+birdflight_distance <- function(v)
 {
 
 	source_long <- v[1]
