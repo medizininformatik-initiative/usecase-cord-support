@@ -157,7 +157,7 @@ public class Anon {
 				if (!aggregation.containsKey(line)) {
 					aggregation.put(line, 1);
 				} else {
-					aggregation.put(line, aggregation.get(line) + 1);
+					aggregation.put(line, ((Integer)aggregation.get(line)) + 1);
 				}
 			}
 		}
