@@ -1,0 +1,91 @@
+<project default="release">
+
+    <description>Builds, tests, and runs the project.</description>
+
+    <!-- defines the to be included libraries -->
+    <fileset id="lib.jars" dir="lib">
+        <or>
+            <filename name="**/libarx-3.9.0.jar" />
+        </or>
+    </fileset>
+
+    <!-- defines the version number -->
+    <property name="version" value="0.0.1" />
+
+    <!-- define git command -->
+    <macrodef name="git">
+        <attribute name="command" />
+        <attribute name="dir" default="" />
+        <element name="args" optional="true" />
+        <sequential>
+            <echo message="git @{command}" />
+            <exec executable="git" dir="@{dir}" failonerror="true">
+                <arg value="@{command}" />
+                <args />
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <!-- define git-tag -->
+    <macrodef name="git-tag">
+        <attribute name="comment" />
+        <attribute name="dir" default="" />
+        <attribute name="version" />
+        <sequential>
+            <echo>Tagging @{dir} @{version} </echo>
+            <git command="tag" dir="@{dir}">
+                <args>
+                    <arg line="-a @{version}" />
+                    <arg line="-m '@{comment}'" />
+                </args>
+            </git>
+        </sequential>
+    </macrodef>
+
+    <target name="release" depends="jars">
+        <git-tag version="v${version}" comment="v${version}" />
+    </target>
+
+    <target name="clean">
+        <delete dir="jars" failonerror="true" />
+        <delete dir="build/extLibs" failonerror="true" />
+        <delete dir="build/lib" failonerror="true" />
+        <delete dir="build" failonerror="true" />
+    </target>
+
+    <target name="prepare" depends="clean">
+        <mkdir dir="build" />
+        <mkdir dir="build/extLibs" />
+        <mkdir dir="build/lib" />
+        <mkdir dir="jars" />
+    </target>
+
+
+    <target name="buildExternalLibs">
+        <jar jarfile="build/extLibs/lib.jar">
+            <zipgroupfileset refid="lib.jars" />
+        </jar>
+    </target>
+
+    <target name="compile" depends="prepare" description="compile the source ">
+        <javac srcdir="src" destdir="build/lib" source="1.7">
+            <classpath>
+                <fileset refid="lib.jars" />
+                <path path="src" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jars" depends="compile, buildExternalLibs">
+
+        <jar destfile="jars/cord-anonymization-v${version}.jar">
+            <zipfileset src="build/extLibs/lib.jar" excludes="META-INF/*.RSA,META-INF/*.SF,META-INF/*.DSA" />
+            <fileset dir="build/lib" defaultexcludes="no" />
+            <manifest>
+                <attribute name="Main-Class" value="de.mii.cord.Main" />
+            </manifest>
+        </jar>
+        <delete dir="build" failonerror="true" />
+    </target>
+
+</project>
