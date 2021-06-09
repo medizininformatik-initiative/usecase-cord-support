@@ -124,7 +124,9 @@ public class Anon {
 		/* Anonymize*/
 		DataHandle output = new ARXAnonymizer().anonymize(input, config).getOutput();
 		
-		System.out.println(" - Number of records removed: " + output.getStatistics().getEquivalenceClassStatistics().getNumberOfSuppressedRecords());
+		int removed = output.getStatistics().getEquivalenceClassStatistics().getNumberOfSuppressedRecords();
+		int total = output.getStatistics().getEquivalenceClassStatistics().getNumberOfRecordsIncludingSuppressedRecords();
+		System.out.println(" - Number of records removed: " + removed + "/" + total);
 		
 		/* Aggregate*/
 		return count(output, selection, generalization);

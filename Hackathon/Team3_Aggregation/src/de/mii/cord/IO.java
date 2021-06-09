@@ -214,7 +214,7 @@ public class IO {
      * @return
      */
 	private static String clean(String string) {
-		return string.replace("!", "").replace("*", "");
+		return string.replace("!", "").replace("*", "").replace("M908.2", "M90.82");
 	}
 
 	/**
