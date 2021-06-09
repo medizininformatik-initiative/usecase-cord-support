@@ -47,8 +47,69 @@ public class Agg2 {
 		return Anon.anonymize(	data,
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP)}),
-								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_DIAGNOSIS, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
+								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_AGE, IO.loadAgeHierarchy(), 1),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
 								new KAnonymity(IO.RISK_THRESHOLD));
 
+	}
+
+	/**
+	 * Second aggregation in this class
+	 * @param data
+	 * @result Data
+	 * @throws IOException
+	 */
+	public static Data aggregate2(Data data) throws IOException {
+
+		System.out.println("Calculating anonymous aggregate 2.2");
+		
+		return Anon.anonymize(	data,
+								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
+																	new Selection(IO.FIELD_CENTER_ZIP)}),
+								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_SEX, null, 0),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
+								new KAnonymity(IO.RISK_THRESHOLD));
+
+	}
+
+	/**
+	 * Third aggregation in this class
+	 * @param data
+	 * @result Data
+	 * @throws IOException
+	 */
+	public static Data aggregate3(Data data) throws IOException {
+		
+		System.out.println("Calculating anonymous aggregate 2.3");
+		
+		return Anon.anonymize(	data,
+								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
+																	new Selection(IO.FIELD_CENTER_ZIP)}),
+								Arrays.asList( new Generalization[] { 	new Generalization(IO.FIELD_PATIENT_DISTANCE_LINEAR, IO.loadDistanceHierarchy(), 1),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
+								new KAnonymity(IO.RISK_THRESHOLD));
+	}
+
+	/**
+	 * Fourth aggregation in this class
+	 * @param data
+	 * @result Data
+	 * @throws IOException
+	 */
+	public static Data aggregate4(Data data) throws IOException {
+		
+		System.out.println("Calculating anonymous aggregate 2.4");
+		
+		return Anon.anonymize(	data,
+								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
+																	new Selection(IO.FIELD_CENTER_ZIP)}),
+								Arrays.asList( new Generalization[] { 	new Generalization(	IO.FIELD_PATIENT_AGE, IO.loadAgeHierarchy(), 1),
+																		new Generalization(	IO.FIELD_PATIENT_SEX, null, 0),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_1, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL),
+																		new Generalization(IO.FIELD_PATIENT_DIAGNOSIS_2, IO.loadDiagnosisHierarchy(), ICD_GENERALIZATION_LEVEL)}),
+								new KAnonymity(IO.RISK_THRESHOLD));
 	}
 }
