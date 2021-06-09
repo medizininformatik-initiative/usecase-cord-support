@@ -1,5 +1,5 @@
-Geschlecht;Name des Zentrums;PLZ des Zentrums;Anzahl
-M;Charité;10117;80
-W;Charité;10117;81
-U;Charité;10117;9
-D;Charité;10117;18
+Name des Zentrums;PLZ des Zentrums;Geschlecht;Anzahl
+Charité;10117;D;18
+Charité;10117;U;9
+Charité;10117;W;81
+Charité;10117;M;80

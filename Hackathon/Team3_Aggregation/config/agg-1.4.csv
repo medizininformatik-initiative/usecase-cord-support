@@ -1,14 +1,14 @@
-Alter;Geschlecht;Name des Zentrums;PLZ des Zentrums;Anzahl
-]20, 25];M;Charité;10117;9
-]8, 10];W;Charité;10117;10
-]6, 8];W;Charité;10117;11
-]15, 20];M;Charité;10117;10
-]10, 15];M;Charité;10117;20
-]15, 20];W;Charité;10117;10
-]20, 25];W;Charité;10117;10
-]10, 15];W;Charité;10117;20
-]2, 4];W;Charité;10117;20
-]2, 4];M;Charité;10117;22
-]8, 10];M;Charité;10117;9
-]6, 8];M;Charité;10117;10
-]10, 15];D;Charité;10117;5
+Name des Zentrums;PLZ des Zentrums;Alter;Geschlecht;Anzahl
+Charité;10117;]6, 8];M;10
+Charité;10117;]15, 20];W;10
+Charité;10117;]20, 25];W;10
+Charité;10117;]10, 15];W;20
+Charité;10117;]20, 25];M;9
+Charité;10117;]10, 15];M;20
+Charité;10117;]2, 4];W;20
+Charité;10117;]15, 20];M;10
+Charité;10117;]8, 10];M;9
+Charité;10117;]10, 15];D;5
+Charité;10117;]2, 4];M;22
+Charité;10117;]8, 10];W;10
+Charité;10117;]6, 8];W;11

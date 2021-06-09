@@ -127,20 +127,32 @@ public class Anon {
 		System.out.println(" - Number of records removed: " + output.getStatistics().getEquivalenceClassStatistics().getNumberOfSuppressedRecords());
 		
 		/* Aggregate*/
-		return count(output);
+		return count(output, selection, generalization);
 	}
 
 	/**
 	 * Distinct + count
 	 * @param output
+	 * @param selection
+	 * @param generalization
 	 * @return
 	 */
-	private static Data count(DataHandle output) {
+	private static Data count(DataHandle output, List<Selection> selection, List<Generalization> generalization) {
 		
 		/* Map*/
 		Map<List<String>, Integer> aggregation = new HashMap<>();
 		/* Result */
 		List<String[]> result = new ArrayList<>();
+		/* Attributes*/
+		List<String> attributes = new ArrayList<>();
+		
+		// Collect attributes
+		for (Selection s : selection) {
+			attributes.add(s.attribute);
+		}
+		for (Generalization g : generalization) {
+			attributes.add(g.attribute);
+		}
 		
 		/* Add rows*/
 		for (int row = 0; row < output.getNumRows(); row++) {
@@ -150,11 +162,9 @@ public class Anon {
 				
 				// Construct row
 				List<String> line = new ArrayList<>();
-				for (int column = 0; column < output.getNumColumns(); column++) {
-					String name = output.getAttributeName(column);
-					if (output.getDefinition().getAttributeType(name) != AttributeType.IDENTIFYING_ATTRIBUTE) {
-						line.add(output.getValue(row, column));
-					}
+				for (String name : attributes) {
+					int column = output.getColumnIndexOf(name);
+					line.add(output.getValue(row, column));
 				}
 				
 				// Count line
@@ -168,12 +178,7 @@ public class Anon {
 		
 		/* Construct header*/
 		List<String> header = new ArrayList<String>();
-		for (int column = 0; column < output.getNumColumns(); column++) {
-			String name = output.getAttributeName(column);
-			if (output.getDefinition().getAttributeType(name) != AttributeType.IDENTIFYING_ATTRIBUTE) {
-				header.add(name);
-			}
-		}
+		header.addAll(attributes);
 		header.add(IO.FIELD_COUNT);
 		result.add(header.toArray(new String[header.size()]));
 		
