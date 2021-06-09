@@ -40,6 +40,8 @@ public class Agg1 {
 	 */
 	public static Data aggregate1(Data data) throws IOException {
 		
+		System.out.println("Calculating anonymous aggregate 1.1");
+		
 		return Anon.anonymize(	data,
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP) }),
@@ -57,6 +59,8 @@ public class Agg1 {
 	 */
 	public static Data aggregate2(Data data) throws IOException {
 
+		System.out.println("Calculating anonymous aggregate 1.2");
+		
 		return Anon.anonymize(	data,
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP) }),
@@ -74,6 +78,8 @@ public class Agg1 {
 	 */
 	public static Data aggregate3(Data data) throws IOException {
 		
+		System.out.println("Calculating anonymous aggregate 1.3");
+		
 		return Anon.anonymize(	data,
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP) }),
@@ -89,7 +95,9 @@ public class Agg1 {
 	 * @throws IOException
 	 */
 	public static Data aggregate4(Data data) throws IOException {
-				
+		
+		System.out.println("Calculating anonymous aggregate 1.4");
+		
 		return Anon.anonymize(	data,
 								Arrays.asList( new Selection[] { 	new Selection(IO.FIELD_CENTER_NAME), 
 																	new Selection(IO.FIELD_CENTER_ZIP) }),

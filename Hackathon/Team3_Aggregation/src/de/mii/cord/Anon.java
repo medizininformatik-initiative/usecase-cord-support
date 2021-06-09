@@ -111,6 +111,8 @@ public class Anon {
 				input.getDefinition().setAttributeType(g.attribute, AttributeType.QUASI_IDENTIFYING_ATTRIBUTE);
 			} else {
 				input.getDefinition().setAttributeType(g.attribute, g.hierarchy);
+				input.getDefinition().setMinimumGeneralization(g.attribute, g.level);
+				input.getDefinition().setMaximumGeneralization(g.attribute, g.level);
 			}
 		}
 		
@@ -121,6 +123,8 @@ public class Anon {
 		
 		/* Anonymize*/
 		DataHandle output = new ARXAnonymizer().anonymize(input, config).getOutput();
+		
+		System.out.println(" - Number of records removed: " + output.getStatistics().getEquivalenceClassStatistics().getNumberOfSuppressedRecords());
 		
 		/* Aggregate*/
 		return count(output);

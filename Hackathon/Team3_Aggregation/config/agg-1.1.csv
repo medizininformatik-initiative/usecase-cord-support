@@ -1,9 +1,7 @@
 Alter;Name des Zentrums;PLZ des Zentrums;Anzahl
-13;Charité;10117;24
-25;Charité;10117;23
-9;Charité;10117;23
-8;Charité;10117;24
-20;Charité;10117;23
-11;Charité;10117;23
-4;Charité;10117;24
-3;Charité;10117;24
+]15, 20];Charité;10117;23
+]20, 25];Charité;10117;23
+]2, 4];Charité;10117;48
+]8, 10];Charité;10117;23
+]6, 8];Charité;10117;24
+]10, 15];Charité;10117;47
