@@ -16,3 +16,9 @@ Wie Aggregate 1, aber ergänzt um Diagnose (vergröbert, z.B. 3-Steller oder Grupp
 
 * Aggregatgruppe 3: Fokus auf Wohnort & Diagnose
 Wie Aggregate 2, aber ergänzt um Bundesland des Wohnorts
+
+# How to run
+
+Move to the team 4 folder and execute:
+
+java -jar jars/cord-anonymization-v0.0.1.jar config/data.csv
