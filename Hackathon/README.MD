@@ -5,7 +5,7 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 
 2. Berechnen von Entfernungen zur Klinik 
 
-3. Aggregation der Detaildaten
+3. [Aggregation der Detaildaten](./Team3_Aggregation/)
 
 4.  Visualisierung der aggregierten Ergebnisse
 
