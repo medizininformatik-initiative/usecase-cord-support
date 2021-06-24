@@ -24,7 +24,7 @@ webconn <- config::get(file = paste(getwd(),"/config/conf_fhir.yml",sep=""))
 #uncomment the below line *
 #icd10code_tracergroup <- paste(icd_10,collapse=",")
 ############
-serverbase = 'http://10.3.8.72/fhir/'
+serverbase = webconn$baseserver#'http://10.3.8.72/fhir/'
 
 search_request <- paste0(
 	serverbase,
@@ -103,6 +103,37 @@ list_f$center_zip <- "68167"
 x <- c(1,10,20,30,40,50,60,70,80,90,999)
 list_f$AGE <- cut(list_f$AGE,x,breaks= c(0,10,20,30,40,50,60,70,80,90,999), labels = c("(1,10]","(11,20]", "(21,30]", "(31,40]", "(41,50]", "(51,60]","(61,70]","(71,80]","(81,90]", "(91,999]"))
 
+# Cord schaufenster prefinal dataframe with relevant columns
 
-# prefinal dataframe with relevant columns
-#df_result <- df_merged[,c('patient_id','age','gender','zip','center_name','center_zip','icd_code')]
+df_sf <- as.data.frame(list_f%>%group_by(list_f$C.PID,list_f$C.SECODE,list_f$P.PLZ,list_f$P.GESCHLECHT,list_f$AGE)%>%summarise(count=n()))
+
+#### Rename column names ###########################################################################################################################
+#'P.ID','C.SECODE','P.PLZ','P.GESCHLECHT','AGE', 'Count'
+########################################################################################################################################################
+
+names(df_sf)[names(df_sf)== "list_f$C.PID"] <- "pseudonym"
+names(df_sf)[names(df_sf)== "list_f$AGE"] <- "alter"
+names(df_sf)[names(df_sf)== "list_f$P.GESCHLECHT"] <- "geschlecht"
+names(df_sf)[names(df_sf)== "list_f$P.PLZ"] <- "patient_plz"
+names(df_sf)[names(df_sf)== "list_f$C.SECODE"] <- "icd_code"
+names(df_sf)[names(df_sf)== "count"] <- "Anzahl"
+#########
+#select output columns
+#filter only selected columns
+df_sf <- df_sf[,c('pseudonym','alter','geschlecht','patient_plz','icd_code','Anzahl')]
+
+##################################################################################################################################################################
+# The requirement was to provide a column with center name and center zip code from config files 
+########################################################################################################################################################
+df_sf <- df_sf %>%
+	# Creating a column with center name from config  file 
+	add_column(zentrum_name = webconn$centername, .after="geschlecht")
+
+df_sf <- df_sf %>%
+	# Creating a column with center zip code from config file as stated in the requirement
+	add_column(zentrum_plz = webconn$centerzipcode, .after="zentrum_name")
+########################################################################################################################################################
+# write result to a csv file
+########################################################################################################################################################
+write.csv(df_sf,file= "result.csv",row.names=F)
+########################################################################################################################################################
