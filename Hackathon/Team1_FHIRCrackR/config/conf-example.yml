@@ -1,0 +1,8 @@
+default:
+  serverbase: 'http://hapi.fhir.org/fhir/'
+  center_name: 'Your Center'
+  center_zip: 'Center Zip Code'
+
+#if you need to authenticate on your fhir server, set username and password
+  username: ''
+  password: ''

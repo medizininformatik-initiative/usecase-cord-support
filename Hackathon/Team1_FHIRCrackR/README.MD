@@ -2,7 +2,21 @@
 
 ## How to use R script
 
-Values that need to be adjusted
-- line 6 'serverbase': local fhir server
-- line 97 'center_name': name of the local center for rare diseases
-- line 98 'center_zip': postal code / zip of the local center for rare diseases
+Install 3 Packages
+
+`install.packages('fhircrackr') #requires R (>= 4.0.0)`
+`install.packages('digest')`
+`install.packages('config')`
+
+Copy example config file
+
+`cp config/conf-example.yml config/conf.yml`
+
+Values that need to be adjusted in conf.yml
+- 'serverbase': local fhir server
+- 'center_name': name of the local center for rare diseases
+- 'center_zip': postal code / zip of the local center for rare diseases
+- 'username': Your username for your local fhirserver authentification
+- 'password': Your password for your local fhirserver authentification
+
+## Caution: leave last line in conf.yml empty
