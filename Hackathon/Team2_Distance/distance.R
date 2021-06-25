@@ -83,7 +83,7 @@ data <- mutate(data, det_plz_lat = as.numeric(det_plz_lat))
 #############################################################################################################################################################################################
 # calculate the bird flight distance using the function defined
 #############################################################################################################################################################################################
-distance <- apply(dat2[1:4],1, birdflight_distance)
+distance <- apply(data[1:4],1, birdflight_distance)
 
 data <- dat_orig %>%
 	# Creating a column with center zip code from config file as stated in the requirement
@@ -91,11 +91,10 @@ data <- dat_orig %>%
 
 
 #filter only selected columns
-data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name ', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie')]
+data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie')]
 
 #############################################################################################################################################################################################
 # write result to a csv file
 ############################################################################################################################################################################################
 write.csv(data,file= "result.csv",row.names=F)
-
 ############################################################################################################################################################################################
