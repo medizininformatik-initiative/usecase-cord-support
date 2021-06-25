@@ -1,39 +1,101 @@
-require("readr")
-require("tidyr")
-require("dplyr")
-require("geosphere")
+##################################################################################################################################################################################################
+# Aim: To calculate birdflight distance, route distance and duration between patient and clinic locations and write them in an excel output file
+# # before executing the code please create a folder 'entfernung' in the working directory and place the following two files in that folder
+# PLZ_manual_correction.cleaned.xlsx file and result.csv file
+# clinic location latitude and longitude read from config file
+##################################################################################################################################################################################################
+#if (!require('osrm')) install.packages('osrm')# open street map to calculate the route
 
-# mapping plz to geocoordinates
-plz_coord <- read_csv("/Users/martinboeker/Downloads/Uniklinika/PLZ_manual_correction(1).csv")
-# input from step 1: individual plz and kh plz
-dat_orig <- read_csv("/Users/martinboeker/OneDrive/data/projekte/geokoordinaten/dat.csv")
-dat <- dat_orig
+if (!require('readr')) install.packages('readr')#
+if (!require('tidyr')) install.packages('tidyr')#
+if (!require('dplyr')) install.packages('dplyr')#
+if (!require('geosphere')) install.packages('geosphere')# to calculate bird flight distance
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(geosphere)
+##############################################################################################################################################################################################
+# Input files
+# before executing the code please create a folder 'input' in the working directory and place the following two files in that folder
+# patient location obtained from PLZ_manual_correction.cleaned.xlsx file
+# result.csv file from team 1 fhircrackr 
+# manually collected postal area codes in PLZ_manual_correction.cleaned.xlsx file if needed uncomment and use
+#############################################################################################################################################################################################
+
+plz_coord  <- read_xlsx(path =paste(getwd(),"/input/PLZ_manual_correction.cleaned.xlsx",sep = "") )# file for calculating birdflight distance with approximately 8295 plz entries
+
+#############################################################################################################################################################################################
+#  Read the input file from fhircrackr team 1 step in the pre-defined format i.e pseudonym; alter; geschlecht; zentrum_name; zentrum_plz;patient_plz; icd_code
+#############################################################################################################################################################################################
+dat_orig <- read.csv(file = paste(getwd(),"/input/result.csv",sep = ""),sep = ";")# output from fhircrackr team 1
+
+
+#############################################################################################################################################################################################
+# example config.yml file is as follows 
+# default:
+#    user: "username"
+#    password: "passwrd"
+#    serverbase: 'http://hapi.fhir.org/fhir/'
+#    center_name: 'Your Center'
+#    center_zip: 'Center Zip Code'
+#    center_long: ""
+#    center_lat: " "
+#############################################################################################################################################################################################
+webconn <- config::get(file = paste(getwd(),"/config/conf_fhir.yml",sep=""))
 
 plz_coord <- mutate(plz_coord, kh_plz, kh_plz2 = as.numeric(kh_plz))
-# left_join for checking input data
-dat <- inner_join(dat, plz_coord, by=c("clinic_zip" = "kh_plz2"))
-dat <- inner_join(dat, plz_coord, by=c("pat_zip" = "kh_plz2"))
+#############################################################################################################################################################################################
+# inner join to identify and match only the available zip codes. Zipcode column from fhircrackr team 1 generated file is 'patient_plz'. Zipcode column from  PLZ_manual_correction.cleaned.xlsx
+# is  "kh_plz2"
+#############################################################################################################################################################################################
+dat_orig <- inner_join(dat_orig, plz_coord, by=c("patient_plz" = "kh_plz2"))
 
+#############################################################################################################################################################################################
+#  Function to calculate the birdflight distance using Haversine distance
+#############################################################################################################################################################################################
 birdflight_distance <- function(v) {
-  # unpacking lists (from tibble) to vectors
-  source_long <- v[[1]]
-  source_lat  <- v[[2]]
-  dest_long   <- v[[3]]
-  dest_lat    <- v[[4]]
-  dist_km     <- distHaversine(p1 = c(source_long, source_lat)
-                               ,p2 = c(dest_long, dest_lat))/1000
-  return(dist_km)
+	# unpacking lists (from tibble) to vectors
+	source_long <- v[[1]]
+	source_lat  <- v[[2]]
+	dest_long   <- v[[3]]
+	dest_lat    <- v[[4]]
+	dist_km     <- distHaversine(p1 = c(source_long, source_lat)
+								 ,p2 = c(dest_long, dest_lat))/1000
+	return(dist_km)
 }
 
-dat2 <- select(dat, kh_plz_lon.x, kh_plz_lat.x, kh_plz_lon.y, kh_plz_lat.y, kh_plz.x, kh_plz.y)
-dist <- apply(dat2[1:4],1, birdflight_distance)
-dat2 <- cbind(dat2, dist)
+#dat_orig2
 
-# cbind won't work ⇒ join on plz
+data <- select(dat_orig, kh_plz_lon, kh_plz_lat )
 
-dat2$kh_plz.x <- as.numeric(dat2$kh_plz.x)
-dat2$kh_plz.y <- as.numeric(dat2$kh_plz.y)
-dat_orig <- full_join(dat_orig, dat2, by=c("clinic_zip" = "kh_plz.x", "pat_zip" = "kh_plz.y"))
-dat_orig
+data <- data %>%
+	# Creating a column with center longitude data from config  file
+	add_column(dest_plz_lon = webconn$center_long, .after="kh_plz_lat")
 
-# to do: write file to disk
+data <- data %>%
+	# Creating a column with center latitude data from config  file
+	add_column(det_plz_lat = webconn$center_lat, .after="dest_plz_lon")
+
+# change data type of destination i.e clinic location to numeric
+data <- mutate(data, dest_plz_lon = as.numeric(dest_plz_lon))
+data <- mutate(data, det_plz_lat = as.numeric(det_plz_lat))
+
+#############################################################################################################################################################################################
+# calculate the bird flight distance using the function defined
+#############################################################################################################################################################################################
+distance <- apply(dat2[1:4],1, birdflight_distance)
+
+data <- dat_orig %>%
+	# Creating a column with center zip code from config file as stated in the requirement
+	add_column(entfernung_luftlinie = distance, .after="icd_code")
+
+
+#filter only selected columns
+data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name ', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie')]
+
+#############################################################################################################################################################################################
+# write result to a csv file
+############################################################################################################################################################################################
+write.csv(data,file= "result.csv",row.names=F)
+
+############################################################################################################################################################################################
