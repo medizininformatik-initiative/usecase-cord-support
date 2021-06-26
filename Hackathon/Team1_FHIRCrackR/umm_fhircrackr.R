@@ -6,11 +6,12 @@ if (!require('fhircrackr')) install.packages('fhircrackr')# to flatten the FHIR 
 if (!require('tidyverse')) install.packages('tidyverse')#
 if (!require('config')) install.packages('config')#
 if (!require('readxl')) install.packages('readxl')#
-
+if (!require('stringr')) install.packages('stringr')#
 library(fhircrackr)# to flatten the Resources 
 library(tidyverse) # for manipulation and exploration of data
 library(config)# to read fhir server credentials from a config file
 library(readxl)# to read excel file
+library(stringr)# to remove the additional patient tag using str_remove_all
 options(warn=-1)# to hide warnings
 
 webconn <- config::get(file = paste(getwd(),"/config/conf_fhir.yml",sep=""))
@@ -44,40 +45,70 @@ patient_diagn_bundle <- fhir_search(request =search_request,username = webconn$u
 # Design parameter for Condition and Patient resources
 # provide style parameter for Patient resource similar to Condition Resource if fhir_crack function demands
 ######################################################################################################################################################################################################################################################################################################################################################################################################################
-design_cond <- list(
-	Conditions = list(
-		"//Condition",
-		#list(
-		cols         = list(
-			C.CID    = "id",# condition id
-			C.PID    = "subject/reference", # reference patient id
-			C.SECODE = "code/coding/code" #attribute to address rare disease codes from tracer diagnose list
-		),
-		style        = list(
-			sep      = "/",
-			brackets = NULL,
-			rm_empty_cols = FALSE
-		)
-	),
-	Patients              = list(
-		"//Patient",
-		list(
-			P.PID         = "id", # Patient pseudonym in mannheim verfügbar
-			P.GESCHLECHT  = "gender", # Geschlecht
-			P.GEBD        = "birthDate",# Geburtsdatum
-			P.PLZ         = "address/postalCode"# PLZ
-		)
-	)
-)
+conditions <- fhir_table_description(resource  = "Condition",
+									 cols      = list(
+									 C.CID     = "id",# condition id
+									 C.PID     = "subject/reference", # reference patient id
+									 C.SYSTEM  = "code/coding/system", # this icd-10GM system is needed later to filter only the ICD-10 GM
+									 C.SECODE  = "code/coding/code" #attribute to address rare disease codes from tracer diagnose list
+                                        ),
+									 style     = fhir_style(sep="|",
+									 				   brackets = c("[", "]"),
+									 				   rm_empty_cols = FALSE)
+                                     )
+
+patients <- fhir_table_description(resource      = "Patient",
+								    cols         = list(
+								   	P.PID        = "id", # Patient pseudonym in mannheim verfügbar
+								   	P.GESCHLECHT = "gender", # Geschlecht
+								   	P.GEBD       = "birthDate",# Geburtsdatum
+								   	P.PLZ        = "address/postalCode"# PLZ
+								    ),
+								   style         = fhir_style(sep="|",
+								   				         brackets = c("[", "]"),
+								   				         rm_empty_cols = FALSE)
+                                   )
+
+##################################################################################################################################################################################
+# Using fhir_design function from fhircrcakr package 
+# the usage of old-style design object will be disallowed in the near future
+# so we use the new fhir_design function
+##################################################################################################################################################################################
+design_cond <- fhir_design(conditions, patients)
+
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
-# To flatten the XML object bundles to a list conatining patient and diagnose
+# To flatten the XML object  to a list of bundles conatining patient and diagnose
+# downloading fhir bundles
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
 list_se_pd <- fhir_crack(patient_diagn_bundle, design_cond, verbose = 0)
 
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
-# To remove the "Patient/" tag from patient id in condition resource use string remove all
+# To remove the "Patient/" tag from patient id in condition resource use str_remove_all function 
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
-list_se_pd$Conditions$C.PID <- str_remove_all(list_se_pd$Conditions$C.PID,"Patient/")
+list_se_pd$conditions$C.PID <- str_remove_all(list_se_pd$conditions$C.PID,"Patient/")
+
+list_se_pd$conditions <- fhir_melt(list_se_pd$conditions,
+							columns = c('C.SECODE','C.SYSTEM'),
+							brackets = c('[',']'), sep = '|', all_columns = TRUE,)
+
+# unnest raw conditions dataframe columns code/coding/code, code/coding/display, code/coding/system
+conditions_tmp <- fhir_melt(list_se_pd$conditions,
+							columns = c('C.SECODE','C.SYSTEM'),
+							brackets = c('[',']'), sep = '|', all_columns = TRUE,)
+conditions_tmp <- fhir_melt(conditions_tmp,
+							columns = c('C.SECODE','C.SYSTEM'),
+							brackets = c('[',']'), sep = '|', all_columns = TRUE,)
+
+# remove brackets from cells
+conditions_tmp <- fhir_rm_indices(conditions_tmp, brackets = c("[", "]") )
+patients_tmp   <- fhir_rm_indices(list_se_pd$patients, brackets = c("[", "]") )
+
+# filter conditions by system to obtain only icd-10-gm systems
+conditions_tmp <- conditions_tmp[conditions_tmp$C.SYSTEM== 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',]
+
+# remove duplicate patients based on patient pseudonym identifikator
+conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$C.PID),]
+patients_tmp <- patients_tmp[!duplicated(patients_tmp$P.PID),]
 
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
 # Output directory folder
@@ -85,27 +116,26 @@ list_se_pd$Conditions$C.PID <- str_remove_all(list_se_pd$Conditions$C.PID,"Patie
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
 
 # function to calculate age and join the condition resource to patient resource based on Patient id
-post_processing <- function( lot ) {
-	lot$ALL <-
-		merge(
-			lot$Conditions,
-			lot$Patients,
-			by.x = "C.PID",
+post_processing <- function(c,p) {
+		mergdata <-
+			base::merge(
+			c,# conditions from temp variable
+			p,# patients from temp variable
+			by.x = "C.PID", # merge based on patient id
 			by.y = "P.PID",
 			all = T
 		)
-	lot$ALL$AGE <- round( as.double( as.Date( Sys.time() ) - as.Date( lot$ALL$P.GEBD ) ) / 365.25, 2 )
-	#lot <- lot [,-6]
-	lot
+	mergdata$AGE <- round( as.double( as.Date( Sys.time() ) - as.Date(mergdata$P.GEBD) ) / 365.25, 2 )
+	mergdata
 }
+
 #######################################################################################################################################################################
 # call the post_processing function to perform the joining based on the identificator 
 # and then the age is calculated within the function 
 #######################################################################################################################################################################
-list_of_tables <- post_processing(list_se_pd)
+list_of_tables <- post_processing(conditions_tmp, patients_tmp)
 #######################################################################################################################################################################
-# data frame object
-# with selected columns included
+# filter only selected columns
 # list with Condition and Patient resources filtered with the selectedcolumns
 #######################################################################################################################################################################
 list_f <- list_of_tables$ALL[,c('C.PID','C.SECODE','P.GESCHLECHT','P.GEBD','P.PLZ','AGE')]
