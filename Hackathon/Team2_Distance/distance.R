@@ -89,12 +89,16 @@ data <- dat_orig %>%
 	# Creating a column with center zip code from config file as stated in the requirement
 	add_column(entfernung_luftlinie = distance, .after="icd_code")
 
+data <- dat_orig %>%
+	# Creating a column with center zip code from config file as stated in the requirement
+	add_column(entfernung_route = 0, .after="entfernung_luftlinie")    
+
 
 #filter only selected columns
-data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie')]
+data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie','entfernung_route')]
 
 #############################################################################################################################################################################################
 # write result to a csv file
 ############################################################################################################################################################################################
-write.csv(data,file= "result.csv",row.names=F)
+write.csv(data,file= "distance_result.csv",row.names=F)
 ############################################################################################################################################################################################
