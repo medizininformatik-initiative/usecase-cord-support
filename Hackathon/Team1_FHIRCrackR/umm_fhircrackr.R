@@ -87,10 +87,6 @@ list_se_pd <- fhir_crack(patient_diagn_bundle, design_cond, verbose = 0)
 #############################################################################################################################################################################################################################################################################################################################################################################################################################
 list_se_pd$conditions$C.PID <- str_remove_all(list_se_pd$conditions$C.PID,"Patient/")
 
-list_se_pd$conditions <- fhir_melt(list_se_pd$conditions,
-							columns = c('C.SECODE','C.SYSTEM'),
-							brackets = c('[',']'), sep = '|', all_columns = TRUE,)
-
 # unnest raw conditions dataframe columns code/coding/code, code/coding/display, code/coding/system
 conditions_tmp <- fhir_melt(list_se_pd$conditions,
 							columns = c('C.SECODE','C.SYSTEM'),
