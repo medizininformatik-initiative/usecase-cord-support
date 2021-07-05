@@ -48,7 +48,7 @@ plz_coord <- mutate(plz_coord, kh_plz, kh_plz2 = as.numeric(kh_plz))
 # inner join to identify and match only the available zip codes. Zipcode column from fhircrackr team 1 generated file is 'patient_plz'. Zipcode column from  PLZ_manual_correction.cleaned.xlsx
 # is  "kh_plz2"
 #############################################################################################################################################################################################
-dat_orig <- inner_join(dat_orig, plz_coord, by=c("patient_plz" = "kh_plz2"))
+dat_orig <- inner_join(dat_orig, plz_coord, by=c("patient_zip" = "kh_plz2"))
 
 #############################################################################################################################################################################################
 #  Function to calculate the birdflight distance using Haversine distance
@@ -87,15 +87,15 @@ distance <- apply(data[1:4],1, birdflight_distance)
 
 data <- data %>%
 	# Creating a column with center zip code from config file as stated in the requirement
-	add_column(entfernung_luftlinie = distance, .after="icd_code")
+	add_column(bird_flight_distance = distance, .after="diagnosis")
 
 data <- data %>%
 	# Creating a column with center zip code from config file as stated in the requirement
-	add_column(entfernung_route = 0, .after="entfernung_luftlinie")    
+	add_column(entfernung_route = 0, .after="bird_flight_distance")    
 
 
 #filter only selected columns
-data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name', 'zentrum_plz', 'patient_plz','icd_code','entfernung_luftlinie','entfernung_route')]
+data <- data[,c('patinet_id','age','gender', 'hospital_name', 'hospital_zip', 'zentrum_plz', 'patient_zip','diagnosis','bird_flight_distance','entfernung_route')]
 
 #############################################################################################################################################################################################
 # write result to a csv file
