@@ -91,10 +91,11 @@ data <- data %>%
 	add_column(entfernung_route = 0, .after="bird_flight_distance")    
 
 #filter only selected columns
-data <- data[,c('patient_id','age','gender', 'hospital_name', 'hospital_zip', 'patient_zip','icd_code','bird_flight_distance','route_distance')]
+data <- data[,c('patient_id','age','gender', 'hospital_name', 'hospital_zip', 'patient_zip','diagnosis','bird_flight_distance','route_distance')]
 
 #############################################################################################################################################################################################
 # write result to a csv file
 ############################################################################################################################################################################################
 write.csv2(data,file= "result.csv",row.names=F)
 ############################################################################################################################################################################################
+
