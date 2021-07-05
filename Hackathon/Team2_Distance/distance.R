@@ -74,11 +74,11 @@ data <- data %>%
 
 data <- data %>%
 	# Creating a column with center latitude data from config  file
-	add_column(det_plz_lat = webconn$center_lat, .after="dest_plz_lon")
+	add_column(dest_plz_lat = webconn$center_lat, .after="dest_plz_lon")
 
 # change data type of destination i.e clinic location to numeric
 data <- mutate(data, dest_plz_lon = as.numeric(dest_plz_lon))
-data <- mutate(data, det_plz_lat = as.numeric(det_plz_lat))
+data <- mutate(data, dest_plz_lat = as.numeric(dest_plz_lat))
 
 #############################################################################################################################################################################################
 # calculate the bird flight distance using the function defined
@@ -100,5 +100,5 @@ data <- data[,c('pseudonym','alter','geschlecht', 'zentrum_name', 'zentrum_plz',
 #############################################################################################################################################################################################
 # write result to a csv file
 ############################################################################################################################################################################################
-write.csv(data,file= "distance_result.csv",row.names=F)
+write.csv2(data,file= "distance_result.csv",row.names=F)
 ############################################################################################################################################################################################
