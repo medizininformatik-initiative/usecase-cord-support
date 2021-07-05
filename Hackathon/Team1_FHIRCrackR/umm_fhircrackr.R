@@ -147,29 +147,29 @@ df_sf <- as.data.frame(list_f%>%group_by(list_f$C.PID,list_f$C.SECODE,list_f$P.P
 #### Rename column names ###########################################################################################################################
 #'P.ID','AGE','P.GESCHLECHT','P.PLZ','C.SECODE','Count'
 ########################################################################################################################################################
-names(df_sf)[names(df_sf)== "list_f$C.PID"] <- "pseudonym"
-names(df_sf)[names(df_sf)== "list_f$AGE"] <- "alter"
-names(df_sf)[names(df_sf)== "list_f$P.GESCHLECHT"] <- "geschlecht"
-names(df_sf)[names(df_sf)== "list_f$P.PLZ"] <- "patient_plz"
-names(df_sf)[names(df_sf)== "list_f$C.SECODE"] <- "icd_code"
-names(df_sf)[names(df_sf)== "count"] <- "Anzahl"
+names(df_sf)[names(df_sf)== "list_f$C.PID"] <- "patient_id"
+names(df_sf)[names(df_sf)== "list_f$AGE"] <- "age"
+names(df_sf)[names(df_sf)== "list_f$P.GESCHLECHT"] <- "gender"
+names(df_sf)[names(df_sf)== "list_f$P.PLZ"] <- "patient_zip"
+names(df_sf)[names(df_sf)== "list_f$C.SECODE"] <- "diagnosis"
+names(df_sf)[names(df_sf)== "count"] <- "patient_count"
 #################################################################################################################################################################
 # select output columns
 # filter only selected columns
-df_sf <- df_sf[,c('pseudonym','alter','geschlecht','patient_plz','icd_code','Anzahl')]
+df_sf <- df_sf[,c('patient_id','age','gender','patient_zip','diagnosis','patient_count')]
 
 ##################################################################################################################################################################
 # A column with center name and center zip code are added based on the input from config files with variable names center_name and center_zip
 ########################################################################################################################################################
 df_sf <- df_sf %>%
 	# Creating a column with center name from config  file 
-	add_column(zentrum_name = webconn$center_name, .after="geschlecht")
+	add_column(hospital_name = webconn$center_name, .after="gender")
 
 df_sf <- df_sf %>%
 	# Creating a column with center zip code from config file as stated in the requirement
-	add_column(zentrum_plz = webconn$center_zip, .after="zentrum_name")
+	add_column(hospital_zip = webconn$center_zip, .after="hospital_name")
 ########################################################################################################################################################
 # write result to a csv file in the current working directory
 ########################################################################################################################################################
-write.csv(df_sf,file= "result.csv",row.names=F)
+write.csv2(df_sf,file= "result.csv",row.names=F)
 ########################################################################################################################################################
