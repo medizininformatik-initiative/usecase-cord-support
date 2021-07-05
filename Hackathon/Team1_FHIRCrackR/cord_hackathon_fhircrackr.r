@@ -1,11 +1,17 @@
 install.packages('fhircrackr') #requires R (>= 4.0.0)
 install.packages('config')
 
-library(fhircrackr)
-library(config)
+library(fhircrackr) # to flatten the Resources 
+library(config)# to read variables from a config file
 
+##################################################################################################################################################################################################################
+# Tracer diagnose list is available in the following link
+# https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2
+# When the tracer diagnose list is updated then read the tracer diagnose list with  ICD 10 GM Codes
+##################################################################################################################################################################################################################
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
+# Compose fhir search request for the fhircrackr package
 search_request <- paste0(
   conf$serverbase,
   'Condition?',
@@ -14,6 +20,10 @@ search_request <- paste0(
   '&_include=Condition:subject'
 )
 
+#############################################################################################################################################################################################################################################################################################################################################################################################################################
+# Design parameter for Condition and Patient resources
+# provide style parameter for Patient resource similar to Condition Resource if fhir_crack function demands
+######################################################################################################################################################################################################################################################################################################################################################################################################################
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(icd_code = "code/coding/code",
                                               system = "code/coding/system",
@@ -33,6 +43,11 @@ patients <- fhir_table_description(resource = "Patient",
                                                       rm_empty_cols = FALSE)
 )
 
+##################################################################################################################################################################################
+# Using fhir_design function from fhircrcakr package 
+# the usage of old-style design object will be disallowed in the near future
+# so we use the new fhir_design function
+##################################################################################################################################################################################
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles
@@ -41,13 +56,15 @@ bundles <- fhir_search(request = search_request, max_bundles = 0, username = con
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)
 
+# save raw fhir_table_descriptions
 conditions_raw <- dfs$conditions
 patients_raw <- dfs$patients
 
-# unnest raw conditions dataframe columns code/coding/code, code/coding/display, code/coding/system
+# unnest raw conditions dataframe columns icd_code, icd_code_system
 conditions_tmp <- fhir_melt(conditions_raw,
                             columns = c('icd_code','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
+
 conditions_tmp <- fhir_melt(conditions_tmp,
                             columns = c('icd_code','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
@@ -56,7 +73,7 @@ conditions_tmp <- fhir_melt(conditions_tmp,
 conditions_tmp <- fhir_rm_indices(conditions_tmp, brackets = c("[", "]") )
 patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 
-# filter conditions by system = icd-10-gm
+# filter conditions by system to obtain only icd-10-gm system
 conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',]
 
 # remove duplicate patients
@@ -66,18 +83,19 @@ patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 # calculate age in years by birthdate
 patients_tmp$age <- round( as.double( as.Date( Sys.time() ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
 
-# remove Patient/ from subject/reference and Encounter from encounter/reference
+# remove the "Patient/" tag from patient id in condition resource
 conditions_tmp$patient_id <- sub("Patient/", "", conditions_tmp[,"patient_id"])
 
 # merge all patients and conditions data by patient_id
 df_merged <- base::merge(patients_tmp, conditions_tmp, by = "patient_id")
 
 #center infos
-df_merged$center_name <- conf$center_name
-df_merged$center_zip <- conf$center_zip
+df_merged$hospital_name <- conf$hospital_name
+df_merged$hospital_zip <- conf$hospital_zip
 
-# prefinal dataframe with relevant columns
+# create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
-#csv output
+# write csv with ";" to file
 write.csv2(df_result,file= "result.csv")
+
