@@ -6,6 +6,7 @@ library(fhircrackr)
 library(digest)
 library(config)
 
+
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 search_request <- paste0(
@@ -27,7 +28,6 @@ conditions <- fhir_table_description(resource = "Condition",
 
 patients <- fhir_table_description(resource = "Patient",
                                    cols = c(patient_id = "id",
-                                            patient_id_source = "identifier/value",
                                             gender = "gender",
                                             birthdate = "birthDate",
                                             patient_zip = "address/postalCode"),
@@ -39,7 +39,7 @@ patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles
-bundles <- fhir_search(request = search_request, max_bundles = 0, verbose = 2, username = conf$user, password = conf$password)
+bundles <- fhir_search(request = search_request, max_bundles = 0, username = conf$user, password = conf$password)
 
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)
@@ -75,15 +75,12 @@ conditions_tmp$patient_id <- sub("Patient/", "", conditions_tmp[,"patient_id"])
 # merge all patients and conditions data by patient_id
 df_merged <- base::merge(patients_tmp, conditions_tmp, by = "patient_id")
 
-#pseudonymization of patient_id
-df_merged$patient_id <- sapply(df_merged$patient_id, digest, algo="md5",serialize=F)
-
 #center infos
 df_merged$center_name <- conf$center_name
 df_merged$center_zip <- conf$center_zip
 
 # prefinal dataframe with relevant columns
-df_result <- df_merged[,c('patient_id','age','gender','center_name','center_zip','patient_zip','icd_code')]
+df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
 #csv output
-write.csv(df_result,file= "step_1.csv")
+write.csv2(df_result,file= "result.csv")
