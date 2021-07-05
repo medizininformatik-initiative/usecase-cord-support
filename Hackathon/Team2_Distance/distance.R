@@ -85,11 +85,11 @@ data <- mutate(data, det_plz_lat = as.numeric(det_plz_lat))
 #############################################################################################################################################################################################
 distance <- apply(data[1:4],1, birdflight_distance)
 
-data <- dat_orig %>%
+data <- data %>%
 	# Creating a column with center zip code from config file as stated in the requirement
 	add_column(entfernung_luftlinie = distance, .after="icd_code")
 
-data <- dat_orig %>%
+data <- data %>%
 	# Creating a column with center zip code from config file as stated in the requirement
 	add_column(entfernung_route = 0, .after="entfernung_luftlinie")    
 
