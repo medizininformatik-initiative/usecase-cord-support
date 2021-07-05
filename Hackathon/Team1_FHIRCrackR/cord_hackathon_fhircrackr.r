@@ -1,11 +1,8 @@
 install.packages('fhircrackr') #requires R (>= 4.0.0)
-install.packages('digest')
 install.packages('config')
 
 library(fhircrackr)
-library(digest)
 library(config)
-
 
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
