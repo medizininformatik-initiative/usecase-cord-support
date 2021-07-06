@@ -1,5 +1,5 @@
-install.packages('fhircrackr') #requires R (>= 4.0.0)
-install.packages('config')
+if (!require('fhircrackr')) install.packages('fhircrackr')# to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
+if (!require('config')) install.packages('config')
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
