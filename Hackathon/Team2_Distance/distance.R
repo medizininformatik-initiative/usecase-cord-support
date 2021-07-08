@@ -29,23 +29,20 @@ plz_coord  <- read_xlsx(path =paste(getwd(),"/input/PLZ_manual_correction.cleane
 #############################################################################################################################################################################################
 dat_orig <- read.csv(file = paste(getwd(),"/input/result.csv",sep = ""),sep = ";")# output from fhircrackr team 1
 
-
 #############################################################################################################################################################################################
 # example config.yml file is as follows 
 # default:
 #    user: "username"
-#    password: "passwrd"
+#    password: "password"
 #    serverbase: 'http://hapi.fhir.org/fhir/'
-#    center_name: 'Your Center'
-#    center_zip: 'Center Zip Code'
-#    center_long: ""
-#    center_lat: " "
+#    hospital_name: 'Your Center'
+#    hospital_zip: 'Center Zip Code'
 #############################################################################################################################################################################################
-webconn <- config::get(file = paste(getwd(),"/config/conf_fhir.yml",sep=""))
+webconn <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 plz_coord <- mutate(plz_coord, kh_plz, kh_plz2 = as.numeric(kh_plz))
 #############################################################################################################################################################################################
-# inner join to identify and match only the available zip codes. Zipcode column from fhircrackr team 1 generated file is 'patient_plz'. Zipcode column from  PLZ_manual_correction.cleaned.xlsx
+# inner join to identify and match only the available zip codes. Zipcode column from fhircrackr team 1 generated file is 'patient_zip'. Zipcode column from  PLZ_manual_correction.cleaned.xlsx
 # is  "kh_plz2"
 #############################################################################################################################################################################################
 dat_orig <- inner_join(dat_orig, plz_coord, by=c("patient_zip" = "kh_plz2"))
@@ -59,8 +56,8 @@ birdflight_distance <- function(v) {
 	source_lat  <- v[[2]]
 	dest_long   <- v[[3]]
 	dest_lat    <- v[[4]]
-	dist_km     <- distHaversine(p1 = c(source_long, source_lat)
-								 ,p2 = c(dest_long, dest_lat))/1000
+	dist_km     <- distHaversine(p1 = c(source_long, source_lat),
+				     p2 = c(dest_long, dest_lat))/1000
 	return(dist_km)
 }
 
@@ -69,11 +66,11 @@ birdflight_distance <- function(v) {
 data <- select(dat_orig, kh_plz_lon, kh_plz_lat )
 
 data <- data %>%
-	# Creating a column with center longitude data from config  file
+	# Creating a column with center longitude data from config file
 	add_column(dest_plz_lon = webconn$center_long, .after="kh_plz_lat")
 
 data <- data %>%
-	# Creating a column with center latitude data from config  file
+	# Creating a column with center latitude data from config file
 	add_column(dest_plz_lat = webconn$center_lat, .after="dest_plz_lon")
 
 # change data type of destination i.e clinic location to numeric
@@ -93,12 +90,12 @@ data <- data %>%
 	# Creating a column with center zip code from config file as stated in the requirement
 	add_column(entfernung_route = 0, .after="bird_flight_distance")    
 
-
 #filter only selected columns
-data <- data[,c('patinet_id','age','gender', 'hospital_name', 'hospital_zip', 'zentrum_plz', 'patient_zip','diagnosis','bird_flight_distance','entfernung_route')]
+data <- data[,c('patient_id','age','gender', 'hospital_name', 'hospital_zip', 'patient_zip','diagnosis','bird_flight_distance','route_distance')]
 
 #############################################################################################################################################################################################
 # write result to a csv file
 ############################################################################################################################################################################################
-write.csv2(data,file= "distance_result.csv",row.names=F)
+write.csv2(data,file= "result.csv",row.names=F)
 ############################################################################################################################################################################################
+
