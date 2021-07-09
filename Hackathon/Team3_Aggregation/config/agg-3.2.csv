@@ -1,5 +1,5 @@
-Name des Zentrums;PLZ des Zentrums;Geschlecht;Diagnose1;Diagnose2;PLZ des Patienten;Anzahl
-Charité;10117;M;D83;;Sachsen;5
-Charité;10117;M;E84;;Sachsen;5
-Charité;10117;W;Q91;;Sachsen;6
-Charité;10117;W;M09;;Sachsen;6
+hospital_name;hospital_zip;gender;diagnosis_1;diagnosis_2;patient_zip;count
+Charité;10117;female;M09;;Sachsen;6
+Charité;10117;male;E84;;Sachsen;5
+Charité;10117;male;D83;;Sachsen;5
+Charité;10117;female;Q91;;Sachsen;6

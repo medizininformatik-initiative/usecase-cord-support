@@ -27,15 +27,15 @@ java -jar jars/cord-anonymization-v0.0.1.jar config/data.csv
 
 The input file needs to have the following columns (in this order from left to right):
 
-Pseudonym
-Alter
-Geschlecht
-Name des Zentrums
-PLZ des Zentrums
-PLZ des Patienten
-Diagnose
-Entfernung-Luftlinie
-Entfernung-Route
+1. patient_id
+2. age
+3. gender
+4. hospital_name
+5. hospital_zip
+6. patient_zip
+7. diagnosis
+8. bird_flight_distance
+9. route_distance
 
-"Geschlecht" needs to be encoded as "M", "W", "U" or "D".
+Gender needs to be encoded as "male", "female", "unknown" or "other" (see FHIR).
 For the exact format, please take a look at the example dataset located in config/data.csv
