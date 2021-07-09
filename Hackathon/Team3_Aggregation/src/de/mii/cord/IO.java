@@ -52,38 +52,38 @@ public class IO {
 	public static final String VALUE_UNKNOWN_MISSING = "unknown/missing";
 
 	/** Final field */
-	public static final String FIELD_PATIENT_PSEUDONYM = "Pseudonym";
+	public static final String FIELD_PATIENT_PSEUDONYM = "patient_id";
 	/** Final field */
-	public static final String FIELD_PATIENT_AGE = "Alter";
+	public static final String FIELD_PATIENT_AGE = "age";
 	/** Final field */
-	public static final String FIELD_PATIENT_SEX = "Geschlecht";
+	public static final String FIELD_PATIENT_SEX = "gender";
 	/** Final field */
-	public static final String FIELD_CENTER_NAME = "Name des Zentrums";
+	public static final String FIELD_CENTER_NAME = "hospital_name";
 	/** Final field */
-	public static final String FIELD_CENTER_ZIP = "PLZ des Zentrums";
+	public static final String FIELD_CENTER_ZIP = "hospital_zip";
 	/** Final field */
-	public static final String FIELD_PATIENT_ZIP = "PLZ des Patienten";
+	public static final String FIELD_PATIENT_ZIP = "patient_zip";
 	/** Final field */
-	public static final String FIELD_PATIENT_DIAGNOSIS = "Diagnose";
+	public static final String FIELD_PATIENT_DIAGNOSIS = "diagnosis";
 	/** Final field */
-	public static final String FIELD_PATIENT_DIAGNOSIS_1 = "Diagnose1";
+	public static final String FIELD_PATIENT_DIAGNOSIS_1 = "diagnosis_1";
 	/** Final field */
-	public static final String FIELD_PATIENT_DIAGNOSIS_2 = "Diagnose2";
+	public static final String FIELD_PATIENT_DIAGNOSIS_2 = "diagnosis_2";
 	/** Final field */
-	public static final String FIELD_PATIENT_DISTANCE_LINEAR = "Entfernung-Luftlinie";
+	public static final String FIELD_PATIENT_DISTANCE_LINEAR = "bird_flight_distance";
 	/** Final field */
-	public static final String FIELD_PATIENT_DISTANCE_ROUTE = "Entfernung-Route";
+	public static final String FIELD_PATIENT_DISTANCE_ROUTE = "route_distance";
 	/** Count*/
-	public static final String FIELD_COUNT = "Anzahl";
+	public static final String FIELD_COUNT = "count";
 	
 	/** Value*/
-	public static final String VALUE_PATIENT_SEX_MALE = "M";
+	public static final String VALUE_PATIENT_SEX_MALE = "male";
 	/** Value*/
-	public static final String VALUE_PATIENT_SEX_FEMALE = "W";
+	public static final String VALUE_PATIENT_SEX_FEMALE = "female";
 	/** Value*/
-	public static final String VALUE_PATIENT_SEX_DIVERSE = "D";
+	public static final String VALUE_PATIENT_SEX_DIVERSE = "other";
 	/** Value*/
-	public static final String VALUE_PATIENT_SEX_UNKNOWN = "U";
+	public static final String VALUE_PATIENT_SEX_UNKNOWN = "unknown";
 
 	/** Value*/
 	public static final String FORMAT_DISTANCE = "##0.##";

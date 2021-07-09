@@ -1,4 +1,4 @@
-Name des Zentrums;PLZ des Zentrums;Alter;Anzahl
+hospital_name;hospital_zip;age;count
 Charité;10117;]6, 8];24
 Charité;10117;]20, 25];23
 Charité;10117;]8, 10];23
