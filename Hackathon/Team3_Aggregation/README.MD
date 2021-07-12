@@ -5,17 +5,13 @@ Currently, diagnoses are selected based on lexicographic order (ascending order,
 
 Aggregates implemented:
 
-* Aggregatgruppe 1: alle Patienten mit SE-Diagnose, aber ohne Diagnose (nur Betrachtung von Altersgruppen, Geschlecht, Entfernungskategorien)
-Aggregat 1.1: Name Zentrum, PLZ Zentrum, Altersgruppe, Anzahl
-Aggregat 1.2: Name Zentrum, PLZ Zentrum, Geschlecht, Anzahl
-Aggregat 1.3: Name Zentrum, PLZ Zentrum, Entfernungskategorie, Anzahl
-Aggregat 1.4: Name Zentrum, PLZ Zentrum, Altersgruppe, Geschlecht, Anzahl
-
-* Aggregatgruppe 2: Fokus auf einzelne Diagnosen
-Wie Aggregate 1, aber ergänzt um Diagnose (vergröbert, z.B. 3-Steller oder Gruppe)
-
-* Aggregatgruppe 3: Fokus auf Wohnort & Diagnose
-Wie Aggregate 2, aber ergänzt um Bundesland des Wohnorts
+1. aggregation1.csv (breakdown by age group & gender): hospital_name, hospital_zip, age_group, gender, count
+2. aggregation2.csv (breakdown by birdflight distance group): hospital_name, hospital_zip, bird_flight_distance_group, count
+3. aggregation3.csv (breakdown by 3-digit ICD diagnosis): hospital_name, hospital_zip, diagnosis_icd3, count
+4. aggregation4.csv (breakdown by 3-digit ICD diagnosis & age group): hospital_name, hospital_zip, diagnosis_icd3, age_group, count
+5. aggregation5.csv (breakdown by 3-digit ICD diagnosis & gender): hospital_name, hospital_zip, diagnosis_icd3, gender, count
+6. aggregation6.csv (breakdown by 3-digit ICD diagnosis & birdflight distance group): hospital_name, hospital_zip, diagnosis_icd3, bird_flight_distance_group, count
+7. aggregation7.csv (breakdown by state & 3-digit ICD diagnosis): hospital_name, hospital_zip, state, diagnosis_icd3, count
 
 # How to run
 
