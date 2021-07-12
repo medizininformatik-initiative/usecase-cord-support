@@ -53,21 +53,12 @@ public class Main {
         Data patientLevelData = IO.loadPatientLevelData(input);
         
         // Aggregation step 1
-        IO.writeOutput(Agg1.aggregate1(patientLevelData), new File(input.getParent()+"/agg-1.1.csv"));
-        IO.writeOutput(Agg1.aggregate2(patientLevelData), new File(input.getParent()+"/agg-1.2.csv"));
-        IO.writeOutput(Agg1.aggregate3(patientLevelData), new File(input.getParent()+"/agg-1.3.csv"));
-        IO.writeOutput(Agg1.aggregate4(patientLevelData), new File(input.getParent()+"/agg-1.4.csv"));
-
-        // Aggregation step 2
-        IO.writeOutput(Agg2.aggregate1(patientLevelData), new File(input.getParent()+"/agg-2.1.csv"));
-        IO.writeOutput(Agg2.aggregate2(patientLevelData), new File(input.getParent()+"/agg-2.2.csv"));
-        IO.writeOutput(Agg2.aggregate3(patientLevelData), new File(input.getParent()+"/agg-2.3.csv"));
-        IO.writeOutput(Agg2.aggregate4(patientLevelData), new File(input.getParent()+"/agg-2.4.csv"));
-
-        // Aggregation step 3
-        IO.writeOutput(Agg3.aggregate1(patientLevelData), new File(input.getParent()+"/agg-3.1.csv"));
-        IO.writeOutput(Agg3.aggregate2(patientLevelData), new File(input.getParent()+"/agg-3.2.csv"));
-        IO.writeOutput(Agg3.aggregate3(patientLevelData), new File(input.getParent()+"/agg-3.3.csv"));
-        IO.writeOutput(Agg3.aggregate4(patientLevelData), new File(input.getParent()+"/agg-3.4.csv"));
+        IO.writeOutput(Aggregation.aggregation1(patientLevelData), new File(input.getParent()+"/aggregation1.csv"));
+        IO.writeOutput(Aggregation.aggregation2(patientLevelData), new File(input.getParent()+"/aggregation2.csv"));
+        IO.writeOutput(Aggregation.aggregation3(patientLevelData), new File(input.getParent()+"/aggregation3.csv"));
+        IO.writeOutput(Aggregation.aggregation4(patientLevelData), new File(input.getParent()+"/aggregation4.csv"));
+        IO.writeOutput(Aggregation.aggregation5(patientLevelData), new File(input.getParent()+"/aggregation5.csv"));
+        IO.writeOutput(Aggregation.aggregation6(patientLevelData), new File(input.getParent()+"/aggregation6.csv"));
+        IO.writeOutput(Aggregation.aggregation7(patientLevelData), new File(input.getParent()+"/aggregation7.csv"));
     }
 }
