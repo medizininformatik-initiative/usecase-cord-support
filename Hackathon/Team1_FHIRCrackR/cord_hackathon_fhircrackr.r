@@ -25,7 +25,7 @@ search_request <- paste0(
 # provide style parameter for Patient resource similar to Condition Resource if fhir_crack function demands
 ######################################################################################################################################################################################################################################################################################################################################################################################################################
 conditions <- fhir_table_description(resource = "Condition",
-                                     cols = c(icd_code = "code/coding/code",
+                                     cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
@@ -51,7 +51,7 @@ patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles
-bundles <- fhir_search(request = search_request, max_bundles = 0, username = conf$user, password = conf$password)
+bundles <- fhir_search(request = search_request, username = conf$user, password = conf$password, verbose = 1)
 
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)
@@ -60,13 +60,13 @@ dfs <- fhir_crack(bundles, design)
 conditions_raw <- dfs$conditions
 patients_raw <- dfs$patients
 
-# unnest raw conditions dataframe columns icd_code, icd_code_system
+# unnest raw conditions dataframe columns diagnosis, system
 conditions_tmp <- fhir_melt(conditions_raw,
-                            columns = c('icd_code','system'),
+                            columns = c('diagnosis','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 conditions_tmp <- fhir_melt(conditions_tmp,
-                            columns = c('icd_code','system'),
+                            columns = c('diagnosis','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 # remove brackets from cells
