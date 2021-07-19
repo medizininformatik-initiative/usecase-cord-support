@@ -1,5 +1,6 @@
 if (!require('fhircrackr')) install.packages('fhircrackr')# to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
 if (!require('config')) install.packages('config')
+if (!require('stringr')) install.packages('stringr')#to add leading zeros to make zip codes five digits
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
@@ -92,6 +93,10 @@ df_merged <- base::merge(patients_tmp, conditions_tmp, by = "patient_id")
 #center infos
 df_merged$hospital_name <- conf$hospital_name
 df_merged$hospital_zip <- conf$hospital_zip
+
+#leading zeros for zip code
+df_merged$patient_zip <- stringr::str_pad(df_merged$patient_zip, 5, side = "left", pad = 0)
+df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "left", pad = 0)
 
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
