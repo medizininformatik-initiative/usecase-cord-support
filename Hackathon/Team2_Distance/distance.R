@@ -8,18 +8,19 @@ library(tidyr)
 library(geosphere)
 ##############################################################################################################################################################################################
 # Input files
-plz_coord  <- read_xlsx(path =paste(getwd(),"/data/PLZ_manual_correction.cleaned.xlsx",sep = "") )# file for calculating birdflight distance with approximately 8295 plz entries
+zip_coord  <- read_xlsx(path =paste(getwd(),"/data/PLZ_manual_correction.cleaned.xlsx",sep = "") )# file for calculating birdflight distance with approximately 8295 plz entries
 
 # input file for patient longitude and latitude
 ptzip_coord <- read.csv(file = paste(getwd(),"/data/PLZ_pat_manual_cleaned.csv",sep = ""),sep = ";")
 
-#############################################################################################################################################################################################
-#  Read the input file from fhircrackr team 1 step in the pre-defined format i.e pseudonym; alter; geschlecht; zentrum_name; zentrum_plz;patient_plz; icd_code
-#############################################################################################################################################################################################
+#  read the input file from fhircrackr team 1 step in the pre-defined format i.e pseudonym; alter; geschlecht; zentrum_name; zentrum_plz;patient_plz; icd_code
 dat_orig <- read.csv(file = paste(getwd(),"/input/result.csv",sep = ""),sep = ";")# output from fhircrackr team 1
 
+# leading zeros to zipcode
+ptzip_coord$zipcode2<- stringr::str_pad(ptzip_coord$zipcode, 5, side = "left", pad = 0)
 
-plz_coord <- mutate(plz_coord, kh_plz, kh_plz2 = as.numeric(kh_plz))
+zip_coord <- mutate(zip_coord, kh_plz, kh_plz2 = as.numeric(kh_plz))
+ptzip_coord <- mutate(ptzip_coord, zipcode, zipcode2 = as.numeric(zipcode))
 #############################################################################################################################################################################################
 # left join on  zip codes. 
 ################################################################################################################################################################
