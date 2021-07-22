@@ -78,7 +78,7 @@ patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',]
 
 # remove duplicate patients
-conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id),]
+conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
 # calculate age in years by birthdate
