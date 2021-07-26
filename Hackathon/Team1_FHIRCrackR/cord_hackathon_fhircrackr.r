@@ -10,6 +10,7 @@ library(config)# to read variables from a config file
 # https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2
 # When the tracer diagnose list is updated then read the tracer diagnose list with  ICD 10 GM Codes
 ##################################################################################################################################################################################################################
+setwd("..")
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 # Compose fhir search request for the fhircrackr package
@@ -103,4 +104,3 @@ df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_
 
 # write csv with ";" to file
 write.csv2(df_result,file= "cracked_result.csv")
-
