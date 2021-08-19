@@ -1,11 +1,13 @@
 if (!require('readr')) install.packages('readr')#
 if (!require('tidyr')) install.packages('tidyr')#
 if (!require('dplyr')) install.packages('dplyr')#
+if (!require('tibble')) install.packages('tibble')#
 if (!require('geosphere')) install.packages('geosphere')# to calculate bird flight distance
 library(readxl)
 library(dplyr)
 library(tidyr)
 library(geosphere)
+library(tibble) 
 ##############################################################################################################################################################################################
 # Input file for  longitude and latitude
 ptzip_coord <- read.csv(file = paste(getwd(),"/data/PLZ_manual_correction.cleaned.csv",sep = ""),sep = ";")
