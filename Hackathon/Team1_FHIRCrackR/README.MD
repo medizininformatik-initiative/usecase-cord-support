@@ -20,6 +20,3 @@ Values that need to be adjusted in conf.yml
 
 ## Caution: leave last line in conf.yml empty
 
-## umm_fhircrackr.R is for specific location
-- before you run this file make sure all the parameters like serverbase, if required HAPI FHIR server username and password, your hospital abbreviation and zip code are avilable in the conf.yml file created based on the conf-example.yml file 
-- along with this all columns of data are available without NA
