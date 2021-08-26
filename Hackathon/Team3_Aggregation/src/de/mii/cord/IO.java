@@ -92,64 +92,6 @@ public class IO {
 	public static final Integer RISK_THRESHOLD = 5;
 
     /**
-     * File loading
-     * @param inputFile
-     * @return
-     * @throws IOException 
-     * @throws ParseException 
-     */
-    public static Data loadPatientLevelData(File inputFile) throws IOException, ParseException {
-    	
-        // Import process
-        DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
-        
-        // Clean columns
-        sourceSpecification.addColumn(0, FIELD_PATIENT_PSEUDONYM, DataType.STRING);
-        sourceSpecification.addColumn(1, FIELD_PATIENT_AGE, DataType.INTEGER);
-        sourceSpecification.addColumn(2, FIELD_PATIENT_SEX, DataType.createOrderedString(
-        		new String[] {VALUE_PATIENT_SEX_MALE, VALUE_PATIENT_SEX_FEMALE, VALUE_PATIENT_SEX_DIVERSE, VALUE_PATIENT_SEX_UNKNOWN}));
-        sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING);
-        sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, DataType.STRING);
-        sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, DataType.STRING);
-        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING);
-        sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
-        sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
-        
-        // Load input file
-        DataHandle handle = Data.create(sourceSpecification).getHandle();
-        return convertPatientLevel(handle);
-    }
-
-//    /**
-//     * File loading
-//     * @param inputFile
-//     * @return
-//     * @throws IOException 
-//     * @throws ParseException 
-//     */
-//    public static Data loadDiagnosisLevelData(File inputFile) throws IOException, ParseException {
-//    	
-//        // Import process
-//        DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
-//        
-//        // Clean columns
-//        sourceSpecification.addColumn(0, FIELD_PATIENT_PSEUDONYM, DataType.STRING);
-//        sourceSpecification.addColumn(1, FIELD_PATIENT_AGE, DataType.INTEGER);
-//        sourceSpecification.addColumn(2, FIELD_PATIENT_SEX, DataType.createOrderedString(
-//        		new String[] {VALUE_PATIENT_SEX_MALE, VALUE_PATIENT_SEX_FEMALE, VALUE_PATIENT_SEX_DIVERSE, VALUE_PATIENT_SEX_UNKNOWN}));
-//        sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING);
-//        sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, DataType.STRING);
-//        sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, DataType.STRING);
-//        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING);
-//        sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
-//        sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
-//        
-//        // Load input file
-//        DataHandle handle = Data.create(sourceSpecification).getHandle();
-//        return convertDiagnosisLevel(handle);
-//    }
-    
-    /**
      * Convert to new handle
      * @param handle
      * @return
@@ -207,11 +149,11 @@ public class IO {
 			String sex = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_SEX));
 			String centerName = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_NAME));
 			String centerZip = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_ZIP));
-			String zip = String.valueOf(Integer.valueOf(handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP))));
-			String diagnosis1 = clean(diagnoses.get(pseudonym).get(0));
-			String diagnosis2 = diagnoses.get(pseudonym).size() > 1 ? clean(diagnoses.get(pseudonym).get(1)) : "";
-			String linear = String.valueOf(Math.round(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_LINEAR))));
-			String route = String.valueOf(Math.round(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_ROUTE))));
+			String zip = getStringFromZip(handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP)));
+			String diagnosis1 = diagnoses.get(pseudonym).get(0);
+			String diagnosis2 = diagnoses.get(pseudonym).size() > 1 ? diagnoses.get(pseudonym).get(1) : "NULL";
+			String linear = getStringFromDouble(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_LINEAR)));
+			String route = getStringFromDouble(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_ROUTE)));
     		
 			// Add
 			data.add(new String[] {
@@ -235,6 +177,76 @@ public class IO {
     	// Return
     	return Data.create(data);
 	}
+
+//    /**
+//     * File loading
+//     * @param inputFile
+//     * @return
+//     * @throws IOException 
+//     * @throws ParseException 
+//     */
+//    public static Data loadDiagnosisLevelData(File inputFile) throws IOException, ParseException {
+//    	
+//        // Import process
+//        DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
+//        
+//        // Clean columns
+//        sourceSpecification.addColumn(0, FIELD_PATIENT_PSEUDONYM, DataType.STRING);
+//        sourceSpecification.addColumn(1, FIELD_PATIENT_AGE, DataType.INTEGER);
+//        sourceSpecification.addColumn(2, FIELD_PATIENT_SEX, DataType.createOrderedString(
+//        		new String[] {VALUE_PATIENT_SEX_MALE, VALUE_PATIENT_SEX_FEMALE, VALUE_PATIENT_SEX_DIVERSE, VALUE_PATIENT_SEX_UNKNOWN}));
+//        sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING);
+//        sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, DataType.STRING);
+//        sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, DataType.STRING);
+//        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, DataType.STRING);
+//        sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
+//        sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US));
+//        
+//        // Load input file
+//        DataHandle handle = Data.create(sourceSpecification).getHandle();
+//        return convertDiagnosisLevel(handle);
+//    }
+    
+    /**
+     * Creates a data type
+     * @param hierarchy
+     * @return
+     * @throws IOException
+     */
+	private static DataType<String> getDataTypeFromHierarchy(Hierarchy hierarchy) throws IOException {
+		List<String> values = new ArrayList<>();
+		for (String[] row : hierarchy.getHierarchy()) {
+			values.add(row[0]);
+		}
+		return DataType.createOrderedString(values);
+	}
+    
+    /**
+     * Double to string
+     * @param value
+     * @return
+     */
+	private static String getStringFromDouble(Double value) {
+		if (value == null) {
+			return "NULL";
+		} else {
+			return String.valueOf(Math.round(value));	
+		}
+	}
+	 
+    /**
+     * Zip to string
+     * @param value
+     * @return
+     */
+	private static String getStringFromZip(String zip) {
+		try {
+			return String.valueOf(Integer.valueOf(zip));
+		} catch (Exception e) {
+			return "NULL";	
+		}
+	}
+
 //
 //    /**
 //     * Convert to new handle
@@ -295,27 +307,7 @@ public class IO {
 //    	return Data.create(data);
 //	}
 
-    /**
-     * Cleans a diagnosis code
-     * @param string
-     * @return
-     */
-	private static String clean(String string) {
-		return string.replace("!", "").replace("*", "").replace("M908.2", "M90.82");
-	}
-
 	/**
-     * Writes the data, shuffles rows
-     * @param result 
-     * @param output
-     * @throws IOException 
-     */
-    public static void writeOutput(Data result, File output) throws IOException {
-        CSVDataOutput writer = new CSVDataOutput(output, ';');
-		writer.write(result.getHandle().iterator());
-    }
-
-    /**
      * Loads a hierarchy
      * @return
      */
@@ -340,10 +332,50 @@ public class IO {
 	}
 
     /**
+     * File loading
+     * @param inputFile
+     * @return
+     * @throws IOException 
+     * @throws ParseException 
+     */
+    public static Data loadPatientLevelData(File inputFile) throws IOException, ParseException {
+    	
+        // Import process
+        DataSource sourceSpecification = DataSource.createCSVSource(inputFile, CHARSET, ';', true);
+        
+        // Clean columns
+        sourceSpecification.addColumn(0, FIELD_PATIENT_PSEUDONYM, DataType.STRING, true);
+        sourceSpecification.addColumn(1, FIELD_PATIENT_AGE, DataType.INTEGER, true);
+        sourceSpecification.addColumn(2, FIELD_PATIENT_SEX, DataType.createOrderedString(
+        		new String[] {VALUE_PATIENT_SEX_MALE, VALUE_PATIENT_SEX_FEMALE, VALUE_PATIENT_SEX_DIVERSE, VALUE_PATIENT_SEX_UNKNOWN}), true);
+        sourceSpecification.addColumn(3, FIELD_CENTER_NAME, DataType.STRING, true);
+        sourceSpecification.addColumn(4, FIELD_CENTER_ZIP, getDataTypeFromHierarchy(loadZipHierarchy()), true);
+        sourceSpecification.addColumn(5, FIELD_PATIENT_ZIP, getDataTypeFromHierarchy(loadZipHierarchy()), true);
+        sourceSpecification.addColumn(6, FIELD_PATIENT_DIAGNOSIS, getDataTypeFromHierarchy(loadDiagnosisHierarchy()), true);
+        sourceSpecification.addColumn(7, FIELD_PATIENT_DISTANCE_LINEAR, DataType.createDecimal(FORMAT_DISTANCE, Locale.US), true);
+        sourceSpecification.addColumn(8, FIELD_PATIENT_DISTANCE_ROUTE, DataType.createDecimal(FORMAT_DISTANCE, Locale.US), true);
+        
+        // Load input file
+        DataHandle handle = Data.create(sourceSpecification).getHandle();
+        return convertPatientLevel(handle);
+    }
+
+    /**
      * Loads a hierarchy
      * @return
      */
 	public static Hierarchy loadZipHierarchy() throws IOException {
 		return Hierarchy.create(IO.class.getResourceAsStream("zip.csv"), IO.CHARSET);
 	}
+
+    /**
+     * Writes the data, shuffles rows
+     * @param result 
+     * @param output
+     * @throws IOException 
+     */
+    public static void writeOutput(Data result, File output) throws IOException {
+        CSVDataOutput writer = new CSVDataOutput(output, ';');
+		writer.write(result.getHandle().iterator());
+    }
 }
