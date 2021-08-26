@@ -1,5 +1,6 @@
 hospital_name;hospital_zip;diagnosis_1;diagnosis_2;gender;count
-Charité;10117;E84;;male;5
-Charité;10117;D83;;male;5
-Charité;10117;M09;;female;6
-Charité;10117;Q91;;female;6
+Charité;10117;E84;NULL;male;5
+Charité;10117;NULL;NULL;female;6
+Charité;10117;Q91;NULL;female;6
+Charité;10117;M09;NULL;female;6
+Charité;10117;D83;NULL;male;5
