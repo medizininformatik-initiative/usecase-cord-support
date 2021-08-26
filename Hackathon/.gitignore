@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints
+
+# config files
+config

@@ -1,5 +1,6 @@
 if (!require('fhircrackr')) install.packages('fhircrackr')# to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
 if (!require('config')) install.packages('config')
+if (!require('stringr')) install.packages('stringr')#to add leading zeros to make zip codes five digits
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
@@ -9,6 +10,7 @@ library(config)# to read variables from a config file
 # https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2
 # When the tracer diagnose list is updated then read the tracer diagnose list with  ICD 10 GM Codes
 ##################################################################################################################################################################################################################
+setwd("..")
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 # Compose fhir search request for the fhircrackr package
@@ -25,7 +27,7 @@ search_request <- paste0(
 # provide style parameter for Patient resource similar to Condition Resource if fhir_crack function demands
 ######################################################################################################################################################################################################################################################################################################################################################################################################################
 conditions <- fhir_table_description(resource = "Condition",
-                                     cols = c(icd_code = "code/coding/code",
+                                     cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
@@ -51,7 +53,7 @@ patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles
-bundles <- fhir_search(request = search_request, max_bundles = 0, username = conf$user, password = conf$password)
+bundles <- fhir_search(request = search_request, username = conf$user, password = conf$password, verbose = 1)
 
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)
@@ -60,13 +62,13 @@ dfs <- fhir_crack(bundles, design)
 conditions_raw <- dfs$conditions
 patients_raw <- dfs$patients
 
-# unnest raw conditions dataframe columns icd_code, icd_code_system
+# unnest raw conditions dataframe columns diagnosis, system
 conditions_tmp <- fhir_melt(conditions_raw,
-                            columns = c('icd_code','system'),
+                            columns = c('diagnosis','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 conditions_tmp <- fhir_melt(conditions_tmp,
-                            columns = c('icd_code','system'),
+                            columns = c('diagnosis','system'),
                             brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 # remove brackets from cells
@@ -77,7 +79,7 @@ patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',]
 
 # remove duplicate patients
-conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id),]
+conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
 # calculate age in years by birthdate
@@ -93,9 +95,12 @@ df_merged <- base::merge(patients_tmp, conditions_tmp, by = "patient_id")
 df_merged$hospital_name <- conf$hospital_name
 df_merged$hospital_zip <- conf$hospital_zip
 
+#leading zeros for zip code
+df_merged$patient_zip <- stringr::str_pad(df_merged$patient_zip, 5, side = "left", pad = 0)
+df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "left", pad = 0)
+
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
 # write csv with ";" to file
-write.csv2(df_result,file= "result.csv")
-
+write.csv2(df_result,file= "cracked_result.csv")
