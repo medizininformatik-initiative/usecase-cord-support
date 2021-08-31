@@ -42,4 +42,4 @@ vignettes/*.pdf
 .ipynb_checkpoints
 
 # config files
-config
+config/conf.yml
