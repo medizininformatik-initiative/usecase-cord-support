@@ -6,15 +6,17 @@ if (!require('geosphere')) install.packages('geosphere')# to calculate bird flig
 library(readxl)
 library(dplyr)
 library(tidyr)
+library(tidyverse)
 library(geosphere)
 library(tibble) 
 ##############################################################################################################################################################################################
-# Input file for  longitude and latitude
-ptzip_coord <- read.csv(file = paste(getwd(),"/data/PLZ_manual_correction.cleaned.csv",sep = ""),sep = ";")
+conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 #  read the input file from fhircrackr team 1 step in the pre-defined format i.e pseudonym; alter; geschlecht; zentrum_name; zentrum_plz;patient_plz; icd_code
-dat_orig <- read.csv(file = paste(getwd(),"/cracked_result.csv",sep = ""),sep = ";")# output from fhircrackr team 1
+dat_orig <- read.csv(file = paste(getwd(),"/",conf$cracked_result,sep = ""),sep = ";")# output from fhircrackr team 1
 
+# Input file for  longitude and latitude
+ptzip_coord <- read.csv(file = paste(getwd(),"/",conf$plz_input,sep = ""),sep = ";")
 
 #############################################################################################################################################################################################
 # left join on  zip codes.
@@ -38,6 +40,7 @@ birdflight_distance <- function(v) {
 
 data <- select(patzip_orig,patient_id,age,gender,hospital_name,hospital_zip,patient_zip,longitude,latitude,diagnosis)
 
+print(data$hospital_zip[0])
 #center latitude and longitude 
 center_tmp <- na.omit(inner_join(patzip_orig, ptzip_coord, by=c("hospital_zip" = "zipcode")))
 center_long <- center_tmp$longitude.y[1]
@@ -75,4 +78,4 @@ data$hospital_zip<- stringr::str_pad(data$hospital_zip, 5, side = "left", pad = 
 data$patient_zip<- stringr::str_pad(data$patient_zip, 5, side = "left", pad = 0)
 
 # write result to a csv file with semicolon as separator and remove quotes by setting quote parameter to  false
-write.csv2(data,file= "distance_result.csv",row.names=F,quote=F)
+write.csv2(data,file=conf$distance_result,row.names=F,quote=F)
