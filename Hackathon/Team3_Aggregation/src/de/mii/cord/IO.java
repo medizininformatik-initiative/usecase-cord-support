@@ -149,7 +149,7 @@ public class IO {
 			String sex = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_SEX));
 			String centerName = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_NAME));
 			String centerZip = handle.getValue(i, handle.getColumnIndexOf(FIELD_CENTER_ZIP));
-			String zip = getStringFromZip(handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP)));
+			String zip = handle.getValue(i, handle.getColumnIndexOf(FIELD_PATIENT_ZIP));
 			String diagnosis1 = diagnoses.get(pseudonym).get(0);
 			String diagnosis2 = diagnoses.get(pseudonym).size() > 1 ? diagnoses.get(pseudonym).get(1) : "NULL";
 			String linear = getStringFromDouble(handle.getDouble(i, handle.getColumnIndexOf(FIELD_PATIENT_DISTANCE_LINEAR)));
@@ -231,19 +231,6 @@ public class IO {
 			return "NULL";
 		} else {
 			return String.valueOf(Math.round(value));	
-		}
-	}
-	 
-    /**
-     * Zip to string
-     * @param value
-     * @return
-     */
-	private static String getStringFromZip(String zip) {
-		try {
-			return String.valueOf(Integer.valueOf(zip));
-		} catch (Exception e) {
-			return "NULL";	
 		}
 	}
 
