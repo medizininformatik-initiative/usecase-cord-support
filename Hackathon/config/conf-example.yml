@@ -1,21 +1,22 @@
 default:
-  serverbase:     'http://hapi.fhir.org/fhir/'
-  hospital_name:  'Your Center'
-  hospital_zip:   'Center Zip Code'
+  serverbase:       'http://hapi.fhir.org/fhir/'
+  hospital_name:    'Your Center'
+  hospital_zip:     'Center Zip Code'
 
-#if you need to authenticate on your fhir server, set username and password
-  username:       ''
-  password:       ''
+# if you need to authenticate on your fhir server, set username and password
+  username:         ''
+  password:         ''
   
 # Addition of a common data directory  
-[datapath]
-cracked_result = ../data/cracked_result.csv
-plz_input        = ../data/PLZ_manual_correction.cleaned.csv
-distance_result  = ../data/distance_result.csv
-aggregation1_op  = ../data/aggregation1.csv
-aggregation2_op  = ../data/aggregation2.csv
-aggregation3_op  = ../data/aggregation3.csv 
-aggregation4_op  = ../data/aggregation3.csv  
-aggregation5_op  = ../data/aggregation3.csv 
-aggregation6_op  = ../data/aggregation3.csv 
-aggregation7_op  = ../data/aggregation3.csv 
+  cracked_result:   data/cracked_result.csv
+  plz_input:        data/PLZ_manual_correction.cleaned.csv
+  distance_result:  data/distance_result.csv
+  
+# Results of aggregation script
+  aggregation1_op:  data/aggregation1.csv
+  aggregation2_op:  data/aggregation2.csv
+  aggregation3_op:  data/aggregation3.csv 
+  aggregation4_op:  data/aggregation3.csv  
+  aggregation5_op:  data/aggregation3.csv 
+  aggregation6_op:  data/aggregation3.csv 
+  aggregation7_op:  data/aggregation3.csv 
