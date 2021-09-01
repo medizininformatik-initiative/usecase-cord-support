@@ -1,8 +1,8 @@
 hospital_name;hospital_zip;diagnosis_1;diagnosis_2;bird_flight_distance;count
-Charit�;10117;Q96;NULL;]160,320];6
-Charit�;10117;NULL;NULL;]160,320];8
-Charit�;10117;D86;NULL;]160,320];5
-Charit�;10117;M09;NULL;]160,320];9
-Charit�;10117;Q91;NULL;]160,320];5
-Charit�;10117;G35;NULL;]160,320];6
-Charit�;10117;Q05;NULL;]160,320];8
+Charité;10117;Q96;NULL;]160,320];6
+Charité;10117;Q05;NULL;]160,320];8
+Charité;10117;NULL;NULL;]160,320];8
+Charité;10117;Q91;NULL;]160,320];5
+Charité;10117;G35;NULL;]160,320];6
+Charité;10117;M09;NULL;]160,320];9
+Charité;10117;D86;NULL;]160,320];5
