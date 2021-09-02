@@ -40,7 +40,7 @@ birdflight_distance <- function(v) {
 
 data <- select(patzip_orig,patient_id,age,gender,hospital_name,hospital_zip,patient_zip,longitude,latitude,diagnosis)
 
-print(data$hospital_zip[0])
+#print(data$hospital_zip[0])
 #center latitude and longitude 
 center_tmp <- na.omit(inner_join(patzip_orig, ptzip_coord, by=c("hospital_zip" = "zipcode")))
 center_long <- center_tmp$longitude.y[1]
