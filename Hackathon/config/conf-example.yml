@@ -11,6 +11,12 @@ default:
   cracked_result:   data/cracked_result.csv
   plz_input:        data/PLZ_manual_correction.cleaned.csv
   distance_result:  data/distance_result.csv
+
+# Load ICD-10 GM catalog and hierarchy 
+  catalog_hierarchy: data/d_med_adm_icd.csv
+ 
+# German states
+  map_states: data/map_bundesland.csv
   
 # Results of aggregation script
   aggregation1_op:  data/aggregation1.csv
