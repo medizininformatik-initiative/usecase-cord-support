@@ -8,4 +8,5 @@ services:
     - "3838:3838"
     volumes:
       - ./data:/srv/shiny-server/data:rw
+      - ./data/results:/srv/shiny-server/data/results:rw
       - ./config:/srv/shiny-server/config:ro
