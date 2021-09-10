@@ -2,11 +2,10 @@ version: '3.7'
 
 services:
   cord_hackathon:
-    image: ghcr.io/chris-ti-an-g/cord_hackathon:001
+    image: ghcr.io/chris-ti-an-g/cord_hackathon:002
     restart: unless-stopped
     ports:
     - "3838:3838"
     volumes:
       - ./data:/srv/shiny-server/data:rw
-      - ./data/results:/srv/shiny-server/data/results:rw
       - ./config:/srv/shiny-server/config:ro
