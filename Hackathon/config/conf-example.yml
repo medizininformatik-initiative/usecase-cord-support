@@ -8,24 +8,24 @@ default:
   password:         ''
   
 # Addition of a common data directory  
-  cracked_result:   data/cracked_result.csv
+  cracked_result:   data/results/cracked_result.csv
   plz_input:        data/PLZ_manual_correction.cleaned.csv
-  distance_result:  data/distance_result.csv
+  distance_result:  data/results/distance_result.csv
 
 # Load ICD-10 GM catalog and hierarchy 
-  catalog_hierarchy: data/d_med_adm_icd.csv
+  catalog_hierarchy: data/results/d_med_adm_icd.csv
  
 # German states
-  map_states: data/map_bundesland.csv
+  map_states: data/results/map_bundesland.csv
   
 # Results of aggregation script
-  aggregation1_op:  data/aggregation1.csv
-  aggregation2_op:  data/aggregation2.csv
-  aggregation3_op:  data/aggregation3.csv 
-  aggregation4_op:  data/aggregation4.csv  
-  aggregation5_op:  data/aggregation5.csv 
-  aggregation6_op:  data/aggregation6.csv 
-  aggregation7_op:  data/aggregation7.csv 
+  aggregation1_op:  data/results/aggregation1.csv
+  aggregation2_op:  data/results/aggregation2.csv
+  aggregation3_op:  data/results/aggregation3.csv 
+  aggregation4_op:  data/results/aggregation4.csv  
+  aggregation5_op:  data/results/aggregation5.csv 
+  aggregation6_op:  data/results/aggregation6.csv 
+  aggregation7_op:  data/results/aggregation7.csv 
 
 # if you need to use a proxy server (e.G. http://proxy:port )
   http_proxy:       ''
