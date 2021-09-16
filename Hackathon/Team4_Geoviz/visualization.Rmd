@@ -6,7 +6,7 @@ output:
 ---
 ```{r, include=FALSE}
 # Libraries & Configuration
-packages <- c("dplyr", "ggmap", "ggplot2", "knitr", "leaflet", "pander", "readr", "sf", "stringr", "tidygeocoder", "tidyr")
+packages <- c("dplyr", "ggmap", "ggplot2", "knitr", "leaflet", "pander", "readr", "sf", "stringr", "tidygeocoder", "tidyr", "config")
 install.packages(setdiff(packages, rownames(installed.packages())))
 lapply(packages, require, character.only = TRUE)
 
@@ -34,6 +34,9 @@ ggmap_bbox <- function(map) {
 }
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# conf variable
+conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
+
 # Load ICD10-GM catalog & hierarchy
 #icdcatalog <- read_delim(paste0(baseurl, "d_med_adm_icd.csv"),
 icdcatalog <- read_delim(conf$catalog_hierarchy,
