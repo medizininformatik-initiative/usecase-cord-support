@@ -13,7 +13,9 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 [Tracer Diagnose list mit ICD_10GM Code](https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2)
 
 ## To begin 
-1. clone the repository using git clone
+1. clone the repository using 
+        ```
+         git clone https://github.com/medizininformatik-initiative/usecase-cord.git
 2. navigate to Hackathon directory 
     1. inside the hackathon repository navigate to config folder. 
     2. in the config folder use conf-example.yml and create a new file and name it 'conf.yml' 
