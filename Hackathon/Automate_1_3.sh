@@ -19,25 +19,25 @@ function parse_yaml {
    }'
 }
 echo
-export $(parse_yaml config/conf.yml)
 
-script1="/Team1_FHIRCrackR/cord_hackathon_fhircrackr.r"
-path_script1="${BASE_DIR}${script1}"
+export $(parse_yaml $BASE_DIR/config/conf.yml)
+
+path_script1="${BASE_DIR}/script1.r"
 Rscript $path_script1
 echo
 echo "Script 1 completed"
 echo
-script2="/Team2_Distance/distance.r"
-path_script2="${BASE_DIR}${script2}"
+path_script2="${BASE_DIR}/script2.r"
 Rscript $path_script2
 echo
 echo "Script 2 completed"
 echo
 path_script3=${BASE_DIR}"/"${default_distance_result}
 echo
-echo $path_script3
 echo
-java -jar Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar $path_script3
+java -jar ${BASE_DIR}"/"script3.jar $path_script3
 echo
 echo "Script 3 completed"
+echo
+echo "starting visualization server on http://localhost:3838"
 echo
