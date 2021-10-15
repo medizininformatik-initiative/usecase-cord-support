@@ -17,7 +17,7 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 2. then navigate to Hackathon directory 
     1. inside the hackathon repository navigate to config folder. 
     2. in the config folder use conf-example.yml and create a new file and name it 'conf.yml' 
-    3. in conf.yml file created from the previous step (2b) modify the serverbase to your FHIR store url, hospital_name and hospital_zip
+    3. in conf.yml file created from the previous step (2 ii) modify the serverbase to your FHIR store url, hospital_name and hospital_zip
     4. if your FHIR store is secured with credentials then please modify the conf.yml file according to instructions in conf-example.yml file
 3. to run dcoker compose file you need docker and docker compose to be installed in your machine
     1. to download and execute docker images use the following command 
