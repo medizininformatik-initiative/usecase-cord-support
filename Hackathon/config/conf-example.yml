@@ -1,5 +1,5 @@
 default:
-  serverbase:       'http://hapi.fhir.org/fhir/'
+  serverbase:       'http://hapi.fhir.org/baseR4/'
   hospital_name:    'Your Center'
   hospital_zip:     'Center Zip Code'
 

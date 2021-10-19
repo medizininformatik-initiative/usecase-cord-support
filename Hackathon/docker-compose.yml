@@ -8,3 +8,4 @@ services:
     - "3838:3838"
     volumes:
       - ./config:/srv/shiny-server/config:ro
+      # - ./data/cracked_result.csv:/srv/shiny-server/data/cracked_result.csv:ro # workaround fuer das umgehen der FHIRCrackR-Strecke
