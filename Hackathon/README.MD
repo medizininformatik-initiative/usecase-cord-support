@@ -36,6 +36,6 @@ Apply the following step if you obtain the data using SQL queries on your datawa
    ```  
    patient_id;age;gender;hospital_name;hospital_zip;patient_zip;diagnosis
    ```
-*then place the file inside the data folder. This is the location of the volume from where the container can read your cracked_result.csv file. <br/>
+  *then place the file inside the data folder. This is the location of the volume from where the container can read your cracked_result.csv file.* <br/>
 2. *after that uncomment the line number 11 in docker-compose.yml file. This action will enable the container to manually read the cracked_result.csv file from data folder and provide it to subsequent steps.*
 
