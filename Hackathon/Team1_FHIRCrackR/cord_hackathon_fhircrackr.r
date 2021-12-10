@@ -83,8 +83,11 @@ conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSy
 conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
-# filter Patient by country code to obtain only Patients from Germany 
-patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
+# check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
+if ("countrycode" %in% colnames(patients_tmp))
+{
+	patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
+}
 
 # calculate age in years by birthdate
 patients_tmp$age <- round( as.double( as.Date( Sys.time() ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
