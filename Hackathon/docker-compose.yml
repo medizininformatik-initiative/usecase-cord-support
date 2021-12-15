@@ -2,9 +2,11 @@ version: '3.7'
 
 services:
   cord_hackathon:
-    image: ghcr.io/chris-ti-an-g/cord_hackathon:003
+    image: ghcr.io/chris-ti-an-g/cord_hackathon:011
     restart: unless-stopped
     ports:
-    - "3838:3838"
+      - "3838:3838"
     volumes:
-      - ./config:/srv/shiny-server/config:ro
+      - ./config:/srv/shiny-server/config:ro # - ./data/cracked_result.csv:/srv/shiny-server/data/cracked_result.csv:ro # workaround fuer das umgehen falls die standorte hatte die cracked_result.csv datei nicht aus FHIR server erhalten z.B., aus SQL aufbaut. Der FHIRCrackR-Strecke Umweg
+    environment:
+      no_proxy: 'localhost,127.0.0.1'
