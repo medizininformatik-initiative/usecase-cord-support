@@ -11,3 +11,31 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 
 ## Tracer Diagnose list 
 [Tracer Diagnose list mit ICD_10GM Code](https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2)
+
+## To begin 
+1. clone the repository using git clone https://github.com/medizininformatik-initiative/usecase-cord.git
+2. then navigate to Hackathon directory 
+    1. inside the hackathon repository navigate to config folder. 
+    2. in the config folder make use of conf-example.yml and create a new file with values corresponding to your location and name it 'conf.yml'. For help contact @rajesh-murali 
+    3. in conf.yml file created from the previous step (2 ii) modify the serverbase to your location specific FHIR store url, hospital_name and hospital_zip
+    4. if your FHIR store is secured with credentials then please modify the conf.yml file according to instructions in conf-example.yml file
+3. to run dcoker compose file you need docker and docker compose to be installed in your machine
+    1. to download and execute docker images use the following command 
+        ```
+        docker-compose up -d
+    2. to shutdown and remove the containers 
+        ``` 
+        docker-compose down
+4. if all the input parameters from conf.yml are available then step 3a might take a while to download the docker images. After succesfull execution of script aggregation csv files from 1 to 7 will be available in data folder.
+5. the results from visualization script are made accessible in visualization.pdf file
+
+#### Workaround <br/>
+*Pre-requisite: <br/>
+Apply the following step if you obtain the data using SQL queries on your datawarehouse and not from FHIR server. In this case you manually create cracked_result.csv file.* <br/>
+1. *If you already have the result of FHIRCrackR step in cracked_result.csv file in the desired format with following columns* 
+   ```  
+   patient_id;age;gender;hospital_name;hospital_zip;patient_zip;diagnosis
+   ```
+  *then place the file inside the data folder. This is the location of the volume from where the container can read your cracked_result.csv file.* <br/>
+2. *after that uncomment the line number 11 in docker-compose.yml file. This action will enable the container to manually read the cracked_result.csv file from data folder and provide it to subsequent steps.*
+

@@ -38,7 +38,9 @@ patients <- fhir_table_description(resource = "Patient",
                                    cols = c(patient_id = "id",
                                             gender = "gender",
                                             birthdate = "birthDate",
-                                            patient_zip = "address/postalCode"),
+                                            patient_zip = "address/postalCode",
+                                            countrycode = "address/country"
+                                            ),
                                    style = fhir_style(sep="|",
                                                       brackets = c("[", "]"),
                                                       rm_empty_cols = FALSE)
@@ -80,6 +82,12 @@ conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSy
 # remove duplicate patients
 conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
+
+# check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
+if ("countrycode" %in% colnames(patients_tmp))
+{
+	patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
+}
 
 # calculate age in years by birthdate
 patients_tmp$age <- round( as.double( as.Date( Sys.time() ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
