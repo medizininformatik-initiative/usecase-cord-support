@@ -19,7 +19,7 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
     2. in the config folder make use of conf-example.yml and create a new file with values corresponding to your location and name it 'conf.yml'. For help contact @rajesh-murali 
     3. in conf.yml file created from the previous step (2 ii) modify the serverbase to your location specific FHIR store url, hospital_name and hospital_zip
     4. if your FHIR store is secured with credentials then please modify the conf.yml file according to instructions in conf-example.yml file
-3. to run dcoker compose file you need docker and docker compose to be installed in your machine
+3. to run docker compose file you need docker and docker compose to be installed in your machine
     1. to download and execute docker images use the following command 
         ```
         docker-compose up -d
@@ -39,3 +39,38 @@ Apply the following step if you obtain the data using SQL queries on your datawa
   *then place the file inside the data folder. This is the location of the volume from where the container can read your cracked_result.csv file.* <br/>
 2. *after that uncomment the line number 11 in docker-compose.yml file. This action will enable the container to manually read the cracked_result.csv file from data folder and provide it to subsequent steps.*
 
+## Execution on Docker Desktop for Windows: <br/>
+
+
+In order to execute the Scripts in Docker Desktop for windows the following pre-requisit must be fullfilled <br/>>
+
+*Pre-requisit for Windows Operatingsystem version 10: <br/>
+1. Docker desktop on windows from version 2.5.3 <br/>
+
+2. Administrator rights on Power shell or command prompt <br/>
+
+3. After installation docker desktop for windows must be in running status indicated by the green circle <br/>
+
+4. Git installed <br/>
+
+5. If proxy is required, you can provide your appropriate proxy parameter with the Web Server (HTTP) parameter as well as with the Secure Web Server (HTTPS) parameters in the Docker Desktop for Windows Settigs Menu. Access the Settings menu by right clicking on the whale icon present in the System Tray and choose settings. In the settings menu set the proxies for HTTP and HTTPS parameter <br/>
+
+#### Steps <br/>
+
+1. Open the command prompt or windows power shell using administrator rights <br/>
+
+2. then clone the Github repository using: <br/>
+ ```  
+   git clone https://github.com/medizininformatik-initiative/usecase-cord.git
+   ```
+3. navigate to the config folder inside the downloaded respository. Copy the `conf-example.yml` file and create a new file with values corresponding to your location and name it as `conf.yml`. <br/>
+
+4. in conf.yml file created from the previous step (3) modify the serverbase to your location specific FHIR store url, hospital_name and hospital_zip <br/>
+
+5. if your FHIR store is secured with credentials then please modify the `conf.yml` file with appropriate credentials according to instructions in conf-example.yml file <br/>
+
+6. then in the command prompt or in the power shell navigate to the downloaded folder using the `cd` change directory command in such a way that inside this folder `docker-compose.yml` file must be located<br/>
+
+7. then to start the container type the following command `docker-compose up` <br/>
+
+8. after that you can access the front end from `http://localhost:3838`<br/>
