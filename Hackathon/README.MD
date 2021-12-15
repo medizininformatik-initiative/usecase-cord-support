@@ -53,7 +53,7 @@ In order to execute the Scripts in Docker Desktop for windows the following pre-
 
 4. Git  <br/>
 
-5. If proxy is required, you can provide your appropriate proxy parameter with the Web Server (HTTP) parameter as well as with the Secure Web Server (HTTPS) parameters in the Docker Desktop for Windows Settigs Menu. Access the Settings menu by right clicking on the whale icon present in the System Tray and choose settings. In the settings menu set the proxies for HTTP and HTTPS parameter <br/>
+5. If proxy is required, you can provide your appropriate proxy parameter with the Web Server (HTTP) parameter as well as with the Secure Web Server (HTTPS) parameters in the Docker Desktop for Windows settings menu. Access the settings menu by right clicking on the whale icon present in the System Tray and choose settings. In the settings menu set the proxies for HTTP and HTTPS parameter <br/>
 
 #### Steps <br/>
 
