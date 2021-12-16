@@ -7,10 +7,16 @@ output:
 ```{r, include=FALSE}
 # Libraries & Configuration
 packages <- c("dplyr", "ggmap", "ggplot2", "knitr", "leaflet", "pander", "readr", "sf", "stringr", "tidygeocoder", "tidyr", "config")
-install.packages(setdiff(packages, rownames(installed.packages())))
+#install.packages(setdiff(packages, rownames(installed.packages())))
 lapply(packages, require, character.only = TRUE)
 
-baseurl = "data/"
+#baseurl = "data/"
+# conf variable
+conf <- config::get(file = "../config/conf.yml")
+
+Sys.setenv(http_proxy=conf$http_proxy)
+Sys.setenv(https_proxy=conf$https_proxy)
+load('../data.RData')
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Define a function to fix the bounding box to be in EPSG:3857
@@ -34,19 +40,17 @@ ggmap_bbox <- function(map) {
 }
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# conf variable
-conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 # Load ICD10-GM catalog & hierarchy
 #icdcatalog <- read_delim(paste0(baseurl, "d_med_adm_icd.csv"),
-icdcatalog <- read_delim(conf$catalog_hierarchy,
-                         delim = ";",
-                         skip = 0,
-                         col_types = cols(.default = col_character(),version_id = col_double(),version_valid_from = col_date(format = ""),version_valid_to = col_date(format = ""),icd_raredisease_flag = col_double(),icd_ifsg_notification_flag = col_double(),icd_ifsg_lab_flag = col_double()))
+#icdcatalog <- read_delim(conf$catalog_hierarchy,
+#                         delim = ";",
+#                         skip = 0,
+#                         col_types = cols(.default = col_character(),version_id = col_double(),version_valid_from = col_date(format = ""),version_valid_to = col_date(format = ""),icd_raredisease_flag = col_double(),icd_ifsg_notification_flag = col_double(),icd_ifsg_lab_flag = col_double()))
 
 # Download & extract shapes of German administrative regions from https://gadm.org/ unless already available
 if (!file.exists("gadm36_DEU.gpkg")) {
-    download.file("https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_DEU_gpkg.zip", "gadm36_DEU_gpkg.zip")
+    #download.file("https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_DEU_gpkg.zip", "gadm36_DEU_gpkg.zip")
     unzip("gadm36_DEU_gpkg.zip", "gadm36_DEU.gpkg", junkpaths = TRUE)
 }
 
@@ -55,9 +59,9 @@ shapes.bundeslaender <- st_read("gadm36_DEU.gpkg", layer="gadm36_DEU_1", quiet =
 
 # Load mapping of German states to unique codes
 #mapping.bundeslaender <- read_delim(paste0(baseurl, "map_bundesland.csv"), 
-mapping.bundeslaender <- read_delim(conf$map_states, 
-                                    delim = ";",
-                                    col_types = cols(bundesland_team3 = col_character(), bundesland_name = col_character(), bundesland_code = col_character(), bundesland_ags_code = col_character()))
+#mapping.bundeslaender <- read_delim(conf$map_states, 
+#                                    delim = ";",
+#                                    col_types = cols(bundesland_team3 = col_character(), bundesland_name = col_character(), bundesland_code = col_character(), bundesland_ags_code = col_character()))
 
 # Load Basemap for Germany
 boundingbox <- c(4.3451573, 46.9942196, 15.5267352, 55.176929)
@@ -72,7 +76,7 @@ map.germany <- ggmap_bbox(map.germany)
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 1 (age group & gender by site)
 #agg1 <- read_delim(paste0(baseurl, "aggregation1.csv"),
-agg1 <- read_delim(conf$aggregation1_op,
+agg1 <- read_delim(paste0("../",conf$aggregation1_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), age = col_character(), gender = col_character(), count = col_double()))
 
@@ -98,7 +102,7 @@ ggplot(data = agg1) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 2 (birdflight distance group)
 #agg2 <- read_delim(paste0(baseurl, "aggregation2.csv"),
-agg2 <- read_delim(conf$aggregation2_op,
+agg2 <- read_delim(paste0("../",conf$aggregation2_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), bird_flight_distance = col_character(), count = col_double()))
 
@@ -121,7 +125,7 @@ ggplot(agg2) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 3 (diagnosis)
 #agg3 <- read_delim(paste0(baseurl, "aggregation3.csv"),
-agg3 <- read_delim(conf$aggregation3_op,
+agg3 <- read_delim(paste0("../",conf$aggregation3_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), diagnosis_1 = col_character(), diagnosis_2 = col_character(), count = col_double()))
 
@@ -154,7 +158,7 @@ ggplot(data = agg3.icd3, aes(x = diagnosis, y = count, fill = chapter_code)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 4 (diagnosis, age group)
 #agg4 <- read_delim(paste0(baseurl, "aggregation4.csv"),
-agg4 <- read_delim(conf$aggregation4_op,
+agg4 <- read_delim(paste0("../",conf$aggregation4_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), diagnosis_1 = col_character(), diagnosis_2 = col_character(), age = col_character(), count = col_double()))
 
@@ -200,7 +204,7 @@ ggplot(data = agg4.chapters, aes(x = age_center, y=chapter_code)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 5 (diagnosis, gender)
 #agg5 <- read_delim(paste0(baseurl, "aggregation5.csv"),
-agg5 <- read_delim(conf$aggregation5_op,
+agg5 <- read_delim(paste0("../",conf$aggregation5_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), diagnosis_1 = col_character(), diagnosis_2 = col_character(), gender = col_character(), count = col_double()))
 
@@ -238,7 +242,7 @@ ggplot(data = agg5.combined) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 6 (diagnosis, distance group)
 #agg6 <- read_delim(paste0(baseurl, "aggregation6.csv"),
-agg6 <- read_delim(conf$aggregation6_op,
+agg6 <- read_delim(paste0("../",conf$aggregation6_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), diagnosis_1 = col_character(), diagnosis_2 = col_character(), bird_flight_distance = col_character(), count = col_double()))
 
@@ -294,7 +298,7 @@ ggplot(data = agg6.icd3, aes(x = bird_flight_distance_center, y=diagnosis)) +
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load aggregate 6 (diagnosis, distance group)
 #agg7 <- read_delim(paste0(baseurl, "aggregation7.csv"),
-agg7 <- read_delim(conf$aggregation7_op,
+agg7 <- read_delim(paste0("../",conf$aggregation7_op),
                    delim = ";",
                    col_types = cols(hospital_name = col_character(), hospital_zip = col_character(), diagnosis_1 = col_character(), diagnosis_2 = col_character(), patient_zip = col_character(), count = col_double()))
 
