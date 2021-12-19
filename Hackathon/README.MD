@@ -39,21 +39,21 @@ Apply the following step if you obtain the data using SQL queries on your datawa
   *then place the file inside the data folder. This is the location of the volume from where the container can read your cracked_result.csv file.* <br/>
 2. *after that uncomment the line number 11 in docker-compose.yml file. This action will enable the container to manually read the cracked_result.csv file from data folder and provide it to subsequent steps.*
 
-## Execution on Docker Desktop for Windows: <br/>
+## Execution on Docker Desktop for Windows <br/>
 
 
-In order to execute the Scripts in Docker Desktop for windows the following pre-requisit must be fullfilled <br/>>
+In order to execute the Scripts in Docker Desktop for windows the following pre-requisites must be fullfilled <br/>
 
-*Pre-requisit for Windows Operatingsystem version 10: <br/>
+*Pre-requisites for Windows Operatingsystem version 10:* <br/>
 1. Docker desktop on windows from version 2.5.3 <br/>
 
 2. Administrator rights on Power shell or command prompt <br/>
 
-3. After installation docker desktop for windows must be in running status indicated by the green circle <br/>
+3. After docker desktop installation docker desktop for windows must be in running status indicated by the green circle <br/>
 
-4. Git installed <br/>
+4. Git  <br/>
 
-5. If proxy is required, you can provide your appropriate proxy parameter with the Web Server (HTTP) parameter as well as with the Secure Web Server (HTTPS) parameters in the Docker Desktop for Windows Settigs Menu. Access the Settings menu by right clicking on the whale icon present in the System Tray and choose settings. In the settings menu set the proxies for HTTP and HTTPS parameter <br/>
+5. If proxy is required, you can provide your appropriate proxy parameter with the Web Server (HTTP) parameter as well as with the Secure Web Server (HTTPS) parameters in the Docker Desktop for Windows settings menu. Access the settings menu by right clicking on the whale icon present in the System Tray and choose settings. In the settings menu set the proxies for HTTP and HTTPS parameter <br/>
 
 #### Steps <br/>
 
@@ -69,7 +69,7 @@ In order to execute the Scripts in Docker Desktop for windows the following pre-
 
 5. if your FHIR store is secured with credentials then please modify the `conf.yml` file with appropriate credentials according to instructions in conf-example.yml file <br/>
 
-6. then in the command prompt or in the power shell navigate to the downloaded folder using the `cd` change directory command in such a way that inside this folder `docker-compose.yml` file must be located<br/>
+6. then in the command prompt or in the power shell navigate to the downloaded folder using the `cd` change directory command. Inside this folder `docker-compose.yml` file must be located<br/>
 
 7. then to start the container type the following command `docker-compose up` <br/>
 
