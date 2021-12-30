@@ -109,5 +109,11 @@ df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "le
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
+an.error.occured <- FALSE
+
 # write csv with ";" to file
-write.csv2(df_result,file=conf$cracked_result)
+tryCatch( {write.csv2(df_result,file=conf$cracked_result)},
+           error = function(err) {an.error.occured <<-TRUE
+              message("write to csv failed. This may be attributed to the missing object df_result of the dataframe or the df_result does not exists")
+              message(err)
+              })    

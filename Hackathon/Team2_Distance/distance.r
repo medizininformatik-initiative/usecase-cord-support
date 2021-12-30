@@ -78,4 +78,13 @@ data$hospital_zip<- stringr::str_pad(data$hospital_zip, 5, side = "left", pad = 
 data$patient_zip<- stringr::str_pad(data$patient_zip, 5, side = "left", pad = 0)
 
 # write result to a csv file with semicolon as separator and remove quotes by setting quote parameter to  false
-write.csv2(data,file=conf$distance_result,row.names=F,quote=F)
+#write.csv2(data,file=conf$distance_result,row.names=F,quote=F)
+
+an.error.occured <- FALSE
+
+# write csv with ";" to file
+tryCatch( {write.csv2(data,file=conf$distance_result,row.names=F,quote=F)},
+           error = function(err) {an.error.occured <<-TRUE
+              message("write to csv failed. This may be attributed to the missing object distance_result of the dataframe or the distance_result does not exists")
+              message(err)
+              })   
