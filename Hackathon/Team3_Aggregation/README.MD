@@ -5,13 +5,20 @@ Currently, diagnoses are selected based on lexicographic order (ascending order,
 
 Aggregates implemented:
 
-1. aggregation1.csv (breakdown by age group & gender): hospital_name, hospital_zip, age_group, gender, count
-2. aggregation2.csv (breakdown by birdflight distance group): hospital_name, hospital_zip, bird_flight_distance_group, count
-3. aggregation3.csv (breakdown by 3-digit ICD diagnosis): hospital_name, hospital_zip, diagnosis_icd3, count
-4. aggregation4.csv (breakdown by 3-digit ICD diagnosis & age group): hospital_name, hospital_zip, diagnosis_icd3, age_group, count
-5. aggregation5.csv (breakdown by 3-digit ICD diagnosis & gender): hospital_name, hospital_zip, diagnosis_icd3, gender, count
-6. aggregation6.csv (breakdown by 3-digit ICD diagnosis & birdflight distance group): hospital_name, hospital_zip, diagnosis_icd3, bird_flight_distance_group, count
-7. aggregation7.csv (breakdown by state & 3-digit ICD diagnosis): hospital_name, hospital_zip, state, diagnosis_icd3, count
+1. hospital_name;hospital_zip;age;gender;count
+2. hospital_name;hospital_zip;bird_flight_distance;count
+3. hospital_name;hospital_zip;diagnosis_1;diagnosis_2;count
+4. hospital_name;hospital_zip;diagnosis_1;diagnosis_2;age;count
+5. hospital_name;hospital_zip;diagnosis_1;diagnosis_2;gender;count
+6. hospital_name;hospital_zip;diagnosis_1;diagnosis_2;bird_flight_distance;count
+7. hospital_name;hospital_zip;diagnosis_1;diagnosis_2;patient_zip;count
+
+The following generalization are applied to achieve k-anonymity with k=5:
+
+1. Diagnosis: 3 digit ICD code
+2. Age: age groups
+3. Distance: distance interval
+4. patient_zip: state level
 
 # How to run
 
