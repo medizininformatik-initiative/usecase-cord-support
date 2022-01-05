@@ -1,11 +1,11 @@
 # Team 2: Distance
 
-Benötigte Paket 'geosphere'
+Benötigtes Paket 'geosphere'
 
 if (!require('geosphere')) install.packages('geosphere')# to calculate bird flight distance
 
 Die luftlinie funktion verwendet Haversein method 
-## Biespiel Funktion 
+## Beispiel Funktion 
 
 Variablen:
 

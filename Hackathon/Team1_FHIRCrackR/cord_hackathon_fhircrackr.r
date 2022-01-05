@@ -10,7 +10,6 @@ library(config)# to read variables from a config file
 # https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2
 # When the tracer diagnose list is updated then read the tracer diagnose list with  ICD 10 GM Codes
 ##################################################################################################################################################################################################################
-setwd("..")
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 # Compose fhir search request for the fhircrackr package
@@ -39,7 +38,9 @@ patients <- fhir_table_description(resource = "Patient",
                                    cols = c(patient_id = "id",
                                             gender = "gender",
                                             birthdate = "birthDate",
-                                            patient_zip = "address/postalCode"),
+                                            patient_zip = "address/postalCode",
+                                            countrycode = "address/country"
+                                            ),
                                    style = fhir_style(sep="|",
                                                       brackets = c("[", "]"),
                                                       rm_empty_cols = FALSE)
@@ -82,6 +83,12 @@ conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSy
 conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
+# check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
+if ("countrycode" %in% colnames(patients_tmp))
+{
+	patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
+}
+
 # calculate age in years by birthdate
 patients_tmp$age <- round( as.double( as.Date( Sys.time() ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
 
@@ -103,4 +110,4 @@ df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "le
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
 # write csv with ";" to file
-write.csv2(df_result,file= "cracked_result.csv")
+write.csv2(df_result,file=conf$cracked_result)
