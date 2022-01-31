@@ -1,4 +1,4 @@
-if (!require('readxl')) install.packages('readxl')#
+if (!require('readr')) install.packages('readr')#
 if (!require('tidyr')) install.packages('tidyr')#
 if (!require('dplyr')) install.packages('dplyr')#
 if (!require('tibble')) install.packages('tibble')#
@@ -16,7 +16,7 @@ conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 dat_orig <- read.csv(file = paste(getwd(),"/",conf$cracked_result,sep = ""),sep = ";")# output from fhircrackr team 1
 
 # Input file for  longitude and latitude
-ptzip_coord <- read.csv(file = 'PLZ_manual_correction.cleaned.csv',sep = ";")
+ptzip_coord <- read.csv(file = paste(getwd(),"/",conf$plz_input,sep = ""),sep = ";")
 
 #############################################################################################################################################################################################
 # left join on  zip codes.

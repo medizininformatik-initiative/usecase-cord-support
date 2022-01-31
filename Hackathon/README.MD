@@ -20,13 +20,10 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
     3. in conf.yml file created from the previous step (2 ii) modify the serverbase to your location specific FHIR store url, hospital_name and hospital_zip
     4. if your FHIR store is secured with credentials then please modify the conf.yml file according to instructions in conf-example.yml file
 3. to run dcoker compose file you need docker and docker compose to be installed in your machine
-    1. to download and execute docker images use the following command (complete container could take 5+ minutes, depending on the resource count on the used fhir-server)
+    1. to download and execute docker images use the following command 
         ```
-        docker-compose up -d && docker-compose logs -tf
-    2. visit in browser to view data visualization and download data
-        ```
-        http://localhost:3838 
-    3. to shutdown and remove the containers 
+        docker-compose up -d
+    2. to shutdown and remove the containers 
         ``` 
         docker-compose down
 4. if all the input parameters from conf.yml are available then step 3a might take a while to download the docker images. After succesfull execution of script aggregation csv files from 1 to 7 will be available in data folder.
