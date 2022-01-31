@@ -12,6 +12,9 @@ library(config)# to read variables from a config file
 ##################################################################################################################################################################################################################
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
+Sys.setenv(http_proxy=conf$http_proxy)
+Sys.setenv(https_proxy=conf$https_proxy)
+
 # Compose fhir search request for the fhircrackr package
 search_request <- paste0(
   conf$serverbase,
