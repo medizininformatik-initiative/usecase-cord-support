@@ -4,7 +4,7 @@ services:
   cord_hackathon:
     build:
       context: .
-    image: ghcr.io/chris-ti-an-g/cord_hackathon:014
+    image: ghcr.io/chris-ti-an-g/cord_hackathon:015
     restart: unless-stopped
     ports:
       - "3838:3838"

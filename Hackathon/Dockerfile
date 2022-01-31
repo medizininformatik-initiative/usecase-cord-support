@@ -16,19 +16,24 @@ RUN echo "options('repos' = 'http://cran.rstudio.com/')" >> /usr/local/lib/R/etc
 # (change it dependeing on the packages you need)
 RUN R -e "install.packages(c('dplyr', 'ggmap', 'ggplot2', 'knitr', 'leaflet', 'pander', 'readr', 'sf', 'stringr', 'tidygeocoder', 'tidyr', 'fhircrackr', 'readxl', 'config', 'tidyverse', 'geosphere', 'tibble'))"
 
+#create script folders in container
+RUN mkdir -p /srv/shiny-server/data
+RUN mkdir -p /srv/shiny-server/Team1_FHIRCrackR
+RUN mkdir -p /srv/shiny-server/Team2_Distance
+RUN mkdir -p /srv/shiny-server/Team3_Aggregation
+RUN mkdir -p /srv/shiny-server/Team4_Geoviz
+
 # copy the app to the image
 COPY runscript_1234.sh /srv/shiny-server/run.sh
-COPY Team1_FHIRCrackR/cord_hackathon_fhircrackr.r /srv/shiny-server/script1.r
-COPY Team2_Distance/distance.r /srv/shiny-server/script2.r
-COPY Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar /srv/shiny-server/script3.jar
+COPY Team1_FHIRCrackR/cord_hackathon_fhircrackr.r /srv/shiny-server/Team1_FHIRCrackR/script1.r
+COPY Team2_Distance/distance.r /srv/shiny-server/Team2_Distance/script2.r
+COPY Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar /srv/shiny-server/Team3_Aggregation/script3.jar
 COPY Team4_Geoviz/shinyapp.r /srv/shiny-server/app.r
 COPY build/data.RData /srv/shiny-server/data.RData
-COPY data/PLZ_manual_correction.cleaned.csv /srv/shiny-server/PLZ_manual_correction.cleaned.csv
+COPY data/PLZ_manual_correction.cleaned.csv /srv/shiny-server/data/PLZ_manual_correction.cleaned.csv
 
 #COPY cord/gadm36_DEU_gpkg.zip /srv/shiny-server/data/gadm36_DEU_gpkg.zip
 
-RUN mkdir -p /srv/shiny-server/data
-RUN mkdir -p /srv/shiny-server/Team4_Geoviz
 COPY Team4_Geoviz/visualization.Rmd /srv/shiny-server/Team4_Geoviz/visualization.Rmd
 
 RUN ["chown", "-R", "shiny", "/srv/shiny-server/data"]

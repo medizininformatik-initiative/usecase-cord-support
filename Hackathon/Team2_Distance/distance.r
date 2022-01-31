@@ -10,13 +10,13 @@ library(tidyverse)
 library(geosphere)
 library(tibble) 
 ##############################################################################################################################################################################################
-conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
+conf <- config::get(file = paste0(getwd(),"/config/conf.yml"))
 
 #  read the input file from fhircrackr team 1 step in the pre-defined format i.e pseudonym; alter; geschlecht; zentrum_name; zentrum_plz;patient_plz; icd_code
-dat_orig <- read.csv(file = paste(getwd(),"/",conf$cracked_result,sep = ""),sep = ";")# output from fhircrackr team 1
+dat_orig <- read.csv(file = paste0(getwd(),"/",conf$cracked_result),sep = ";")# output from fhircrackr team 1
 
 # Input file for  longitude and latitude
-ptzip_coord <- read.csv(file = 'PLZ_manual_correction.cleaned.csv',sep = ";")
+ptzip_coord <- read.csv(file = 'data/PLZ_manual_correction.cleaned.csv',sep = ";")
 
 #############################################################################################################################################################################################
 # left join on  zip codes.
