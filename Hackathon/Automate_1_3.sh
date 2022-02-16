@@ -22,12 +22,12 @@ echo
 
 export $(parse_yaml $BASE_DIR/config/conf.yml)
 
-path_script1="${BASE_DIR}/script1.r"
+path_script1="${BASE_DIR}/Team1_FHIRCrackR/script1.r"
 Rscript $path_script1
 echo
 echo "Script 1 completed"
 echo
-path_script2="${BASE_DIR}/script2.r"
+path_script2="${BASE_DIR}/Team2_Distance/script2.r"
 Rscript $path_script2
 echo
 echo "Script 2 completed"
@@ -35,7 +35,7 @@ echo
 path_script3=${BASE_DIR}"/"${default_distance_result}
 echo
 echo
-java -jar ${BASE_DIR}"/"script3.jar $path_script3
+java -jar ${BASE_DIR}"/"Team3_Aggregation/"script3.jar $path_script3
 echo
 echo "Script 3 completed"
 echo
