@@ -21,7 +21,7 @@ function parse_yaml {
 echo
 
 export $(parse_yaml $BASE_DIR/config/conf.yml)
-
+cd ${BASE_DIR}
 path_script1="${BASE_DIR}/Team1_FHIRCrackR/script1.r"
 Rscript $path_script1
 echo
@@ -35,7 +35,7 @@ echo
 path_script3=${BASE_DIR}"/"${default_distance_result}
 echo
 echo
-java -jar ${BASE_DIR}"/"Team3_Aggregation/"script3.jar $path_script3
+java -jar ${BASE_DIR}"/Team3_Aggregation/"script3.jar $path_script3
 echo
 echo "Script 3 completed"
 echo
