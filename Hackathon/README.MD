@@ -13,7 +13,8 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 [Tracer Diagnose list mit ICD_10GM Code](https://confluence.zmi.ukdd.de/x/ArnEB)
 
 ## To begin 
-1. clone the repository using git clone https://github.com/medizininformatik-initiative/usecase-cord.git
+### Execution in Docker Container 
+1. clone the repository using git clone https://github.com/medizininformatik-initiative/usecase-cord-support.git
 2. then navigate to Hackathon directory 
     1. inside the hackathon repository navigate to config folder. 
     2. in the config folder make use of conf-example.yml and create a new file with values corresponding to your location and name it 'conf.yml'. For help contact @rajesh-murali 
@@ -29,6 +30,21 @@ Im Hackathon, der Ablage Untergliederung Von Aufgaben werden
 4. if all the input parameters from conf.yml are available then step 3a might take a while to download the docker images. After succesfull execution of script aggregation csv files from 1 to 7 will be available in data folder.
 5. the results from visualization script are made accessible in visualization.pdf file
 
+### Build image without Docker Compose
+1. clone the repository using git clone https://github.com/medizininformatik-initiative/usecase-cord-support.git
+2. then navigate to Hackathon directory within the cloned repository
+    1. inside the hackathon repository navigate to config folder 
+    2. in the config folder make use of conf-example.yml and create a new file with values corresponding to your location and name it 'conf.yml'. For help contact @rajesh-murali 
+    3. in conf.yml file created from the previous step (2 ii) modify the serverbase to your location specific FHIR store url, hospital_name and hospital_zip
+    4. if your FHIR store is secured with credentials then please modify the conf.yml file according to instructions in conf-example.yml file
+3. build image using the following line of code where -t represents the tag parameter name to refer to the build
+```
+      docker build -t cord-schaufenster .
+```      
+4. start the container using the following line of code
+```
+      docker run --name cord-schaufenster
+```
 #### Workaround <br/>
 *Pre-requisite: <br/>
 Apply the following step if you obtain the data using SQL queries on your datawarehouse and not from FHIR server. In this case you manually create cracked_result.csv file.* <br/>
