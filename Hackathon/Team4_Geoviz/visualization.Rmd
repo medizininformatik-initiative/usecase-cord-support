@@ -11,6 +11,9 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 lapply(packages, require, character.only = TRUE)
 
 baseurl = "data/"
+# conf variable
+conf <- config::get(file = "../config/conf.yml")
+load('../data.RData')
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Define a function to fix the bounding box to be in EPSG:3857
@@ -34,15 +37,13 @@ ggmap_bbox <- function(map) {
 }
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# conf variable
-conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
 
 # Load ICD10-GM catalog & hierarchy
 #icdcatalog <- read_delim(paste0(baseurl, "d_med_adm_icd.csv"),
-icdcatalog <- read_delim(conf$catalog_hierarchy,
-                         delim = ";",
-                         skip = 0,
-                         col_types = cols(.default = col_character(),version_id = col_double(),version_valid_from = col_date(format = ""),version_valid_to = col_date(format = ""),icd_raredisease_flag = col_double(),icd_ifsg_notification_flag = col_double(),icd_ifsg_lab_flag = col_double()))
+#icdcatalog <- read_delim(conf$catalog_hierarchy,
+#                         delim = ";",
+#                         skip = 0,
+#                         col_types = cols(.default = col_character(),version_id = col_double(),version_valid_from = col_date(format = ""),version_valid_to = col_date(format = ""),icd_raredisease_flag = col_double(),icd_ifsg_notification_flag = col_double(),icd_ifsg_lab_flag = col_double()))
 
 # Download & extract shapes of German administrative regions from https://gadm.org/ unless already available
 if (!file.exists("gadm36_DEU.gpkg")) {
@@ -55,9 +56,9 @@ shapes.bundeslaender <- st_read("gadm36_DEU.gpkg", layer="gadm36_DEU_1", quiet =
 
 # Load mapping of German states to unique codes
 #mapping.bundeslaender <- read_delim(paste0(baseurl, "map_bundesland.csv"), 
-mapping.bundeslaender <- read_delim(conf$map_states, 
-                                    delim = ";",
-                                    col_types = cols(bundesland_team3 = col_character(), bundesland_name = col_character(), bundesland_code = col_character(), bundesland_ags_code = col_character()))
+#mapping.bundeslaender <- read_delim(conf$map_states, 
+#                                    delim = ";",
+#                                    col_types = cols(bundesland_team3 = col_character(), bundesland_name = col_character(), bundesland_code = col_character(), bundesland_ags_code = col_character()))
 
 # Load Basemap for Germany
 boundingbox <- c(4.3451573, 46.9942196, 15.5267352, 55.176929)

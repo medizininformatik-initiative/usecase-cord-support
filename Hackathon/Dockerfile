@@ -30,9 +30,7 @@ COPY Team2_Distance/distance.r /srv/shiny-server/Team2_Distance/script2.r
 COPY Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar /srv/shiny-server/Team3_Aggregation/script3.jar
 COPY Team4_Geoviz/shinyapp.r /srv/shiny-server/app.r
 COPY build/data.RData /srv/shiny-server/data.RData
-COPY data/PLZ_manual_correction.cleaned.csv /srv/shiny-server/data/PLZ_manual_correction.cleaned.csv
-
-#COPY cord/gadm36_DEU_gpkg.zip /srv/shiny-server/data/gadm36_DEU_gpkg.zip
+COPY build/PLZ_manual_correction.cleaned.csv /srv/shiny-server/data/PLZ_manual_correction.cleaned.csv
 
 COPY Team4_Geoviz/visualization.Rmd /srv/shiny-server/Team4_Geoviz/visualization.Rmd
 
