@@ -30,7 +30,7 @@ search_request <- paste0(
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
-					                                    recorded_date = conf$recordedDate_col,# newly added
+                                              recorded_date = conf$recordedDate_col,# newly added
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
                                                         brackets = c("[", "]"),
