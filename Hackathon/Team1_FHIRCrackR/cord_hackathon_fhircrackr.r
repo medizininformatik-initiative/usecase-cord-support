@@ -10,7 +10,9 @@ library(config)# to read variables from a config file
 # https://zmi.uniklinikum-dresden.de/confluence/download/attachments/79997703/Tracerliste_f%C3%BCr_Schaufenster.xlsx?version=1&modificationDate=1610533779949&api=v2
 # When the tracer diagnose list is updated then read the tracer diagnose list with  ICD 10 GM Codes
 ##################################################################################################################################################################################################################
+
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
+if((conf$no_proxy!="")){Sys.setenv(no_proxy=conf$no_proxy)}
 
 # Compose fhir search request for the fhircrackr package
 search_request <- paste0(
@@ -28,7 +30,7 @@ search_request <- paste0(
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
-					      recorded_date ="recordedDate",# newly added
+					                                    recorded_date = conf$recordedDate_col,# newly added
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
                                                         brackets = c("[", "]"),
@@ -78,7 +80,7 @@ conditions_tmp <- fhir_rm_indices(conditions_tmp, brackets = c("[", "]") )
 patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 
 # filter conditions by system to obtain only icd-10-gm system
-conditions_tmp <- conditions_tmp[conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm',]
+conditions_tmp <- conditions_tmp[conditions_tmp$system == conf$icd_code_system,]
 
 # remove duplicate patients
 conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
