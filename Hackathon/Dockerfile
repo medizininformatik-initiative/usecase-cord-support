@@ -14,7 +14,7 @@ RUN echo "options('repos' = 'http://cran.rstudio.com/')" >> /usr/local/lib/R/etc
 
 # install R packages required 
 # (change it dependeing on the packages you need)
-RUN R -e "install.packages(c('dplyr', 'ggmap', 'ggplot2', 'knitr', 'leaflet', 'pander', 'readr', 'sf', 'stringr', 'tidygeocoder', 'tidyr', 'fhircrackr', 'readxl', 'config', 'tidyverse', 'geosphere', 'tibble'))"
+RUN R -e "install.packages(setdiff(c('dplyr', 'ggmap', 'ggplot2', 'knitr', 'leaflet', 'pander', 'readr', 'sf', 'stringr', 'tidygeocoder', 'tidyr', 'config','fhircrackr', 'readxl', 'config', 'tidyverse', 'geosphere', 'tibble'), rownames(installed.packages())))"
 
 #create script folders in container
 RUN mkdir -p /srv/shiny-server/data
