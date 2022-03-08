@@ -12,7 +12,25 @@ library(config)# to read variables from a config file
 ##################################################################################################################################################################################################################
 
 conf <- config::get(file = paste(getwd(),"/config/conf.yml",sep=""))
-if((conf$no_proxy!="")){Sys.setenv(no_proxy=conf$no_proxy)}
+#check for no_proxy configured
+if (length(conf$no_proxy) >= 1) {
+  Sys.setenv(no_proxy=conf$no_proxy)
+}
+
+# check for custom recordedDate
+if (length(conf$recordedDate_col) >=1) {
+  recorded_date_custom = conf$recordedDate_col
+} else {
+  recorded_date_custom = "recordedDate"
+}
+
+# check for custom icd_code_system
+if (length(conf$icd_code_system) >=1) {
+  icd_code_system_custom = conf$icd_code_system
+} else {
+  icd_code_system_custom = "http://fhir.de/CodeSystem/dimdi/icd-10-gm"
+}
+
 
 # Compose fhir search request for the fhircrackr package
 search_request <- paste0(
@@ -30,7 +48,7 @@ search_request <- paste0(
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
-                                              recorded_date = conf$recordedDate_col,# newly added
+                                              recorded_date = recorded_date_custom,# newly added
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
                                                         brackets = c("[", "]"),
@@ -57,7 +75,7 @@ patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles
-bundles <- fhir_search(request = search_request, username = conf$user, password = conf$password, verbose = 1)
+bundles <- fhir_search(request = search_request, username = conf$user, password = conf$password, verbose = )
 
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)

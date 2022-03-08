@@ -25,13 +25,13 @@ default:
   https_proxy:      ''
 
 # put fhir server adress here, if you need to bypass the proxy for accessing it locally
-  no_proxy:         ''
+  #no_proxy:         ''
 
 # custom parameters for conditions resources on local fhir server
 # use 'http://fhir.de/CodeSystem/dimdi/icd-10-gm' or 'http://fhir.de/CodeSystem/bfarm/icd-10-gm'
-  icd_code_system:  'http://fhir.de/CodeSystem/bfarm/icd-10-gm'
+  #icd_code_system:  'http://fhir.de/CodeSystem/bfarm/icd-10-gm'
 
-# change, if your local fhir server does not have recordedDate
-  recordedDate_col: 'recordedDate'
+# change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
+  #recordedDate_col: 'onsetDateTime'
 
 
