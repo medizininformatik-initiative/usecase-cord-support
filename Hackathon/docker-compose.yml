@@ -4,7 +4,7 @@ services:
   cord_hackathon:
     #build:                                                                    # zum image selber builden auskommentieren
     #  context: .                                                              # zum image selber builden auskommentieren
-    image: ghcr.io/chris-ti-an-g/cord_hackathon:017
+    image: ghcr.io/chris-ti-an-g/cord_hackathon:018
     restart: unless-stopped
     ports:
       - "3838:3838"
