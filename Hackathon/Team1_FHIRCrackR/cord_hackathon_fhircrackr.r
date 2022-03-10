@@ -111,7 +111,7 @@ if ("countrycode" %in% colnames(patients_tmp))
 }
 
 # calculate age in years by birthdate
-patients_tmp$age <- round( as.double( as.Date( conditions_tmp$recorded_date ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
+patients_tmp$age <- round( as.double( as.Date( conditions_tmp$recorded_date_custom ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
 
 # remove the "Patient/" tag from patient id in condition resource
 conditions_tmp$patient_id <- sub("Patient/", "", conditions_tmp[,"patient_id"])
