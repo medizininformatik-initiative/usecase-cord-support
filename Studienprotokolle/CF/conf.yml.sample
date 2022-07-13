@@ -12,7 +12,7 @@ default:
 # put fhir server adress here, if you need to bypass the proxy for accessing it locally
   no_proxy:         ''
 
-# TRUE = peer verification anschalten, FALSE = peer verification ausschalten   
+# TRUE = peer verification enabled, FALSE = peer verification disabled
   ssl_verify_peer: FALSE
   
 # custom parameters for conditions resources on local fhir server
