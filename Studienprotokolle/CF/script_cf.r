@@ -81,10 +81,8 @@ Conditions <- fhir_table_description(resource = "Condition",
                                               display ="code/coding/display",# diagnoses text 1
                                               system = "code/coding/system",
                                               recorded_date = recorded_date_custom,# newly added
-                                              patient_id = "subject/reference"),
-                                     style = fhir_style(sep="|",
-                                                        brackets = c("[", "]"),
-                                                        rm_empty_cols = FALSE)
+                                              patient_id = "subject/reference"
+                                              )
 )
 
 Patients <- fhir_table_description(resource = "Patient",
@@ -94,16 +92,13 @@ Patients <- fhir_table_description(resource = "Patient",
                                             birthdate = "birthDate",
                                             patient_zip = "address/postalCode",
                                             countrycode = "address/country"
-                                   ),
-                                   style = fhir_style(sep="|",
-                                                      brackets = c("[", "]"),
-                                                      rm_empty_cols = FALSE)
+                                            )
 )
 
 design <- fhir_design(Conditions, Patients)
 
 # To flatten the XML object bundles from patients and conditions to a list
-list_cdn <- fhir_crack(condition_patient_bundle, design, verbose = 2)
+list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2)
 
 df_conditions_raw <- list_cdn$Conditions
 df_patients_raw <- list_cdn$Patients
