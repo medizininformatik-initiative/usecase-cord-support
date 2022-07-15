@@ -78,7 +78,6 @@ condition_patient_bundle <- fhir_search(request=search_request, username = conf$
 
 Conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
-                                              display ="code/coding/display",# diagnoses text 1
                                               system = "code/coding/system",
                                               recorded_date = recorded_date_custom,# newly added
                                               patient_id = "subject/reference"
@@ -105,12 +104,12 @@ df_patients_raw <- list_cdn$Patients
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_raw,
-                               columns = c('diagnosis','display','system'),
+                               columns = c('diagnosis','system'),
                                brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_tmp,
-                               columns = c('diagnosis','display','system','patient_id'),
+                               columns = c('diagnosis','system','patient_id'),
                                brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
 df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]") )
