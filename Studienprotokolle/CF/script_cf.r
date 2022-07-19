@@ -95,7 +95,11 @@ Patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(Conditions, Patients)
 
 # To flatten the XML object bundles from patients and conditions to a list
-list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 4)
+if (packageVersion("fhircrackr") >= 2 ){ 
+  list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 1)
+} else {
+  list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2)
+} 
 
 df_conditions_raw <- list_cdn$Conditions
 df_patients_raw <- list_cdn$Patients
