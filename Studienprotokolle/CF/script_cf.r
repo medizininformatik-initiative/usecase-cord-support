@@ -3,12 +3,9 @@
 # Mukoviszidose/CF Cystic Fibrosis and Birth
 #####################################################################################################################
 options(warn=-1)# to suppress warnings
-if (!require('fhircrackr')) install.packages('fhircrackr')# to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
+if (!require('fhircrackr')) install.packages('fhircrackr')
 if (!require('config')) install.packages('config')
-if (!require('dplyr')) install.packages('dplyr')# to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
-#if (!require('tibble')) install.packages('tibble')
-#if (!require('tidyr')) install.packages('tidyr')
-#if (!require('stringr')) install.packages('stringr')
+if (!require('dplyr')) install.packages('dplyr')
 
 conf <- config::get(file = paste(getwd(),"/conf.yml",sep=""))
 #check for proxy configuration
@@ -98,7 +95,7 @@ Patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(Conditions, Patients)
 
 # To flatten the XML object bundles from patients and conditions to a list
-list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2)
+list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 1)
 
 df_conditions_raw <- list_cdn$Conditions
 df_patients_raw <- list_cdn$Patients
@@ -122,15 +119,12 @@ df_patients_tmp <- fhir_melt(df_patients_raw,
                              columns = c('patient_zip','countrycode'),
                              brackets = c('[',']'), sep = '|', all_columns = TRUE,)
 
-df_patients_tmp <- fhir_rm_indices(list_cdn$Patients, brackets = c("[", "]") )
+df_patients_tmp <- fhir_rm_indices(df_patients_tmp, brackets = c("[", "]") )
 
 df_patients_tmp <- df_patients_tmp[df_patients_tmp$gender != 'male',]
 df_patients_tmp <- df_patients_tmp[!duplicated(df_patients_tmp$patient_id),]
-df_patients_tmp$age <- round( as.double( as.Date( Sys.time() ) - as.Date( df_patients_tmp$birthdate ) ) / 365.25, 0 )
-df_patients_tmp <- df_patients_tmp[df_patients_tmp$age > 14,]
 
 x <- c(1,9,19,29,39,49,59,999)
-df_patients_tmp$age_group <- cut(df_patients_tmp$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
 
 df_conditions_cf <- subset(df_conditions_tmp, grepl("^E84", diagnosis))
 #df_conditions_cf$recorded_date <- as.Date(df_conditions_cf$recorded_date, format= "%Y-%m-%d")
@@ -143,6 +137,9 @@ df_conditions_birth_all <- subset(df_conditions_tmp, grepl("^O|^Z", diagnosis))
 df_cf_birth_all <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
 df_cf_birth_all <- base::merge(df_cf_birth_all, df_patients_tmp, by.x = "patient_id",by.y = "patient_id")
 df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$patient_id),]
+df_cf_birth_all$age <- round( as.double( as.Date( df_cf_birth_all$recorded_date.y ) - as.Date( df_cf_birth_all$birthdate ) ) / 365.25, 0 )
+df_cf_birth_all$age_group <- cut(df_cf_birth_all$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
+df_cf_birth_all <- df_cf_birth_all[df_cf_birth_all$age > 14,]
 
 df_result_primaer <- as.data.frame(df_cf_birth_all%>%group_by(Einrichtungsindikator=df_cf_birth_all$hospital_id,AngabeDiagn1=df_cf_birth_all$diagnosis.x,AngabeDiagn2=df_cf_birth_all$diagnosis.y,AngabeGeschlecht=df_cf_birth_all$gender,AngabeAlter=df_cf_birth_all$age_group)%>%summarise(count=n()))
 names(df_result_primaer)[names(df_result_primaer)== "count"] <- "Anzahl"
@@ -152,6 +149,9 @@ df_conditions_birth <- subset(df_conditions_tmp, grepl("^O09|^O3|^O63|^O8|^Z", d
 df_cf_birth <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
 df_cf_birth <- base::merge(df_cf_birth, df_patients_tmp, by.x = "patient_id",by.y = "patient_id")
 df_cf_birth <- df_cf_birth[!duplicated(df_cf_birth$patient_id),]
+df_cf_birth$age <- round( as.double( as.Date( df_cf_birth$recorded_date.y ) - as.Date( df_cf_birth$birthdate ) ) / 365.25, 0 )
+df_cf_birth$age_group <- cut(df_cf_birth$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
+df_cf_birth <- df_cf_birth[df_cf_birth$age > 14,]
 
 df_result_sekundaer_a <- as.data.frame(df_cf_birth%>%group_by(Einrichtungsindikator=df_cf_birth$hospital_id,AngabeDiagn1=df_cf_birth$diagnosis.x,AngabeDiagn2=df_cf_birth$diagnosis.y,AngabeGeschlecht=df_cf_birth$gender,AngabeAlter=df_cf_birth$age_group)%>%summarise(count=n()))
 names(df_result_sekundaer_a)[names(df_result_sekundaer_a)== "count"] <- "Anzahl"
@@ -162,6 +162,9 @@ df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth, by = "p
 df_cf_complication <- base::merge(df_cf_complication, df_conditions_complication, by = "patient_id")
 df_cf_complication <- base::merge(df_cf_complication, df_patients_tmp, by.x = "patient_id",by.y = "patient_id")
 df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$patient_id),]
+df_cf_complication$age <- round( as.double( as.Date( df_cf_complication$recorded_date.y ) - as.Date( df_cf_complication$birthdate ) ) / 365.25, 0 )
+df_cf_complication$age_group <- cut(df_cf_complication$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
+df_cf_complication <- df_cf_complication[df_cf_complication$age > 14,]
 
 df_result_sekundaer_b <- as.data.frame(df_cf_complication%>%group_by(Einrichtungsindikator=df_cf_complication$hospital_id,AngabeDiagn1=df_cf_complication$diagnosis.x,AngabeDiagn2=df_cf_complication$diagnosis,AngabeGeschlecht=df_cf_complication$gender,AngabeAlter=df_cf_complication$age_group)%>%summarise(count=n()))
 names(df_result_sekundaer_b)[names(df_result_sekundaer_b)== "count"] <- "Anzahl"
