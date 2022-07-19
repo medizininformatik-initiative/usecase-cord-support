@@ -95,7 +95,7 @@ Patients <- fhir_table_description(resource = "Patient",
 design <- fhir_design(Conditions, Patients)
 
 # To flatten the XML object bundles from patients and conditions to a list
-list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 1)
+list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 4)
 
 df_conditions_raw <- list_cdn$Conditions
 df_patients_raw <- list_cdn$Patients
@@ -140,6 +140,7 @@ df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$patient_id),]
 df_cf_birth_all$age <- round( as.double( as.Date( df_cf_birth_all$recorded_date.y ) - as.Date( df_cf_birth_all$birthdate ) ) / 365.25, 0 )
 df_cf_birth_all$age_group <- cut(df_cf_birth_all$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
 df_cf_birth_all <- df_cf_birth_all[df_cf_birth_all$age > 14,]
+df_cf_birth_all <- df_cf_birth_all %>% select(-contains("resource_identifier"))
 
 df_result_primaer <- as.data.frame(df_cf_birth_all%>%group_by(Einrichtungsindikator=df_cf_birth_all$hospital_id,AngabeDiagn1=df_cf_birth_all$diagnosis.x,AngabeDiagn2=df_cf_birth_all$diagnosis.y,AngabeGeschlecht=df_cf_birth_all$gender,AngabeAlter=df_cf_birth_all$age_group)%>%summarise(count=n()))
 names(df_result_primaer)[names(df_result_primaer)== "count"] <- "Anzahl"
@@ -152,6 +153,7 @@ df_cf_birth <- df_cf_birth[!duplicated(df_cf_birth$patient_id),]
 df_cf_birth$age <- round( as.double( as.Date( df_cf_birth$recorded_date.y ) - as.Date( df_cf_birth$birthdate ) ) / 365.25, 0 )
 df_cf_birth$age_group <- cut(df_cf_birth$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
 df_cf_birth <- df_cf_birth[df_cf_birth$age > 14,]
+df_cf_birth <- df_cf_birth %>% select(-contains("resource_identifier"))
 
 df_result_sekundaer_a <- as.data.frame(df_cf_birth%>%group_by(Einrichtungsindikator=df_cf_birth$hospital_id,AngabeDiagn1=df_cf_birth$diagnosis.x,AngabeDiagn2=df_cf_birth$diagnosis.y,AngabeGeschlecht=df_cf_birth$gender,AngabeAlter=df_cf_birth$age_group)%>%summarise(count=n()))
 names(df_result_sekundaer_a)[names(df_result_sekundaer_a)== "count"] <- "Anzahl"
@@ -165,6 +167,7 @@ df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$patient_
 df_cf_complication$age <- round( as.double( as.Date( df_cf_complication$recorded_date.y ) - as.Date( df_cf_complication$birthdate ) ) / 365.25, 0 )
 df_cf_complication$age_group <- cut(df_cf_complication$age,x,breaks= c(0,9,19,29,39,49,59,999), labels = c("[1,9]","[10,19]","[20,29]","[30,39]","[40,49]","[50,59]","[60,999]"))
 df_cf_complication <- df_cf_complication[df_cf_complication$age > 14,]
+df_cf_complication <- df_cf_complication %>% select(-contains("resource_identifier"))
 
 df_result_sekundaer_b <- as.data.frame(df_cf_complication%>%group_by(Einrichtungsindikator=df_cf_complication$hospital_id,AngabeDiagn1=df_cf_complication$diagnosis.x,AngabeDiagn2=df_cf_complication$diagnosis,AngabeGeschlecht=df_cf_complication$gender,AngabeAlter=df_cf_complication$age_group)%>%summarise(count=n()))
 names(df_result_sekundaer_b)[names(df_result_sekundaer_b)== "count"] <- "Anzahl"
