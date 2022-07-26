@@ -62,6 +62,14 @@ search_request <- paste0(
   ",O30.0,O30.1,O30.2,O30.8,O30.9",
   ",O63.0,O63.1,O63.2,O63.9",
   ",O64.0,O64.1,O64.2,O64.3,O64.4,O64.5,O64.8,O64.9",
+  ",O64.0%20Z37.0%21,O64.0%20Z37.1%21,O64.0%20Z37.2%21,O64.0%20Z37.3%21,O64.0%20Z37.4%21,O64.0%20Z37.5%21,O64.0%20Z37.6%21,O64.0%20Z37.7%21,O64.0%20Z37.9%21",
+  ",O64.1%20Z37.0%21,O64.1%20Z37.1%21,O64.1%20Z37.2%21,O64.1%20Z37.3%21,O64.1%20Z37.4%21,O64.1%20Z37.5%21,O64.1%20Z37.6%21,O64.1%20Z37.7%21,O64.1%20Z37.9%21",
+  ",O64.2%20Z37.0%21,O64.2%20Z37.1%21,O64.2%20Z37.2%21,O64.2%20Z37.3%21,O64.2%20Z37.4%21,O64.2%20Z37.5%21,O64.2%20Z37.6%21,O64.2%20Z37.7%21,O64.2%20Z37.9%21",
+  ",O64.3%20Z37.0%21,O64.3%20Z37.1%21,O64.3%20Z37.2%21,O64.3%20Z37.3%21,O64.3%20Z37.4%21,O64.3%20Z37.5%21,O64.3%20Z37.6%21,O64.3%20Z37.7%21,O64.3%20Z37.9%21",
+  ",O64.4%20Z37.0%21,O64.4%20Z37.1%21,O64.4%20Z37.2%21,O64.4%20Z37.3%21,O64.4%20Z37.4%21,O64.4%20Z37.5%21,O64.4%20Z37.6%21,O64.4%20Z37.7%21,O64.4%20Z37.9%21",
+  ",O64.5%20Z37.0%21,O64.5%20Z37.1%21,O64.5%20Z37.2%21,O64.5%20Z37.3%21,O64.5%20Z37.4%21,O64.5%20Z37.5%21,O64.5%20Z37.6%21,O64.5%20Z37.7%21,O64.5%20Z37.9%21",
+  ",O64.8%20Z37.0%21,O64.8%20Z37.1%21,O64.8%20Z37.2%21,O64.8%20Z37.3%21,O64.8%20Z37.4%21,O64.8%20Z37.5%21,O64.8%20Z37.6%21,O64.8%20Z37.7%21,O64.8%20Z37.9%21",
+  ",O64.9%20Z37.0%21,O64.8%20Z37.1%21,O64.9%20Z37.2%21,O64.9%20Z37.3%21,O64.9%20Z37.4%21,O64.9%20Z37.5%21,O64.9%20Z37.6%21,O64.9%20Z37.7%21,O64.9%20Z37.9%21",
   ",O75.0,O75.1,O75.2,O75.3,O75.4,O75.5,O75.6,O75.7,O75.8,O75.9",
   ",O80,O81,O82",
   ",O80%20Z37.0%21,O81%20Z37.0%21,O82%20Z37.0%21",
@@ -201,7 +209,7 @@ df_pku_1_N <- df_pku_1_N[!duplicated(df_pku_1_N$patient_id), ]
 df_pku_1_N <- df_pku_1_N %>% select(-contains("resource_identifier"))
 
 df_pku_N <- rbind(df_pku_0_N, df_pku_1_N)
-df_result_primaer <- as.data.frame(df_pku_N %>% group_by(Einrichtungsindikator = df_pku_N$hospital_id, AngabeDiagn1 = df_pku_N$diagnosis.x, AngabeDiagn2 = df_pku_N$diagnosis.y, AngabeGeschlecht = df_pku_N$gender, AngabeAlter = df_pku_N$age_group) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * Anzahl / sum(Anzahl), 0), "%")))
+df_result_primaer <- as.data.frame(df_pku_N %>% group_by(Einrichtungsindikator = df_pku_N$hospital_id, Diagn1 = df_pku_N$diagnosis.x, Diagn2 = df_pku_N$diagnosis.y, Geschlecht = df_pku_N$gender, Alter = df_pku_N$age_group) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * Anzahl / sum(Anzahl), 0), "%")))
 
 
 if (nrow(df_pku_N) == 0) {
@@ -210,7 +218,7 @@ if (nrow(df_pku_N) == 0) {
   result_sekundaer_a <- round(nrow(df_pku_N) / nrow(df_conditions_pku) * 100)
 }
 
-df_conditions_birth <- subset(df_conditions_tmp, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
+df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 
 df_pku_birth <- base::merge(df_conditions_pku, df_conditions_birth, by = "patient_id")
 #df_pku_birth <- base::merge(df_pku_birth, df_patients_tmp, by.x = "patient_id",by.y = "patient_id")
@@ -220,9 +228,9 @@ df_pku_birth <- df_pku_birth[!duplicated(df_pku_birth$patient_id), ]
 df_pku_birth <- df_pku_birth[df_pku_birth$age > 14, ]
 df_pku_birth <- df_pku_birth %>% select(-contains("resource_identifier"))
 
-#df_result_sekundaer_c <- as.data.frame(df_pku_birth%>%group_by(Einrichtungsindikator=df_pku_birth$hospital_id,AngabeDiagn1=df_pku_birth$diagnosis.x,AngabeDiagn2=df_pku_birth$diagnosis.y,AngabeGeschlecht=df_pku_birth$gender,AngabeAlter=df_pku_birth$age_group)%>%summarise(Anzahl=n()))
+#df_result_sekundaer_c <- as.data.frame(df_pku_birth%>%group_by(Einrichtungsindikator=df_pku_birth$hospital_id,Diagn1=df_pku_birth$diagnosis.x,Diagn2=df_pku_birth$diagnosis.y,Geschlecht=df_pku_birth$gender,Alter=df_pku_birth$age_group)%>%summarise(Anzahl=n()))
 
-df_conditions_complication <- subset(df_conditions_tmp, grepl("^O64|^O75|^O24", diagnosis))
+df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
 
 df_pku_complication <- base::merge(df_conditions_pku, df_conditions_birth, by = "patient_id")
 df_pku_complication <- base::merge(df_pku_complication, df_conditions_complication, by = "patient_id")
@@ -233,7 +241,7 @@ df_pku_complication <- df_pku_complication[!duplicated(df_pku_complication$patie
 #df_pku_complication <- df_pku_complication[df_pku_complication$age > 14,]
 df_pku_complication <- df_pku_complication %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Einrichtungsindikator = df_pku_complication$hospital_id, AngabeDiagn1 = df_pku_complication$diagnosis.x, AngabeDiagn2 = df_pku_complication$diagnosis, AngabeGeschlecht = df_pku_complication$gender, AngabeAlter = df_pku_complication$age_group) %>% summarise(Anzahl = n()))
+df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Einrichtungsindikator = df_pku_complication$hospital_id.x, Diagn1 = df_pku_complication$diagnosis.x, Diagn2 = df_pku_complication$diagnosis, Geschlecht = df_pku_complication$gender.x, Alter = df_pku_complication$age_group.x) %>% summarise(Anzahl = n()))
 
 # display the final output
 df_result_primaer
