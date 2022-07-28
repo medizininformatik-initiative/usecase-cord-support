@@ -1,9 +1,18 @@
 default:
   serverbase:       'https://mii-agiop-cord.life.uni-leipzig.de/fhir/'
 
+  # define max bundles for fhir_search, default = 0
+  max_bundles:      ''
+  
+  # define bundle size for fhir_search, e.g. 1000, default = fhir server specific ( e.g. blaze = 50)
+  count:            ''
+
 # if you need to authenticate on your fhir server, set username and password
   username:         ''
   password:         ''
+
+# if your fhir server needs token authentification, put token or path to r-script
+  token:            ''
 
 # if you need to use a proxy server (e.G. http://proxy:port )
   http_proxy:       ''
