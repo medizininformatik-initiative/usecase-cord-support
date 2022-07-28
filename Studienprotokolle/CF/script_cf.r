@@ -79,7 +79,6 @@ if (exists("count", where = conf)) {
   count_custom <- ""
 }
 
-
 search_request <- paste0(
   conf$serverbase,
   "Condition?",
@@ -118,14 +117,12 @@ search_request <- paste0(
   ",O80%20Z37.7%21,O81%20Z37.7%21,O82%20Z37.7%21",
   ",O80%20Z37.9%21,O81%20Z37.9%21,O82%20Z37.9%21",
   ",E84.0,E84.1,E84.8,E84.80,E84.87,E84.88,E84.9",
-  ",J18.0,J18.1,J18.2,J18.8,J18.9"
-  , ",Z38.0,Z38.1,Z38.2,Z38.3,Z38.4,Z38.5,Z38.6,Z38.7,Z38.8"
-  , search_date
-  , count_custom
-  , "&_include=Condition:subject:Patient"
+  ",J18.0,J18.1,J18.2,J18.8,J18.9",
+  ",Z38.0,Z38.1,Z38.2,Z38.3,Z38.4,Z38.5,Z38.6,Z38.7,Z38.8",
+  search_date,
+  count_custom,
+  "&_include=Condition:subject:Patient"
   )
-
-  # abfrage auf einzeljahr
 
 if (exists("token", where = conf)) {
   if (nchar(conf$token) >= 1) {
@@ -164,7 +161,7 @@ design <- fhir_design(conditions, patients)
 
 # flatten the XML object bundles from patients and conditions to a list
 if (packageVersion("fhircrackr") >= 2) {
-  list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 12)
+  list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2, ncores = 1)
 } else {
   list_cdn <- fhir_crack(condition_patient_bundle, design, sep = "|", brackets = c("[", "]"), verbose = 2)
 }
