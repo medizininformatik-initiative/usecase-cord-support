@@ -235,7 +235,8 @@ df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$patient_id), ]
 df_cf_birth_all <- df_cf_birth_all[df_cf_birth_all$age.x > 14, ]
 df_cf_birth_all <- df_cf_birth_all %>% select(-contains("resource_identifier"))
 
-df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y, Geschlecht = df_cf_birth_all$gender.x, Alter = df_cf_birth_all$age_group.x) %>% summarise(Anzahl = ifelse(n() > 0 & n() <= 5, "<5", n())) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y, Geschlecht = df_cf_birth_all$gender.x, Alter = df_cf_birth_all$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+#df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 
@@ -244,7 +245,8 @@ df_cf_birth <- df_cf_birth[!duplicated(df_cf_birth$patient_id), ]
 df_cf_birth <- df_cf_birth[df_cf_birth$age.x > 14, ]
 df_cf_birth <- df_cf_birth %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y, Geschlecht = df_cf_birth$gender.x, Alter = df_cf_birth$age_group.x) %>% summarise(Anzahl = ifelse(n() > 0 & n() <= 5, "<5", n())) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y, Geschlecht = df_cf_birth$gender.x, Alter = df_cf_birth$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+#df_result_sekundaer_a <- mutate(df_result_sekundaer_a, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
 
@@ -254,7 +256,8 @@ df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$patient_
 df_cf_complication <- df_cf_complication[df_cf_complication$age.x > 14, ]
 df_cf_complication <- df_cf_complication %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis, Geschlecht = df_cf_complication$gender, Alter = df_cf_complication$age_group) %>% summarise(Anzahl = ifelse(n() > 0 & n() <= 5, "<5", n())) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis, Geschlecht = df_cf_complication$gender, Alter = df_cf_complication$age_group) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+#df_result_sekundaer_b <- mutate(df_result_sekundaer_b, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 # display the final output
 df_result_primaer
