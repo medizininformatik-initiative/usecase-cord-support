@@ -9,6 +9,7 @@ if (!require("config")) install.packages("config")
 if (!require("dplyr")) install.packages("dplyr")
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
+
 #check for proxy configuration
 if (exists("http_proxy", where = conf)) {
   if (nchar(conf$http_proxy) >= 1) {
@@ -41,6 +42,16 @@ if (exists("recordedDate_col", where = conf)) {
   search_date <- paste0("&", strsplit(recorded_date_custom, "Date")[[1]][1],  "-date=gt2014-12-31")
 }
 
+# check for custom subject_reference_prefix
+if (exists("subject_reference_prefix", where = conf)) {
+  if (nchar(conf$subject_reference_prefix) >= 1) {
+    subject_reference_prefix <- conf$subject_reference_prefix
+  } else {
+    subject_reference_prefix <- "Patient/"
+  }
+} else {
+  subject_reference_prefix <- "Patient/"
+}
 
 # check for custom icd_code_system
 if (exists("icd_code_system", where = conf)) {
@@ -191,7 +202,7 @@ df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
 df_conditions_tmp <- df_conditions_tmp[df_conditions_tmp$system == icd_code_system_custom, ]
 
 # remove the "Patient/" tag from column patient_id in condition resource
-df_conditions_tmp$patient_id <- sub("Patient/", "", df_conditions_tmp[, "patient_id"])
+df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
 
 df_patients_tmp <- fhir_melt(df_patients_raw,
                              columns = c("patient_zip", "countrycode"),
@@ -213,6 +224,13 @@ df_conditions_patients <- base::merge(df_conditions_tmp, df_patients_tmp, by = "
 df_conditions_patients$recorded_date <- as.Date(df_conditions_patients$recorded_date, format = "%Y-%m-%d")
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date > "2014-12-31", ]
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < "2022-12-31", ]
+
+# check for custom hospital_id
+if (exists("hospital_name", where = conf)) {
+  if (nchar(conf$hospital_name) >= 1) {
+    df_conditions_patients$hospital_id <- conf$hospital_name
+  }
+}
 
 # remove merge identifier column as its not needed and could cause problems
 df_conditions_patients <- df_conditions_patients %>% select(-contains("resource_identifier"))
@@ -285,13 +303,13 @@ df_pku_1_g31 <- df_pku_1_g31[!duplicated(df_pku_1_g31$patient_id), ]
 df_pku_1_g31 <- df_pku_1_g31 %>% select(-contains("resource_identifier"))
 
 df_pku_result_primaer <- rbind(df_pku_0_n, df_pku_1_n, df_pku_0_f32, df_pku_1_f32, df_pku_0_f33, df_pku_1_f33, df_pku_0_f34, df_pku_1_f34, df_pku_0_g31, df_pku_1_g31)
-df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtungsindikator = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis.y, Geschlecht = df_pku_result_primaer$gender.x, Alter = df_pku_result_primaer$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtungsindikator = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis.y, Geschlecht = df_pku_result_primaer$gender.x, Alter = df_pku_result_primaer$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 #df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 if (nrow(df_pku_result_primaer) == 0) {
   result_sekundaer_a <- 0
 } else {
-  result_sekundaer_a <- round(nrow(df_pku_result_primaer) / nrow(df_conditions_pku[!duplicated(as.numeric(df_conditions_pku$patient_id)), ]) * 100)
+  result_sekundaer_a <- round(sum(df_result_primaer$Anzahl) / nrow(df_conditions_pku[!duplicated(as.numeric(df_conditions_pku$patient_id)), ]) * 100, 2)
 }
 
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
@@ -311,12 +329,12 @@ df_pku_complication <- df_pku_complication[!duplicated(df_pku_complication$patie
 df_pku_complication <- subset(df_pku_complication, !grepl("^Z38", diagnosis.y))
 df_pku_complication <- df_pku_complication %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Einrichtungsindikator = df_pku_complication$hospital_id.x, Diagn1 = df_pku_complication$diagnosis.x, Diagn2 = df_pku_complication$diagnosis, Geschlecht = df_pku_complication$gender.x, Alter = df_pku_complication$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Einrichtungsindikator = df_pku_complication$hospital_id.x, Diagn1 = df_pku_complication$diagnosis.x, Diagn2 = df_pku_complication$diagnosis, Geschlecht = df_pku_complication$gender.x, Alter = df_pku_complication$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 #df_result_sekundaer_c <- mutate(df_result_sekundaer_c, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 # display the final output
 df_result_primaer
-paste0(result_sekundaer_a, "%")
+paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
 df_result_sekundaer_c
 
 ########################################################################################################################################################
@@ -324,6 +342,6 @@ df_result_sekundaer_c
 ########################################################################################################################################################
 write.csv(df_result_primaer, file = "result_primaer.csv", row.names = FALSE)
 write.csv(result_sekundaer_a, file = "result_sekundaer_a.csv", row.names = FALSE)
-#write.csv(df_result_sekundaer_b, file = "result_sekundaer_b.csv", row.names = FALSE)
+write.csv(df_result_primaer, file = "result_sekundaer_b.csv", row.names = FALSE)
 write.csv(df_result_sekundaer_c, file = "result_sekundaer_b.csv", row.names = FALSE)
 ########################################################################################################################################################

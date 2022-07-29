@@ -9,6 +9,7 @@ if (!require("config")) install.packages("config")
 if (!require("dplyr")) install.packages("dplyr")
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
+
 #check for proxy configuration
 if (exists("http_proxy", where = conf)) {
   if (nchar(conf$http_proxy) >= 1) {
@@ -41,6 +42,16 @@ if (exists("recordedDate_col", where = conf)) {
   search_date <- paste0("&", strsplit(recorded_date_custom, "Date")[[1]][1],  "-date=gt2014-12-31")
 }
 
+# check for custom subject_reference_prefix
+if (exists("subject_reference_prefix", where = conf)) {
+  if (nchar(conf$subject_reference_prefix) >= 1) {
+    subject_reference_prefix <- conf$subject_reference_prefix
+  } else {
+    subject_reference_prefix <- "Patient/"
+  }
+} else {
+  subject_reference_prefix <- "Patient/"
+}
 
 # check for custom icd_code_system
 if (exists("icd_code_system", where = conf)) {
@@ -186,7 +197,7 @@ df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
 df_conditions_tmp <- df_conditions_tmp[df_conditions_tmp$system == icd_code_system_custom, ]
 
 # remove the "Patient/" tag from column patient_id in condition resource
-df_conditions_tmp$patient_id <- sub("Patient/", "", df_conditions_tmp[, "patient_id"])
+df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
 
 df_patients_tmp <- fhir_melt(df_patients_raw,
                              columns = c("patient_zip", "countrycode"),
@@ -208,6 +219,13 @@ df_conditions_patients <- base::merge(df_conditions_tmp, df_patients_tmp, by = "
 df_conditions_patients$recorded_date <- as.Date(df_conditions_patients$recorded_date, format = "%Y-%m-%d")
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date > "2014-12-31", ]
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < "2022-12-31", ]
+
+# check for custom hospital_id
+if (exists("hospital_name", where = conf)) {
+  if (nchar(conf$hospital_name) >= 1) {
+    df_conditions_patients&hospital_id <- conf$hospital_name
+  }
+}
 
 # remove merge identifier column as its not needed and could cause problems
 df_conditions_patients <- df_conditions_patients %>% select(-contains("resource_identifier"))
@@ -235,7 +253,7 @@ df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$patient_id), ]
 df_cf_birth_all <- df_cf_birth_all[df_cf_birth_all$age.x > 14, ]
 df_cf_birth_all <- df_cf_birth_all %>% select(-contains("resource_identifier"))
 
-df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y, Geschlecht = df_cf_birth_all$gender.x, Alter = df_cf_birth_all$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y, Geschlecht = df_cf_birth_all$gender.x, Alter = df_cf_birth_all$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 #df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
@@ -245,7 +263,7 @@ df_cf_birth <- df_cf_birth[!duplicated(df_cf_birth$patient_id), ]
 df_cf_birth <- df_cf_birth[df_cf_birth$age.x > 14, ]
 df_cf_birth <- df_cf_birth %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y, Geschlecht = df_cf_birth$gender.x, Alter = df_cf_birth$age_group.x) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y, Geschlecht = df_cf_birth$gender.x, Alter = df_cf_birth$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 #df_result_sekundaer_a <- mutate(df_result_sekundaer_a, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
@@ -256,7 +274,7 @@ df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$patient_
 df_cf_complication <- df_cf_complication[df_cf_complication$age.x > 14, ]
 df_cf_complication <- df_cf_complication %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis, Geschlecht = df_cf_complication$gender, Alter = df_cf_complication$age_group) %>% summarise(Anzahl = n()) %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis, Geschlecht = df_cf_complication$gender, Alter = df_cf_complication$age_group) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 #df_result_sekundaer_b <- mutate(df_result_sekundaer_b, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 # display the final output

@@ -1,32 +1,38 @@
 default:
-  serverbase:       'https://mii-agiop-cord.life.uni-leipzig.de/fhir/'
+  serverbase:               'https://mii-agiop-cord.life.uni-leipzig.de/fhir/'
+
+  # set the name for your location
+  hospital_name:            'YourCenter'
+
+  # set custom subject_reference prefix, default = "Patient/"
+  subject_reference_prefix: ''
 
   # define max bundles for fhir_search, default = 0
-  max_bundles:      ''
-  
+  max_bundles:              ''
+
   # define bundle size for fhir_search, e.g. 1000, default = fhir server specific ( e.g. blaze = 50)
-  count:            ''
+  count:                    ''
 
-# if you need to authenticate on your fhir server, set username and password
-  username:         ''
-  password:         ''
+  # if you need to authenticate on your fhir server, set username and password
+  username:                 ''
+  password:                 ''
 
-# if your fhir server needs token authentification, put token or path to r-script
-  token:            ''
+  # if your fhir server needs token authentification, put token or path to r-script
+  token:                    ''
 
-# if you need to use a proxy server (e.G. http://proxy:port )
-  http_proxy:       ''
-  https_proxy:      ''
+  # if you need to use a proxy server (e.G. http://proxy:port )
+  http_proxy:               ''
+  https_proxy:              ''
 
-# put fhir server adress here, if you need to bypass the proxy for accessing it locally
-  no_proxy:         ''
+  # put fhir server adress here, if you need to bypass the proxy for accessing it locally
+  no_proxy:                 ''
 
-# TRUE = peer verification enabled, FALSE = peer verification disabled
+  # TRUE = peer verification enabled, FALSE = peer verification disabled
   ssl_verify_peer: FALSE
-  
-# custom parameters for conditions resources on local fhir server
-# use 'http://fhir.de/CodeSystem/dimdi/icd-10-gm' or 'http://fhir.de/CodeSystem/bfarm/icd-10-gm'
-  icd_code_system:  'http://fhir.de/CodeSystem/dimdi/icd-10-gm'
 
-# change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
-  recordedDate_col: ''
+  # custom parameters for conditions resources on local fhir server
+  # use 'http://fhir.de/CodeSystem/dimdi/icd-10-gm' or 'http://fhir.de/CodeSystem/bfarm/icd-10-gm' or custom
+  icd_code_system:          'http://fhir.de/CodeSystem/dimdi/icd-10-gm'
+
+  # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
+  recordedDate_col:         ''
