@@ -223,7 +223,7 @@ df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded
 # check for custom hospital_id
 if (exists("hospital_name", where = conf)) {
   if (nchar(conf$hospital_name) >= 1) {
-    df_conditions_patients&hospital_id <- conf$hospital_name
+    df_conditions_patients$hospital_id <- conf$hospital_name
   }
 }
 
