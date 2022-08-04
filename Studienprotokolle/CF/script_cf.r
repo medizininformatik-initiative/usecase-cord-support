@@ -151,7 +151,7 @@ if (exists("token", where = conf)) {
 
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
-                                              display = "code/coding/display",
+                                              #display = "code/coding/display",
                                               system = "code/coding/system",
                                               recorded_date = recorded_date_custom,
                                               patient_id = "subject/reference"
@@ -183,12 +183,14 @@ df_patients_raw <- list_cdn$patients
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_raw,
-                               columns = c("diagnosis", "display", "system"),
+                               #columns = c("diagnosis", "display", "system"),
+                               columns = c("diagnosis", "system"),
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_tmp,
-                               columns = c("diagnosis", "display", "system"),
+                               #columns = c("diagnosis", "display", "system"),
+                               columns = c("diagnosis", "system"),
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
