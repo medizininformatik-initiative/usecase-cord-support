@@ -156,7 +156,7 @@ if (exists("token", where = conf)) {
 
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
-                                              display = "code/coding/display",
+                                              #display = "code/coding/display",
                                               system = "code/coding/system",
                                               recorded_date = recorded_date_custom,
                                               patient_id = "subject/reference"
@@ -188,12 +188,14 @@ df_patients_raw <- list_cdn$patients
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_raw,
-                               columns = c("diagnosis", "display", "system"),
+                               #columns = c("diagnosis", "display", "system"),
+                               columns = c("diagnosis", "system"),
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_tmp,
-                               columns = c("diagnosis", "display", "system"),
+                               #columns = c("diagnosis", "display", "system"),
+                               columns = c("diagnosis", "system"),
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
@@ -309,7 +311,7 @@ df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtun
 if (nrow(df_pku_result_primaer) == 0) {
   result_sekundaer_a <- 0
 } else {
-  result_sekundaer_a <- round(sum(df_result_primaer$Anzahl) / nrow(df_conditions_pku[!duplicated(as.numeric(df_conditions_pku$patient_id)), ]) * 100, 2)
+  result_sekundaer_a <- round(sum(df_result_primaer$Anzahl) / nrow(df_conditions_pku[!base::duplicated(as.character(df_conditions_pku$patient_id)), ]) * 100, 2)
 }
 
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
