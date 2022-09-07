@@ -7,10 +7,10 @@ default:
   # set custom subject_reference prefix, default = "Patient/"
   subject_reference_prefix: ''
 
-  # define max bundles for fhir_search, default = 0
+  # define max bundles for fhir_search, default = Inf
   max_bundles:              ''
 
-  # define bundle size for fhir_search, e.g. 1000, default = fhir server specific ( e.g. blaze = 50)
+  # define bundle size for fhir_search, e.g. 1000, default = 100
   count:                    ''
 
   # if you need to authenticate on your fhir server, set username and password
