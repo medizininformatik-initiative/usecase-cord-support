@@ -14,11 +14,11 @@ default:
   count:                    ''
 
   # if you need to authenticate on your fhir server, set username and password
-  username:                 ''
-  password:                 ''
+  username:                 NULL
+  password:                 NULL
 
   # if your fhir server needs token authentification, put token or path to r-script
-  token:                    ''
+  token:                    NULL
 
   # if you need to use a proxy server (e.G. http://proxy:port )
   http_proxy:               ''
