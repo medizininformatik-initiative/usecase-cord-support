@@ -4,9 +4,9 @@
 ####################################################################################################################
 start_time <- Sys.time()
 options(warn = -1)# to suppress warnings
-if (!require("fhircrackr")) install.packages("fhircrackr")
-if (!require("config")) install.packages("config")
-if (!require("dplyr")) install.packages("dplyr")
+if (!require("fhircrackr")) {install.packages("fhircrackr"); library(fhircrackr)}
+if (!require("config")) {install.packages("config"); library(config)}
+if (!require("dplyr")) {install.packages("dplyr"); library(dplyr)}
 
 dir.create(file.path(getwd(),"results"), showWarnings = FALSE)
 
