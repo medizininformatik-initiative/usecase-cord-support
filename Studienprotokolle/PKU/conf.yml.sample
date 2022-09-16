@@ -4,8 +4,9 @@ default:
   # set the name for your location
   hospital_name:            'YourCenter'
 
-  # set custom subject_reference prefix, default = "Patient/"
-  subject_reference_prefix: ''
+  # set custom reference prefix, default = "Patient/" & "Encounter/"
+  subject_reference_prefix:   ''
+  encounter_reference_prefix: ''
 
   # define max bundles for fhir_search, default = Inf
   max_bundles:              ''
