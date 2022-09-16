@@ -35,11 +35,16 @@ search_date <- paste0("", strsplit(recorded_date_custom, "Date")[[1]][1],  "-dat
 search_date_gt <- setNames("gt2014-12-31",search_date)
 search_date_lt <- setNames("lt2023-01-01",search_date)
 
-# check for custom subject_reference_prefix
+# check for custom reference_prefix
 if (exists("subject_reference_prefix", where = conf) && nchar(conf$subject_reference_prefix) >= 1) {
   subject_reference_prefix <- conf$subject_reference_prefix
 } else {
   subject_reference_prefix <- "Patient/"
+}
+if (exists("encounter_reference_prefix", where = conf) && nchar(conf$encounter_reference_prefix) >= 1) {
+  encounter_reference_prefix <- conf$encounter_reference_prefix
+} else {
+  encounter_reference_prefix <- "Encounter/"
 }
 
 # check for custom icd_code_system
@@ -83,18 +88,23 @@ patient_bundle <- fhir_search(request = search_request_pat,
                               verbose = 2,
                               max_bundles = max_bundles_custom)
 
-ftd_conditions <- fhir_table_description(resource = "Condition",
-                                     cols = c(diagnosis = "code/coding/code",
+ftd_conditions <- fhir_table_description(resource = "Condition"
+                                     ,cols = c(diagnosis = "code/coding/code",
                                               display = "code/coding/display",
                                               system = "code/coding/system",
+                                              diag_sicherheit_url = "code/coding/extension",
+                                              diag_sicherheit_system = "code/coding/extension/valueCoding/system",
+                                              diag_sicherheit = "code/coding/extension/valueCoding/code",
                                               recorded_date = recorded_date_custom,
-                                              patient_id = "subject/reference"
+                                              patient_id = "subject/reference",
+                                              encounter_id = "encounter/reference"
                                               )
 )
 
-ftd_patients <- fhir_table_description(resource = "Patient",
-                                   cols = c(patient_id = "id",
-                                            hospital_id = "meta/source",
+ftd_patients <- fhir_table_description(resource = "Patient"
+                                   ,cols = c(patient_id = "id",
+                                            #hospital_id = "meta/source",
+                                            hospital_id = "identifier/assigner/identifier/value",
                                             gender = "gender",
                                             birthdate = "birthDate",
                                             patient_zip = "address/postalCode",
@@ -234,27 +244,35 @@ condition_bundle <- fhircrackr:::fhir_bundle_list(condition_bundle)
 
 df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
 
+if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url)) ) {
+  message("Diagnosesicherheit not found.")
+  diag_sicherheit <- FALSE
+} else {
+  message("Diagnosesicherheit found.")
+  diag_sicherheit <- TRUE
+} 
+
+df_conditions_tmp <- df_conditions_raw
+
+# remove the reference_prefix from column patient_id & encounter_id in condition resource
+df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
+df_conditions_tmp$encounter_id <- sub(encounter_reference_prefix, "", df_conditions_tmp[, "encounter_id"])
+
 # unnest raw conditions dataframe columns diagnosis, system
-df_conditions_tmp <- fhir_melt(df_conditions_raw,
-                               #columns = c("diagnosis", "display", "system"),
-                               columns = c("diagnosis", "system"),
+melt_columns <- c("diagnosis", "system")
+df_conditions_tmp <- fhir_melt(df_conditions_tmp,
+                               columns = melt_columns,
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_tmp,
-                               #columns = c("diagnosis", "display", "system"),
-                               columns = c("diagnosis", "system"),
+                               columns = melt_columns,
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
 
 # filter conditions by system to obtain only icd-10-gm system
 df_conditions_tmp <- df_conditions_tmp[df_conditions_tmp$system == icd_code_system_custom, ]
-
-# remove the "Patient/" tag from column patient_id in condition resource
-df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
-
-x <- c(1, 17, 31, 99)
 
 # merge conditions and patients dataframe
 df_conditions_patients <- base::merge(df_conditions_tmp, df_patients_tmp, by = "patient_id")
@@ -264,11 +282,11 @@ df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < "2022-12-31", ]
 
 # check for custom hospital_id
-if (exists("hospital_name", where = conf)) {
-  if (nchar(conf$hospital_name) >= 1) {
+if (exists("hospital_name", where = conf) && nchar(conf$hospital_name) >= 1) {
     df_conditions_patients$hospital_id <- conf$hospital_name
-  }
-}
+  } else if (unique(is.na(df_conditions_patients$hospital_id))) {
+    message("Please provide hospital_id in conf.yml")
+} 
 
 # remove merge identifier column as its not needed and could cause problems
 df_conditions_patients <- df_conditions_patients %>% select(-contains("resource_identifier"))
@@ -276,62 +294,55 @@ df_conditions_patients <- df_conditions_patients %>% select(-contains("resource_
 # check if birthdate is in format YYYY-MM-DD, if not append -01-01
 df_conditions_patients <- mutate(df_conditions_patients, birthdate = ifelse(nchar(df_conditions_patients$birthdate) >= 10, df_conditions_patients$birthdate, paste0(df_conditions_patients$birthdate, "-01-01")))
 
-# calculate age as of recorded_date - birthdate
-df_conditions_patients$age <- round(as.double(as.Date(df_conditions_patients$recorded_date) - as.Date(df_conditions_patients$birthdate)) / 365.25, 0)
-
-# set age groups
-df_conditions_patients$age_group <- cut(df_conditions_patients$age, x, breaks = c(0, 17, 30, 99), labels = c("[0,17]", "[18,30]", "[31,99]"))
-
 # filter conditions for ICD-Code E84*
 df_conditions_cf <- subset(df_conditions_patients, grepl("^E84", diagnosis))
 df_conditions_cf$diagnosis <- "E84*"
+
+if (diag_sicherheit) {
+  df_conditions_cf <- subset(df_conditions_cf, grepl("G", diag_sicherheit))
+} else {
+  df_conditions_cf <- df_conditions_cf
+} 
 
 # filter conditions for ICD-Codes for Birth O* and Z37, Z38
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
 
 # merge CF and Birth dataframes by patient
 df_cf_birth_all <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
-df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$patient_id), ]
+df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$encounter_id.y), ]
 
 # filter all "children"
 df_cf_birth_all <- subset(df_cf_birth_all, !grepl("^Z38", diagnosis.y))
 
-#df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y, Geschlecht = df_cf_birth_all$gender.x, Alter = df_cf_birth_all$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+result_primaer_count <- ifelse(length(df_cf_birth_all$patient_id) <= 5, "<5", length(df_cf_birth_all$patient_id))
+
+df_result_primaer_count <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = "O80 etc.") %>% summarise(Anzahl = n()) )
+df_result_primaer_count <- mutate(df_result_primaer_count, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
+
 df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
-
-#df_cf_birth <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
-#df_cf_birth <- df_cf_birth[!duplicated(df_cf_birth$patient_id), ]
-#df_cf_birth <- subset(df_cf_birth, !grepl("^Z38", diagnosis.y))
-
-#df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y, Geschlecht = df_cf_birth$gender.x, Alter = df_cf_birth$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-#df_result_sekundaer_a <- as.data.frame(df_cf_birth %>% group_by(Einrichtungsindikator = df_cf_birth$hospital_id.x, Diagn1 = df_cf_birth$diagnosis.x, Diagn2 = df_cf_birth$diagnosis.y) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-#df_result_sekundaer_a <- mutate(df_result_sekundaer_a, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
-
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
-
 df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
 df_cf_complication <- base::merge(df_cf_complication, df_conditions_complication, by = "patient_id")
-df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$patient_id), ]
+df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$encounter_id), ]
 df_cf_complication <- subset(df_cf_complication, !grepl("^Z38", diagnosis.y))
 
-#df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis, Geschlecht = df_cf_complication$gender, Alter = df_cf_complication$age_group) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 df_result_sekundaer_b <- as.data.frame(df_cf_complication %>% group_by(Einrichtungsindikator = df_cf_complication$hospital_id.x, Diagn1 = df_cf_complication$diagnosis.x, Diagn2 = df_cf_complication$diagnosis) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 df_result_sekundaer_b <- mutate(df_result_sekundaer_b, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 # display the final output
+df_result_primaer_count
 df_result_primaer
-#df_result_sekundaer_a
 df_result_sekundaer_b
 now <- format(Sys.time(), "%Y%m%d_%H%M%S")
 ########################################################################################################################################################
 # write result to a csv file
 ########################################################################################################################################################
-write.csv(df_result_primaer, file = paste0("results/result_primaer_",now,".csv"), row.names = FALSE)
-#write.csv(df_result_sekundaer_a, file = paste0("results/result_sekundaer_a_",now,".csv"), row.names = FALSE)
-write.csv(df_result_sekundaer_b, file = paste0("results/result_sekundaer_b_",now,".csv"), row.names = FALSE)
+write.csv(df_result_primaer_count, file = paste0("results/",now,"_result_primaer_gesamt.csv"), row.names = FALSE)
+write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
+write.csv(df_result_sekundaer_b, file = paste0("results/",now,"_result_sekundaer_b.csv"), row.names = FALSE)
 ########################################################################################################################################################
 end_time <- Sys.time()
 run_time <- end_time - start_time

@@ -35,11 +35,16 @@ search_date <- paste0("", strsplit(recorded_date_custom, "Date")[[1]][1],  "-dat
 search_date_gt <- setNames("gt2014-12-31",search_date)
 search_date_lt <- setNames("lt2023-01-01",search_date)
 
-# check for custom subject_reference_prefix
+# check for custom reference_prefix
 if (exists("subject_reference_prefix", where = conf) && nchar(conf$subject_reference_prefix) >= 1) {
   subject_reference_prefix <- conf$subject_reference_prefix
 } else {
   subject_reference_prefix <- "Patient/"
+}
+if (exists("encounter_reference_prefix", where = conf) && nchar(conf$encounter_reference_prefix) >= 1) {
+  encounter_reference_prefix <- conf$encounter_reference_prefix
+} else {
+  encounter_reference_prefix <- "Encounter/"
 }
 
 # check for custom icd_code_system
@@ -83,18 +88,22 @@ patient_bundle <- fhir_search(request = search_request_pat,
                               verbose = 2,
                               max_bundles = max_bundles_custom)
 
-ftd_conditions <- fhir_table_description(resource = "Condition",
-                                     cols = c(diagnosis = "code/coding/code",
+ftd_conditions <- fhir_table_description(resource = "Condition"
+                                     ,cols = c(diagnosis = "code/coding/code",
                                               display = "code/coding/display",
                                               system = "code/coding/system",
+                                              diag_sicherheit_system = "code/coding/extension/valueCoding/system",
+                                              diag_sicherheit = "code/coding/extension/valueCoding/code",
                                               recorded_date = recorded_date_custom,
-                                              patient_id = "subject/reference"
+                                              patient_id = "subject/reference",
+                                              encounter_id = "encounter/reference"
                                               )
 )
 
-ftd_patients <- fhir_table_description(resource = "Patient",
-                                   cols = c(patient_id = "id",
-                                            hospital_id = "meta/source",
+ftd_patients <- fhir_table_description(resource = "Patient"
+                                   ,cols = c(patient_id = "id",
+                                            #hospital_id = "meta/source",
+                                            hospital_id = "identifier/assigner/identifier/value",
                                             gender = "gender",
                                             birthdate = "birthDate",
                                             patient_zip = "address/postalCode",
@@ -242,25 +251,35 @@ condition_bundle <- fhircrackr:::fhir_bundle_list(condition_bundle)
 
 df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
 
+if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url)) ) {
+  message("Diagnosesicherheit not found.")
+  diag_sicherheit <- FALSE
+} else {
+  message("Diagnosesicherheit found.")
+  diag_sicherheit <- TRUE
+} 
+
+df_conditions_tmp <- df_conditions_raw
+
+# remove the reference_prefix from column patient_id & encounter_id in condition resource
+df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
+df_conditions_tmp$encounter_id <- sub(encounter_reference_prefix, "", df_conditions_tmp[, "encounter_id"])
+
 # unnest raw conditions dataframe columns diagnosis, system
-df_conditions_tmp <- fhir_melt(df_conditions_raw,
-                               #columns = c("diagnosis", "display", "system"),
-                               columns = c("diagnosis", "system"),
+melt_columns <- c("diagnosis", "system")
+df_conditions_tmp <- fhir_melt(df_conditions_tmp,
+                               columns = melt_columns,
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 # unnest raw conditions dataframe columns diagnosis, system
 df_conditions_tmp <- fhir_melt(df_conditions_tmp,
-                               #columns = c("diagnosis", "display", "system"),
-                               columns = c("diagnosis", "system"),
+                               columns = melt_columns,
                                brackets = c("[", "]"), sep = "|", all_columns = TRUE)
 
 df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
 
 # filter conditions by system to obtain only icd-10-gm system
 df_conditions_tmp <- df_conditions_tmp[df_conditions_tmp$system == icd_code_system_custom, ]
-
-# remove the "Patient/" tag from column patient_id in condition resource
-df_conditions_tmp$patient_id <- sub(subject_reference_prefix, "", df_conditions_tmp[, "patient_id"])
 
 x <- c(1, 17, 31, 99)
 
@@ -272,11 +291,11 @@ df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < "2022-12-31", ]
 
 # check for custom hospital_id
-if (exists("hospital_name", where = conf)) {
-  if (nchar(conf$hospital_name) >= 1) {
+if (exists("hospital_name", where = conf) && nchar(conf$hospital_name) >= 1) {
     df_conditions_patients$hospital_id <- conf$hospital_name
-  }
-}
+  } else if (unique(is.na(df_conditions_patients$hospital_id))) {
+    message("Please provide hospital_id in conf.yml")
+} 
 
 # remove merge identifier column as its not needed and could cause problems
 df_conditions_patients <- df_conditions_patients %>% select(-contains("resource_identifier"))
@@ -411,10 +430,10 @@ now <- format(Sys.time(), "%Y%m%d_%H%M%S")
 ########################################################################################################################################################
 # write result to a csv file
 ########################################################################################################################################################
-write.csv(df_result_primaer, file = paste0("results/result_primaer_",now,".csv"), row.names = FALSE)
-write.csv(result_sekundaer_a, file = paste0("results/result_sekundaer_a_",now,".csv"), row.names = FALSE)
-write.csv(df_result_primaer, file = paste0("results/result_sekundaer_b_",now,".csv", row.names = FALSE))
-write.csv(df_result_sekundaer_c, file = paste0("results/result_sekundaer_b",now,".csv", row.names = FALSE))
+write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
+write.csv(result_sekundaer_a, file = paste0("results/",now,"_result_sekundaer_a.csv"), row.names = FALSE)
+write.csv(df_result_primaer, file = paste0("results/",now,"_result_sekundaer_b.csv", row.names = FALSE))
+write.csv(df_result_sekundaer_c, file = paste0("results/",now,"_result_sekundaer_b.csv", row.names = FALSE))
 ########################################################################################################################################################
 end_time <- Sys.time()
 run_time <- end_time - start_time
