@@ -31,9 +31,17 @@ if (exists("recordedDate_col", where = conf) && nchar(conf$recordedDate_col) >= 
 } else {
   recorded_date_custom <- "recordedDate"
 }
+
+# check for custom enddate
+if (exists("enddate", where = conf) && nchar(conf$enddate) >= 1) {
+  enddate_custom <- conf$enddate
+} else {
+  enddate_custom <- "2019-12-31"
+}
+
 search_date <- paste0("", strsplit(recorded_date_custom, "Date")[[1]][1],  "-date")
 search_date_gt <- setNames("gt2014-12-31",search_date)
-search_date_lt <- setNames("lt2023-01-01",search_date)
+search_date_lt <- setNames(paste0("lt",enddate_custom),search_date)
 
 # check for custom reference_prefix
 if (exists("subject_reference_prefix", where = conf) && nchar(conf$subject_reference_prefix) >= 1) {
@@ -82,7 +90,7 @@ search_request_pat <- fhir_url(url = conf$serverbase,
 )
 
 patient_bundle <- fhir_search(request = search_request_pat,
-                              username = conf$user,
+                              username = conf$username,
                               password = conf$password,
                               token = conf$token,
                               verbose = 2,
@@ -235,7 +243,7 @@ invisible({
                                    )
     )
 
-    condition_bundle <<- append(condition_bundle,fhir_search(request = search_request_con, username = conf$user, password = conf$password, token = conf$token, verbose = 2, max_bundles = max_bundles_custom))
+    condition_bundle <<- append(condition_bundle,fhir_search(request = search_request_con, username = conf$username, password = conf$password, token = conf$token, verbose = 2, max_bundles = max_bundles_custom))
     
   })
 })
@@ -279,7 +287,7 @@ df_conditions_patients <- base::merge(df_conditions_tmp, df_patients_tmp, by = "
 
 df_conditions_patients$recorded_date <- as.Date(df_conditions_patients$recorded_date, format = "%Y-%m-%d")
 df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date > "2014-12-31", ]
-df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < "2022-12-31", ]
+df_conditions_patients <- df_conditions_patients[df_conditions_patients$recorded_date < enddate_custom, ]
 
 # check for custom hospital_id
 if (exists("hospital_name", where = conf) && nchar(conf$hospital_name) >= 1) {
