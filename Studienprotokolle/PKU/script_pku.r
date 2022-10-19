@@ -100,6 +100,7 @@ ftd_conditions <- fhir_table_description(resource = "Condition"
                                      ,cols = c(diagnosis = "code/coding/code",
                                               display = "code/coding/display",
                                               system = "code/coding/system",
+                                              diag_sicherheit_url = "code/coding/extension",
                                               diag_sicherheit_system = "code/coding/extension/valueCoding/system",
                                               diag_sicherheit = "code/coding/extension/valueCoding/code",
                                               recorded_date = recorded_date_custom,
@@ -187,49 +188,7 @@ con_icd10codes <- paste0(
   ",O80%20Z37.7%21,O81%20Z37.7%21,O82%20Z37.7%21",
   ",O80%20Z37.9%21,O81%20Z37.9%21,O82%20Z37.9%21",
   ",Z37.0,Z37.1,Z37.2,Z37.3,Z37.4,Z37.5,Z37.6,Z37.7,Z37.9",
-  ",Z38.0,Z38.1,Z38.2,Z38.3,Z38.4,Z38.5,Z38.6,Z38.7,Z38.8",
-  ",e70.0,e70.1",
-  ",f32.0,f32.1,f32.2,f32.3,f32.8,f32.9",
-  ",f33.0,f33.1,f33.2,f33.3,f33.4,f33.8,f33.9",
-  ",f34.0,f34.1,f34.8,f34.9",
-  ",g31.0,g31.9",
-  ",n18.1,n18.2,n18.3,n18.4,n18.5",
-  ",o09.0%21,o09.1%21,o09.2%21,o09.3%21,o09.4%21,o09.5%21,o09.6%21,o09.7%21,o09.9%21",
-  ",o09.0,o09.1,o09.2,o09.3,o09.4,o09.5,o09.6,o09.7,o09.9",
-  ",o09.0%20z37.0%21,o09.0%20z37.1%21,o09.0%20z37.2%21,o09.0%20z37.3%21,o09.0%20z37.4%21,o09.0%20z37.5%21,o09.0%20z37.6%21,o09.0%20z37.7%21,o09.0%20z37.9%21",
-  ",o09.1%20z37.0%21,o09.1%20z37.1%21,o09.1%20z37.2%21,o09.1%20z37.3%21,o09.1%20z37.4%21,o09.1%20z37.5%21,o09.1%20z37.6%21,o09.1%20z37.7%21,o09.1%20z37.9%21",
-  ",o09.2%20z37.0%21,o09.2%20z37.1%21,o09.2%20z37.2%21,o09.2%20z37.3%21,o09.2%20z37.4%21,o09.2%20z37.5%21,o09.2%20z37.6%21,o09.2%20z37.7%21,o09.2%20z37.9%21",
-  ",o09.3%20z37.0%21,o09.3%20z37.1%21,o09.3%20z37.2%21,o09.3%20z37.3%21,o09.3%20z37.4%21,o09.3%20z37.5%21,o09.3%20z37.6%21,o09.3%20z37.7%21,o09.3%20z37.9%21",
-  ",o09.4%20z37.0%21,o09.4%20z37.1%21,o09.4%20z37.2%21,o09.4%20z37.3%21,o09.4%20z37.4%21,o09.4%20z37.5%21,o09.4%20z37.6%21,o09.4%20z37.7%21,o09.4%20z37.9%21",
-  ",o09.5%20z37.0%21,o09.5%20z37.1%21,o09.5%20z37.2%21,o09.5%20z37.3%21,o09.5%20z37.4%21,o09.5%20z37.5%21,o09.5%20z37.6%21,o09.5%20z37.7%21,o09.5%20z37.9%21",
-  ",o09.6%20z37.0%21,o09.6%20z37.1%21,o09.6%20z37.2%21,o09.6%20z37.3%21,o09.6%20z37.4%21,o09.6%20z37.5%21,o09.6%20z37.6%21,o09.6%20z37.7%21,o09.6%20z37.9%21",
-  ",o09.7%20z37.0%21,o09.7%20z37.1%21,o09.7%20z37.2%21,o09.7%20z37.3%21,o09.7%20z37.4%21,o09.7%20z37.5%21,o09.7%20z37.6%21,o09.7%20z37.7%21,o09.7%20z37.9%21",
-  ",o09.9%20z37.0%21,o09.8%20z37.1%21,o09.9%20z37.2%21,o09.9%20z37.3%21,o09.9%20z37.4%21,o09.9%20z37.5%21,o09.9%20z37.6%21,o09.9%20z37.7%21,o09.9%20z37.9%21",
-  ",o24.4",
-  ",o30.0,o30.1,o30.2,o30.8,o30.9",
-  ",o63.0,o63.1,o63.2,o63.9",
-  ",o64.0,o64.1,o64.2,o64.3,o64.4,o64.5,o64.8,o64.9",
-  ",o64.0%20z37.0%21,o64.0%20z37.1%21,o64.0%20z37.2%21,o64.0%20z37.3%21,o64.0%20z37.4%21,o64.0%20z37.5%21,o64.0%20z37.6%21,o64.0%20z37.7%21,o64.0%20z37.9%21",
-  ",o64.1%20z37.0%21,o64.1%20z37.1%21,o64.1%20z37.2%21,o64.1%20z37.3%21,o64.1%20z37.4%21,o64.1%20z37.5%21,o64.1%20z37.6%21,o64.1%20z37.7%21,o64.1%20z37.9%21",
-  ",o64.2%20z37.0%21,o64.2%20z37.1%21,o64.2%20z37.2%21,o64.2%20z37.3%21,o64.2%20z37.4%21,o64.2%20z37.5%21,o64.2%20z37.6%21,o64.2%20z37.7%21,o64.2%20z37.9%21",
-  ",o64.3%20z37.0%21,o64.3%20z37.1%21,o64.3%20z37.2%21,o64.3%20z37.3%21,o64.3%20z37.4%21,o64.3%20z37.5%21,o64.3%20z37.6%21,o64.3%20z37.7%21,o64.3%20z37.9%21",
-  ",o64.4%20z37.0%21,o64.4%20z37.1%21,o64.4%20z37.2%21,o64.4%20z37.3%21,o64.4%20z37.4%21,o64.4%20z37.5%21,o64.4%20z37.6%21,o64.4%20z37.7%21,o64.4%20z37.9%21",
-  ",o64.5%20z37.0%21,o64.5%20z37.1%21,o64.5%20z37.2%21,o64.5%20z37.3%21,o64.5%20z37.4%21,o64.5%20z37.5%21,o64.5%20z37.6%21,o64.5%20z37.7%21,o64.5%20z37.9%21",
-  ",o64.8%20z37.0%21,o64.8%20z37.1%21,o64.8%20z37.2%21,o64.8%20z37.3%21,o64.8%20z37.4%21,o64.8%20z37.5%21,o64.8%20z37.6%21,o64.8%20z37.7%21,o64.8%20z37.9%21",
-  ",o64.9%20z37.0%21,o64.8%20z37.1%21,o64.9%20z37.2%21,o64.9%20z37.3%21,o64.9%20z37.4%21,o64.9%20z37.5%21,o64.9%20z37.6%21,o64.9%20z37.7%21,o64.9%20z37.9%21",
-  ",o75.0,o75.1,o75.2,o75.3,o75.4,o75.5,o75.6,o75.7,o75.8,o75.9",
-  ",o80,o81,o82",
-  ",o80%20z37.0%21,o81%20z37.0%21,o82%20z37.0%21",
-  ",o80%20z37.1%21,o81%20z37.1%21,o82%20z37.1%21",
-  ",o80%20z37.2%21,o81%20z37.2%21,o82%20z37.2%21",
-  ",o80%20z37.3%21,o81%20z37.3%21,o82%20z37.3%21",
-  ",o80%20z37.4%21,o81%20z37.4%21,o82%20z37.4%21",
-  ",o80%20z37.5%21,o81%20z37.5%21,o82%20z37.5%21",
-  ",o80%20z37.6%21,o81%20z37.6%21,o82%20z37.6%21",
-  ",o80%20z37.7%21,o81%20z37.7%21,o82%20z37.7%21",
-  ",o80%20z37.9%21,o81%20z37.9%21,o82%20z37.9%21",
-  ",z37.0,z37.1,z37.2,z37.3,z37.4,z37.5,z37.6,z37.7,z37.9",
-  ",z38.0,z38.1,z38.2,z38.3,z38.4,z38.5,z38.6,z38.7,z38.8"
+  ",Z38.0,Z38.1,Z38.2,Z38.3,Z38.4,Z38.5,Z38.6,Z38.7,Z38.8"
 )
 
 condition_bundle <- list()
@@ -259,7 +218,36 @@ condition_bundle <- fhircrackr:::fhir_bundle_list(condition_bundle)
 
 df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
 
-if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url)) ) {
+if (nrow(df_conditions_raw) == 0) {
+  message('No conditions found. Retry with lowercase icd10codes.')
+  condition_bundle <- list()
+  invisible({
+    lapply(list, function(x){
+      
+      ids <- paste(x, collapse = ",")
+      
+      search_request_con <- fhir_url(url = conf$serverbase,
+                                     resource = "Condition",
+                                     parameters = c(
+                                       "subject" = ids,
+                                       "code" = tolower(con_icd10codes),
+                                       search_date_gt,
+                                       search_date_lt,
+                                       count_custom
+                                     )
+      )
+      
+      condition_bundle <<- append(condition_bundle,fhir_search(request = search_request_con, username = conf$username, password = conf$password, token = conf$token, verbose = 2, max_bundles = max_bundles_custom))
+      
+    })
+  })
+  #bring condition results together and flatten
+  condition_bundle <- fhircrackr:::fhir_bundle_list(condition_bundle)
+  
+  df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
+}
+
+if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url, ignore.case = TRUE)) ) {
   message("Diagnosesicherheit not found.")
   diag_sicherheit <- FALSE
 } else {
