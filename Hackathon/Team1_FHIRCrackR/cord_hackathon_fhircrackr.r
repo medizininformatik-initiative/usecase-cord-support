@@ -28,7 +28,7 @@ search_request <- paste0(
 conditions <- fhir_table_description(resource = "Condition",
                                      cols = c(diagnosis = "code/coding/code",
                                               system = "code/coding/system",
-					      recorded_date ="recordedDate",# newly added
+                                              recorded_date ="recordedDate",# newly added
                                               patient_id = "subject/reference"),
                                      style = fhir_style(sep="|",
                                                         brackets = c("[", "]"),
@@ -109,6 +109,8 @@ df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "le
 
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
+
+an.error.occured <- FALSE
 
 # write csv with ";" to file
 write.csv2(df_result,file=conf$cracked_result,row.names=F,quote=F)
