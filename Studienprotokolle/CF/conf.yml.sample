@@ -1,0 +1,42 @@
+default:
+  serverbase:               'https://mii-agiop-cord.life.uni-leipzig.de/fhir/'
+
+  # set the name for your location
+  hospital_name:            'YourCenter'
+
+  # set custom reference prefix, default = "Patient/" & "Encounter/"
+  subject_reference_prefix:   ''
+  encounter_reference_prefix: ''
+
+  # define max bundles for fhir_search, default = Inf
+  max_bundles:              ''
+
+  # define bundle size for fhir_search, e.g. 1000, default = 100
+  count:                    ''
+
+  # if you need to authenticate on your fhir server, set username and password
+  username:                 NULL
+  password:                 NULL
+
+  # if your fhir server needs token authentification, put token or path to r-script
+  token:                    NULL
+
+  # if you need to use a proxy server (e.G. http://proxy:port )
+  http_proxy:               ''
+  https_proxy:              ''
+
+  # put fhir server adress here, if you need to bypass the proxy for accessing it locally
+  no_proxy:                 ''
+
+  # TRUE = peer verification enabled, FALSE = peer verification disabled
+  ssl_verify_peer: FALSE
+
+  # custom parameters for conditions resources on local fhir server
+  # use 'http://fhir.de/CodeSystem/dimdi/icd-10-gm' or 'http://fhir.de/CodeSystem/bfarm/icd-10-gm' or custom
+  icd_code_system:          'http://fhir.de/CodeSystem/dimdi/icd-10-gm'
+
+  # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
+  recordedDate_col:         ''
+
+# uncomment, to load patients until 2021-12-31
+  #enddate:                  2021-12-31
