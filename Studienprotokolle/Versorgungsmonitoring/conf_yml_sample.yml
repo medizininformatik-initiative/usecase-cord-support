@@ -1,5 +1,5 @@
 default:
-  serverbase:       'https://mii-agiop-cord.life.uni-leipzig.de/fhir/'
+  serverbase:       'https://mii-agiop-cord.life.uni-leipzig.de/fhir/' # replace the server base with your FHIR Server URL
   hospital_name:    'Abbreviation for your center'
   hospital_zip:     'Postal code of your center'
 
@@ -12,6 +12,7 @@ default:
 # what follows the pipe symbol is abbreviation for 4 departments
 # if department name not available then set department_identifier to NULL
   department_identifier: 'location:identifier=https://replace_fhir.de/identifier/organization|KI,OK,M1,FK'
+  #department_identifier: ''
 # stationaer
   inpatient: 'stationaer'
 # orpha system
