@@ -78,10 +78,12 @@ if (exists("count", where = conf) && nchar(conf$count) >= 1) {
   count_custom <- c("_count" = 100)
 }
 
+rare_icd10codes <- "E84.0,E84.1,E84.8,E84.80,E84.87,E84.88,E84.9"
+
 search_request_pat <- fhir_url(url = conf$serverbase,
                                resource = "Patient",
                                parameters = c(
-                                 "_has:Condition:patient:code" = "E84.0,E84.1,E84.8,E84.80,E84.87,E84.88,E84.9",
+                                 "_has:Condition:patient:code" = rare_icd10codes,
                                  "_has:Encounter:patient:date" = "ge2015",
                                  # blaze server takes 10x more time for the query with last _has
                                  #"_has:Encounter:patient:date" = "le2022",
@@ -131,9 +133,7 @@ df_patients_tmp <- fhir_rm_indices(df_patients_tmp, brackets = c("[", "]"))
 # remove duplicate entries
 df_patients_tmp <- df_patients_tmp[!duplicated(df_patients_tmp$patient_id), ]
 
-pat_ref_ids <- paste(df_patients_tmp$patient_id,collapse=',')
-
-patient_ids <- unique(df_patients_tmp$patient_id)
+patient_ids <- paste0(subject_reference_prefix,unique(df_patients_tmp$patient_id))
 nchar_for_ids <- 500 #- nchar(search_request_con)
 n <- length(patient_ids)
 list <- split(patient_ids, ceiling(seq_along(patient_ids)/n)) 
@@ -146,9 +146,13 @@ while(any(nchar > nchar_for_ids)){
   nchar <- sapply(list, function(x){sum(nchar(x))+(length(x)-1)})
 }
 
+komorb_icd10codes <- paste0(
+  ",J18.0,J18.1,J18.2,J18.8,J18.9"
+)
+
 con_icd10codes <- paste0(
-  "E84.0,E84.1,E84.8,E84.80,E84.87,E84.88,E84.9",
-  ",J18.0,J18.1,J18.2,J18.8,J18.9",
+  rare_icd10codes,
+  komorb_icd10codes,
   ",O09.0%21,O09.1%21,O09.2%21,O09.3%21,O09.4%21,O09.5%21,O09.6%21,O09.7%21,O09.9%21",
   ",O09.0,O09.1,O09.2,O09.3,O09.4,O09.5,O09.6,O09.7,O09.9",
   ",O09.0%20Z37.0%21,O09.0%20Z37.1%21,O09.0%20Z37.2%21,O09.0%20Z37.3%21,O09.0%20Z37.4%21,O09.0%20Z37.5%21,O09.0%20Z37.6%21,O09.0%20Z37.7%21,O09.0%20Z37.9%21",
