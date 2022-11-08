@@ -11,7 +11,7 @@ default:
 # Find the system name from Encounter resource location-->identifier  and replace the system name after '=' sign till pipe sign '|'
 # what follows the pipe symbol is abbreviation for 4 departments
 # if department name not available then set department_identifier to NULL
-  department_identifier: 'location:identifier=https://replace_fhir.de/identifier/organization|KI,OK,M1,FK'
+  department_identifier: 'https://replace_fhir.de/identifier/organization|KI,OK,M1,FK'
   #department_identifier: ''
 # stationaer
   inpatient: 'stationaer'
