@@ -119,8 +119,8 @@ if (exists("orpha_system", where = conf) && nchar(conf$orpha_system) >= 1) {
 
 # remove duplicate patients
 #conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
-conditions_dept_tmp <- conditions_tmp %>% group_by(condition_id, recorded_date, diagnosis, system, encounter_id, patient_id) %>% summarise(patient_id,.groups = "keep")
-patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
+conditions_tmp <- conditions_tmp %>% group_by(condition_id, recorded_date, diagnosis, system, encounter_id, patient_id) %>% summarise(patient_id,.groups = "keep")
+#patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
 # check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
 if ("countrycode" %in% colnames(patients_tmp))
