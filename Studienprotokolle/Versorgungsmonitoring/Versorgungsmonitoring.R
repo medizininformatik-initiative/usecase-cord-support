@@ -1,11 +1,12 @@
 if (!require('fhircrackr')) install.packages('fhircrackr')# In order to flatten the FHIR resources from XML objects; requires R (>= 4.0.0)
 if (!require('config')) install.packages('config')
 if (!require('stringr')) install.packages('stringr')#In order to add leading zeros to make zip codes five digits
+if (!require('dplyr')) install.packages('dplyr')# In order to remove duplicates and summarise
 
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
-
+library(dplyr) # to remove duplicates and group by patient id and summarise 
 brackets = c("[", "]")
 sep = " || "
 
@@ -111,13 +112,14 @@ patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 
 # filter conditions by system to obtain only icd-10-gm system
 if (exists("orpha_system", where = conf) && nchar(conf$orpha_system) >= 1) {
-  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') || (conditions_tmp$system == 'http://www.orpha.net'),] 
+  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') || (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') || (conditions_tmp$system == 'http://www.orpha.net'),] 
 } else {
-  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm'),] 
+  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') || (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') ,] 
 }
 
 # remove duplicate patients
-conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
+#conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
+conditions_dept_tmp <- conditions_tmp %>% group_by(condition_id, recorded_date, diagnosis, system, encounter_id, patient_id) %>% summarise(patient_id,.groups = "keep")
 patients_tmp <- patients_tmp[!duplicated(patients_tmp$patient_id),]
 
 # check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
@@ -126,14 +128,17 @@ if ("countrycode" %in% colnames(patients_tmp))
   patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
 }
 
-# calculate age in years by birthdate conditions and patients dataframe must of same length
-patients_tmp$age <- round( as.double( as.Date( conditions_tmp$recorded_date ) - as.Date( patients_tmp$birthdate ) ) / 365.25, 0 )
-
 # remove the "Patient/" tag from patient id in condition resource
 conditions_tmp$patient_id <- sub("Patient/", "", conditions_tmp[,"patient_id"])
 
-# merge all patients and conditions data by patient_id
-df_merged <- base::merge(patients_tmp, conditions_tmp, by = "patient_id")
+# merge conditions and patients dataframe
+df_conditions_patients <- base::merge(conditions_tmp, patients_tmp, by = "patient_id")
+
+# calculate age in years by birthdate conditions and patients dataframe must of same length
+df_conditions_patients$age <- round( as.double( as.Date( df_conditions_patients$recorded_date ) - as.Date( df_conditions_patients$birthdate ) ) / 365.25, 0 )
+
+# remove duplicate patients, so that the resulting dataframe has maximum age 
+df_merged <- df_conditions_patients %>% group_by(patient_id, gender, birthdate, patient_zip, countrycode, condition_id, recorded_date, diagnosis, system, encounter_id) %>% summarise(age=max(age),.groups = "keep")
 
 #center infos
 df_merged$hospital_name <- conf$hospital_name
