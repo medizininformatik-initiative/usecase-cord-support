@@ -112,9 +112,9 @@ patients_tmp <- fhir_rm_indices(patients_raw, brackets = c("[", "]") )
 
 # filter conditions by system to obtain only icd-10-gm system
 if (exists("orpha_system", where = conf) && nchar(conf$orpha_system) >= 1) {
-  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') || (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') || (conditions_tmp$system == 'http://www.orpha.net'),] 
+  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') | (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') | (conditions_tmp$system == 'http://www.orpha.net'),] 
 } else {
-  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') || (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') ,] 
+  conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') | (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') ,] 
 }
 
 # remove duplicate patients
