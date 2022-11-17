@@ -78,10 +78,18 @@ if (exists("count", where = conf) && nchar(conf$count) >= 1) {
   count_custom <- c("_count" = 100)
 }
 
+if (exists("use_diag_sicherheit", where = conf) && (conf$use_diag_sicherheit) ) {
+  use_diag_sicherheit <- TRUE
+} else {
+  use_diag_sicherheit <- FALSE
+}
+
+rare_icd10codes <- "E70.0,E70.1"
+
 search_request_pat <- fhir_url(url = conf$serverbase,
                                resource = "Patient",
                                parameters = c(
-                                 "_has:Condition:patient:code" = "E70.1,E70.0",
+                                 "_has:Condition:patient:code" = rare_icd10codes,
                                  "_has:Encounter:patient:date" = "ge2015",
                                  # blaze server takes 10x more time for the query with last _has
                                  #"_has:Encounter:patient:date" = "le2022",
@@ -120,6 +128,10 @@ ftd_patients <- fhir_table_description(resource = "Patient"
                                             )
 )
 
+#ftd_patients <- fhir_table_description(resource = "Patient"
+#                                       ,cols = NULL
+#)
+
 df_patients_raw <- fhir_crack(patient_bundle, ftd_patients, sep = "|", brackets = c("[", "]"), verbose = 2)
 
 df_patients_tmp <- fhir_melt(df_patients_raw,
@@ -131,9 +143,7 @@ df_patients_tmp <- fhir_rm_indices(df_patients_tmp, brackets = c("[", "]"))
 # remove duplicate entries
 df_patients_tmp <- df_patients_tmp[!duplicated(df_patients_tmp$patient_id), ]
 
-pat_ref_ids <- paste(df_patients_tmp$patient_id,collapse=',')
-
-patient_ids <- unique(df_patients_tmp$patient_id)
+patient_ids <- paste0(subject_reference_prefix,unique(df_patients_tmp$patient_id))
 nchar_for_ids <- 200 #- nchar(search_request_con)
 n <- length(patient_ids)
 list <- split(patient_ids, ceiling(seq_along(patient_ids)/n)) 
@@ -146,13 +156,17 @@ while(any(nchar > nchar_for_ids)){
   nchar <- sapply(list, function(x){sum(nchar(x))+(length(x)-1)})
 }
 
-con_icd10codes <- paste0(
-  "E70.0,E70.1",
-  ",F32.0,F32.1,F32.2,F32.3,F32.8,F32.9",
+komorb_icd10codes <- paste0(
+  "F32.0,F32.1,F32.2,F32.3,F32.8,F32.9",
   ",F33.0,F33.1,F33.2,F33.3,F33.4,F33.8,F33.9",
   ",F34.0,F34.1,F34.8,F34.9",
   ",G31.0,G31.9",
-  ",N18.1,N18.2,N18.3,N18.4,N18.5",
+  ",N18.1,N18.2,N18.3,N18.4,N18.5"
+)
+
+con_icd10codes <- paste0(
+  rare_icd10codes,",",
+  komorb_icd10codes,
   ",O09.0%21,O09.1%21,O09.2%21,O09.3%21,O09.4%21,O09.5%21,O09.6%21,O09.7%21,O09.9%21",
   ",O09.0,O09.1,O09.2,O09.3,O09.4,O09.5,O09.6,O09.7,O09.9",
   ",O09.0%20Z37.0%21,O09.0%20Z37.1%21,O09.0%20Z37.2%21,O09.0%20Z37.3%21,O09.0%20Z37.4%21,O09.0%20Z37.5%21,O09.0%20Z37.6%21,O09.0%20Z37.7%21,O09.0%20Z37.9%21",
@@ -247,6 +261,10 @@ if (nrow(df_conditions_raw) == 0) {
   df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
 }
 
+if (nrow(df_conditions_raw) == 0) {
+  stop('No conditions found...exiting')
+}
+
 if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url, ignore.case = TRUE)) ) {
   message("Diagnosesicherheit not found.")
   diag_sicherheit <- FALSE
@@ -310,8 +328,20 @@ df_conditions_pku <- subset(df_conditions_patients, grepl("^E70", diagnosis))
 #df_conditions_pku <- unique(df_conditions_pku[, c(1, 2, 3, 4, 5)])
 
 df_pku_agegroup <- df_conditions_pku
-df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(hospital_id = df_conditions_pku$hospital_id, diagnosis = df_conditions_pku$diagnosis, age_group = df_conditions_pku$age_group) %>% summarise(anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-#df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(Einrichtungsindikator = df_conditions_pku$hospital_id, Diagn1 = "E70*", Alter = df_conditions_pku$age_group) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_pku_agegroup_ges <- subset(df_pku_agegroup, grepl("^E70", diagnosis))
+df_pku_agegroup_ges <- df_pku_agegroup_ges[!duplicated(df_pku_agegroup_ges$patient_id), ]
+df_pku_agegroup_0 <- subset(df_pku_agegroup, grepl("^E70.0", diagnosis))
+df_pku_agegroup_0 <- df_pku_agegroup_0[!duplicated(df_pku_agegroup_0$patient_id), ]
+df_pku_agegroup_1 <- subset(df_pku_agegroup, grepl("^E70.1", diagnosis))
+df_pku_agegroup_1 <- df_pku_agegroup_1[!duplicated(df_pku_agegroup_1$patient_id), ]
+
+df_pku_agegroup_ges <- as.data.frame(df_pku_agegroup_ges %>% group_by(hospital_id = df_pku_agegroup_ges$hospital_id, diagnosis = "E70.*", age_group = df_pku_agegroup_ges$age_group) %>% summarise(gesamt = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_pku_agegroup_0 <- as.data.frame(df_pku_agegroup_0 %>% group_by(hospital_id = df_pku_agegroup_0$hospital_id, diagnosis = df_pku_agegroup_0$diagnosis, age_group = df_pku_agegroup_0$age_group) %>% summarise(anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_pku_agegroup_1 <- as.data.frame(df_pku_agegroup_1 %>% group_by(hospital_id = df_pku_agegroup_1$hospital_id, diagnosis = df_pku_agegroup_1$diagnosis, age_group = df_pku_agegroup_1$age_group) %>% summarise(anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+
+df_pku_agegroup <- rbind(df_pku_agegroup_0,df_pku_agegroup_1)
+#df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(hospital_id = df_conditions_pku$hospital_id, diagnosis = df_conditions_pku$diagnosis, age_group = df_conditions_pku$age_group) %>% summarise(anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+#df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(Klinikum = df_conditions_pku$hospital_id, Diagn1 = "E70*", Alter = df_conditions_pku$age_group) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 
 #df_pku_agegroup
 #df_pku_agegroup <- mutate(df_pku_agegroup, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
@@ -319,24 +349,29 @@ df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(hospital_id = df
 #write.csv(df_pku_agegroup, file = "df_pku_agegroup.csv", row.names = FALSE)
 
 df_conditions_pku <- base::merge(df_conditions_pku, df_pku_agegroup, by = c("diagnosis","age_group","hospital_id"))
+df_conditions_pku <- base::merge(df_conditions_pku, df_pku_agegroup_ges, by = c("age_group","hospital_id"))
 
-df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(hospital_id = df_conditions_pku$hospital_id, diagnosis = "E70.*", age_group = df_conditions_pku$age_group) %>% summarise(gesamt = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-df_conditions_pku <- base::merge(df_conditions_pku, df_pku_agegroup, by = c("age_group","hospital_id"))
-names(df_conditions_pku)[names(df_conditions_pku) == "diagnosis.y"] <- "diagnosis_e70"
+#df_pku_agegroup <- as.data.frame(df_conditions_pku %>% group_by(hospital_id = df_conditions_pku$hospital_id, diagnosis = "E70.*", age_group = df_conditions_pku$age_group) %>% summarise(gesamt = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+#df_conditions_pku <- base::merge(df_conditions_pku, df_pku_agegroup, by = c("age_group","hospital_id"))
+names(df_conditions_pku)[names(df_conditions_pku) == "diagnosis.y"] <- "diagnosis_e70.*"
 
 df_conditions_pku_0 <- subset(df_conditions_pku, grepl("^E70.0", diagnosis.x))
 
 df_conditions_pku_1 <- subset(df_conditions_pku, grepl("^E70.1", diagnosis.x))
 
+count_patients_e70_ges <- nrow(df_conditions_pku[!base::duplicated(as.character(df_conditions_pku$patient_id)), ])
+count_patients_e70_0 <- nrow(df_conditions_pku_0[!base::duplicated(as.character(df_conditions_pku_0$patient_id)), ])
+count_patients_e70_1 <- nrow(df_conditions_pku_1[!base::duplicated(as.character(df_conditions_pku_1$patient_id)), ])
+
 df_conditions_n18 <- subset(df_conditions_patients, grepl("^N18", diagnosis))
 
-df_pku_0_n <- base::merge(df_conditions_pku_0, df_conditions_n18, by = "patient_id")
-df_pku_0_n <- df_pku_0_n[!duplicated(df_pku_0_n$patient_id), ]
-df_pku_0_n <- df_pku_0_n %>% select(-contains("resource_identifier"))
+df_pku_0_n18 <- base::merge(df_conditions_pku_0, df_conditions_n18, by = "patient_id")
+df_pku_0_n18 <- df_pku_0_n18[!duplicated(df_pku_0_n18$patient_id), ]
+df_pku_0_n18 <- df_pku_0_n18 %>% select(-contains("resource_identifier"))
 
-df_pku_1_n <- base::merge(df_conditions_pku_1, df_conditions_n18, by = "patient_id")
-df_pku_1_n <- df_pku_1_n[!duplicated(df_pku_1_n$patient_id), ]
-df_pku_1_n <- df_pku_1_n %>% select(-contains("resource_identifier"))
+df_pku_1_n18 <- base::merge(df_conditions_pku_1, df_conditions_n18, by = "patient_id")
+df_pku_1_n18 <- df_pku_1_n18[!duplicated(df_pku_1_n18$patient_id), ]
+df_pku_1_n18 <- df_pku_1_n18 %>% select(-contains("resource_identifier"))
 
 df_conditions_f32 <- subset(df_conditions_patients, grepl("^F32", diagnosis))
 
@@ -378,22 +413,51 @@ df_pku_1_g31 <- base::merge(df_conditions_pku_1, df_conditions_g31, by = "patien
 df_pku_1_g31 <- df_pku_1_g31[!duplicated(df_pku_1_g31$patient_id), ]
 df_pku_1_g31 <- df_pku_1_g31 %>% select(-contains("resource_identifier"))
 
-df_pku_result_primaer <- rbind(df_pku_0_n, df_pku_1_n, df_pku_0_f32, df_pku_1_f32, df_pku_0_f33, df_pku_1_f33, df_pku_0_f34, df_pku_1_f34, df_pku_0_g31, df_pku_1_g31)
-#df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtungsindikator = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis.y, Geschlecht = df_pku_result_primaer$gender.x, Alter = df_pku_result_primaer$age_group.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtungsindikator = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-#df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
+df_pku_result_primaer <- rbind(df_pku_0_n18, df_pku_1_n18, df_pku_0_f32, df_pku_1_f32, df_pku_0_f33, df_pku_1_f33, df_pku_0_f34, df_pku_1_f34, df_pku_0_g31, df_pku_1_g31)
+if (nrow(df_pku_result_primaer) == 0) {
+  stop('No conditions found...exiting')
+}
+df_pku_result_primaer_0 <- subset(df_pku_result_primaer, grepl("^E70.0", diagnosis.x))
+df_pku_result_primaer_1 <- subset(df_pku_result_primaer, grepl("^E70.1", diagnosis.x))
+
+df_result_primaer_0 <- as.data.frame(df_pku_result_primaer_0 %>% group_by(Klinikum = df_pku_result_primaer_0$hospital_id.x, Diagn1 = df_pku_result_primaer_0$diagnosis.x, Diagn2 = df_pku_result_primaer_0$diagnosis) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_primaer_1 <- as.data.frame(df_pku_result_primaer_1 %>% group_by(Klinikum = df_pku_result_primaer_1$hospital_id.x, Diagn1 = df_pku_result_primaer_1$diagnosis.x, Diagn2 = df_pku_result_primaer_1$diagnosis) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+
+rare_icd10codes_list <- as.list(strsplit(rare_icd10codes, ',')[[1]])
+komorb_icd10codes_list <- as.list(strsplit(komorb_icd10codes, ",")[[1]])
+
+df_rare_komorb_icd10codes_combined <- data.frame()
+for ( i in rare_icd10codes_list){
+  for ( j in komorb_icd10codes_list){
+    row <- c(conf$hospital_name,i,j,as.numeric(0))
+    df_rare_komorb_icd10codes_combined <- rbind(df_rare_komorb_icd10codes_combined, row)
+  }
+}
+colnames(df_rare_komorb_icd10codes_combined)<-c("Klinikum", "Diagn1", "Diagn2", "Anzahl")
+
+df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+
+df_result_primaer <- rbind(df_result_primaer,df_rare_komorb_icd10codes_combined)
+
+#maybe not needed
+#df_result_primaer <- as.data.frame(df_result_primaer %>% group_by(Klinikum = df_result_primaer$Klinikum, Diagn1 = df_result_primaer$Diagn1, Diagn2 = df_result_primaer$Diagn2) %>% summarise() )
 
 if (nrow(df_pku_result_primaer) == 0) {
   result_sekundaer_a <- 0
 } else {
   # sum alle pku 
-  result_sekundaer_a <- round(sum(df_result_primaer$Anzahl) / nrow(df_conditions_pku[!base::duplicated(as.character(df_conditions_pku$patient_id)), ]) * 100, 2)
+  result_sekundaer_a <- round(sum(as.numeric(df_result_primaer$Anzahl)) / count_patients_e70_ges * 100, 2)
 }
 
+df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
+
 # rel von altersgruppen
-df_result_sekundaer_b <- as.data.frame(df_pku_result_primaer %>% group_by(Einrichtungsindikator = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis.x, Diagn2 = df_pku_result_primaer$diagnosis_e70, Alter = df_pku_result_primaer$age_group.x, count_0_1 = df_pku_result_primaer$anzahl, count_e70 = df_pku_result_primaer$gesamt) %>% summarise(Anzahl = n())  %>% mutate(Haeufigkeit_0_1 = paste0(round(100 * n() / count_0_1, 2), "%")) %>% mutate(Haeufigkeit_e70 = paste0(round(100 * n() / count_e70, 2), "%")))
-#df_result_sekundaer_b <- df_result_sekundaer_b %>% select(-contains(c("Anzahl","gesamt")))
-#df_result_sekundaer_b
+df_result_sekundaer_b_0 <- as.data.frame(df_pku_result_primaer_0 %>% group_by(Klinikum = df_pku_result_primaer_0$hospital_id.x, Diagn1 = df_pku_result_primaer_0$diagnosis.x, Diagn2 = df_pku_result_primaer_0$diagnosis, Alter = df_pku_result_primaer_0$age_group.x) %>% summarise() %>% mutate("% E70.0 Patienten" = paste0(round(100 * n() / count_patients_e70_0, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
+df_result_sekundaer_b_0
+df_result_sekundaer_b_1 <- as.data.frame(df_pku_result_primaer_1 %>% group_by(Klinikum = df_pku_result_primaer_1$hospital_id.x, Diagn1 = df_pku_result_primaer_1$diagnosis.x, Diagn2 = df_pku_result_primaer_1$diagnosis, Alter = df_pku_result_primaer_1$age_group.x) %>% summarise() %>% mutate("% E70.1 Patienten" = paste0(round(100 * n() / count_patients_e70_1, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
+df_result_sekundaer_b_1
+df_result_sekundaer_b_ges <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis_e70, Diagn2 = df_pku_result_primaer$diagnosis, Alter = df_pku_result_primaer$age_group.x) %>% summarise() %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
+df_result_sekundaer_b_ges
 
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
 
@@ -408,29 +472,41 @@ names(df_pku_birth)[names(df_pku_birth) == "diagnosis.x"] <- "diagnosis.z"
 
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
 
-#df_pku_complication <- base::merge(df_conditions_pku, df_conditions_birth, by = "patient_id")
 df_pku_complication <- base::merge(df_conditions_complication, df_pku_birth, by = "patient_id")
 df_pku_complication <- df_pku_complication[!duplicated(df_pku_complication$patient_id), ]
 df_pku_complication <- subset(df_pku_complication, !grepl("^Z38", diagnosis.y))
 df_pku_complication <- df_pku_complication %>% select(-contains("resource_identifier"))
 
-df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Einrichtungsindikator = df_pku_complication$hospital_id.x, Diagn1 = df_pku_complication$diagnosis.z, Diagn2 = df_pku_complication$diagnosis.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
-#df_result_sekundaer_c <- mutate(df_result_sekundaer_c, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
+df_result_sekundaer_c <- as.data.frame(df_pku_complication %>% group_by(Klinikum = df_pku_complication$hospital_id.x, Diagn1 = df_pku_complication$diagnosis.z, Diagn2 = df_pku_complication$diagnosis.x) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
+df_result_sekundaer_c <- mutate(df_result_sekundaer_c, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
+
+now <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
 # display the final output
 df_result_primaer
-paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
-df_result_sekundaer_b
-df_result_sekundaer_c
-now <- format(Sys.time(), "%Y%m%d_%H%M%S")
-########################################################################################################################################################
-# write result to a csv file
-########################################################################################################################################################
 write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
+
+result_sekundaer_a <- paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
+result_sekundaer_a
 write.csv(result_sekundaer_a, file = paste0("results/",now,"_result_sekundaer_a.csv"), row.names = FALSE)
-write.csv(df_result_primaer, file = paste0("results/",now,"_result_sekundaer_b.csv", row.names = FALSE))
-write.csv(df_result_sekundaer_c, file = paste0("results/",now,"_result_sekundaer_b.csv", row.names = FALSE))
-########################################################################################################################################################
+df_result_sekundaer_b_0
+df_result_sekundaer_b_1
+df_result_sekundaer_b_ges
+df_result_sekundaer_c
+
+if (nrow(df_result_sekundaer_b_0) != 0) {
+  write.csv(df_result_sekundaer_b_0, file = paste0("results/",now,"_result_sekundaer_b_e70_0.csv"), row.names = FALSE)
+}
+if (nrow(df_result_sekundaer_b_1) != 0) {
+  write.csv(df_result_sekundaer_b_1, file = paste0("results/",now,"_result_sekundaer_b_e70_1.csv"), row.names = FALSE)
+}
+if (nrow(df_result_sekundaer_b_ges) != 0) {
+  write.csv(df_result_sekundaer_b_ges, file = paste0("results/",now,"_result_sekundaer_b_ges.csv"), row.names = FALSE)
+}
+if (nrow(df_result_sekundaer_c) != 0) {
+  write.csv(df_result_sekundaer_c, file = paste0("results/",now,"_result_sekundaer_c.csv"), row.names = FALSE)
+}
+
 end_time <- Sys.time()
 run_time <- end_time - start_time
 print(run_time)
