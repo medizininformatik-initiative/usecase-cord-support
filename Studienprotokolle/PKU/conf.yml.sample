@@ -29,12 +29,15 @@ default:
   no_proxy:                 ''
 
   # TRUE = peer verification enabled, FALSE = peer verification disabled
-  ssl_verify_peer: FALSE
+  ssl_verify_peer:          FALSE
 
   # custom parameters for conditions resources on local fhir server
   # use 'http://fhir.de/CodeSystem/dimdi/icd-10-gm' or 'http://fhir.de/CodeSystem/bfarm/icd-10-gm' or custom
   icd_code_system:          'http://fhir.de/CodeSystem/dimdi/icd-10-gm'
 
+  # configure, to use Diagnose Sicherheit for resource analyzation
+  use_diag_sicherheit:      FALSE
+  
   # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
   recordedDate_col:         ''
 
