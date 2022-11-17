@@ -3,6 +3,12 @@ default:
   hospital_name:    'Abbreviation for your center'
   hospital_zip:     'Postal code of your center'
 
+  # You can set max bundles for fhir_search, default = Inf
+  max_bundles:              ''
+
+  # You can set bundle size using count parameter along with fhir_search, e.g. 1000
+  count:                    ''
+
 # if you need to authenticate on your fhir server, then please set username and password
   username:         NULL
   password:         NULL	
