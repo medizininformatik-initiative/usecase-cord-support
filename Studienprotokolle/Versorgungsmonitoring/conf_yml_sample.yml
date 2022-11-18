@@ -46,3 +46,6 @@ default:
 
 # uncomment, to load patients until 2021-12-31
   #enddate:                  2021-12-31	
+
+# name of cracked result file # default value set to cracked_result.csv
+  cracked_result: 'cracked_result.csv'  
