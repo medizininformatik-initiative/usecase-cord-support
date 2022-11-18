@@ -439,8 +439,6 @@ df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum =
 
 df_result_primaer <- rbind(df_result_primaer,df_rare_komorb_icd10codes_combined)
 
-#maybe not needed
-#df_result_primaer <- as.data.frame(df_result_primaer %>% group_by(Klinikum = df_result_primaer$Klinikum, Diagn1 = df_result_primaer$Diagn1, Diagn2 = df_result_primaer$Diagn2) %>% summarise() )
 
 if (nrow(df_pku_result_primaer) == 0) {
   result_sekundaer_a <- 0
@@ -448,16 +446,17 @@ if (nrow(df_pku_result_primaer) == 0) {
   # sum alle pku 
   result_sekundaer_a <- round(sum(as.numeric(df_result_primaer$Anzahl)) / count_patients_e70_ges * 100, 2)
 }
+result_sekundaer_a <- paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
 
 df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
 # rel von altersgruppen
-df_result_sekundaer_b_0 <- as.data.frame(df_pku_result_primaer_0 %>% group_by(Klinikum = df_pku_result_primaer_0$hospital_id.x, Diagn1 = df_pku_result_primaer_0$diagnosis.x, Diagn2 = df_pku_result_primaer_0$diagnosis, Alter = df_pku_result_primaer_0$age_group.x) %>% summarise() %>% mutate("% E70.0 Patienten" = paste0(round(100 * n() / count_patients_e70_0, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
-df_result_sekundaer_b_0
-df_result_sekundaer_b_1 <- as.data.frame(df_pku_result_primaer_1 %>% group_by(Klinikum = df_pku_result_primaer_1$hospital_id.x, Diagn1 = df_pku_result_primaer_1$diagnosis.x, Diagn2 = df_pku_result_primaer_1$diagnosis, Alter = df_pku_result_primaer_1$age_group.x) %>% summarise() %>% mutate("% E70.1 Patienten" = paste0(round(100 * n() / count_patients_e70_1, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
-df_result_sekundaer_b_1
-df_result_sekundaer_b_ges <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis_e70, Diagn2 = df_pku_result_primaer$diagnosis, Alter = df_pku_result_primaer$age_group.x) %>% summarise() %>% mutate("% alle PKU Patienten" = paste0(round(100 * n() / count_patients_e70_ges, 2), "%")))
-df_result_sekundaer_b_ges
+df_result_sekundaer_b_0 <- as.data.frame(df_pku_result_primaer_0 %>% group_by(Klinikum = df_pku_result_primaer_0$hospital_id.x, Diagn1 = df_pku_result_primaer_0$diagnosis.x, Diagn2 = df_pku_result_primaer_0$diagnosis, Alter = df_pku_result_primaer_0$age_group.x) %>% summarise(Anzahl = n()) %>% mutate("% E70.0 Patienten" = paste0(round(100 * Anzahl / count_patients_e70_0, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * Anzahl / count_patients_e70_ges, 2), "%")))
+df_result_sekundaer_b_0 <- df_result_sekundaer_b_0 %>% select(-contains("Anzahl"))
+df_result_sekundaer_b_1 <- as.data.frame(df_pku_result_primaer_1 %>% group_by(Klinikum = df_pku_result_primaer_1$hospital_id.x, Diagn1 = df_pku_result_primaer_1$diagnosis.x, Diagn2 = df_pku_result_primaer_1$diagnosis, Alter = df_pku_result_primaer_1$age_group.x) %>% summarise(Anzahl = n()) %>% mutate("% E70.1 Patienten" = paste0(round(100 * Anzahl / count_patients_e70_1, 2), "%")) %>% mutate("% alle PKU Patienten" = paste0(round(100 * Anzahl / count_patients_e70_ges, 2), "%")))
+df_result_sekundaer_b_1 <- df_result_sekundaer_b_1 %>% select(-contains("Anzahl"))
+df_result_sekundaer_b_ges <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum = df_pku_result_primaer$hospital_id.x, Diagn1 = df_pku_result_primaer$diagnosis_e70, Diagn2 = df_pku_result_primaer$diagnosis, Alter = df_pku_result_primaer$age_group.x) %>% summarise(Anzahl = n()) %>% mutate("% alle PKU Patienten" = paste0(round(100 * Anzahl / count_patients_e70_ges, 2), "%")) )
+df_result_sekundaer_b_ges <- df_result_sekundaer_b_ges %>% select(-contains("Anzahl"))
 
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
 
@@ -484,16 +483,14 @@ now <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
 # display the final output
 df_result_primaer
-write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
-
-result_sekundaer_a <- paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
 result_sekundaer_a
-write.csv(result_sekundaer_a, file = paste0("results/",now,"_result_sekundaer_a.csv"), row.names = FALSE)
 df_result_sekundaer_b_0
 df_result_sekundaer_b_1
 df_result_sekundaer_b_ges
 df_result_sekundaer_c
 
+write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
+write.csv(result_sekundaer_a, file = paste0("results/",now,"_result_sekundaer_a.csv"), row.names = FALSE)
 if (nrow(df_result_sekundaer_b_0) != 0) {
   write.csv(df_result_sekundaer_b_0, file = paste0("results/",now,"_result_sekundaer_b_e70_0.csv"), row.names = FALSE)
 }
