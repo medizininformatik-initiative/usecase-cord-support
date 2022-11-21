@@ -2,7 +2,7 @@ if (!require('fhircrackr')) install.packages('fhircrackr')# In order to flatten 
 if (!require('config')) install.packages('config')
 if (!require('stringr')) install.packages('stringr')#In order to add leading zeros to make zip codes five digits
 if (!require('dplyr')) install.packages('dplyr')# In order to remove duplicates and summarise
-if (!require("digest")) install.packages("digest");#In order to hash patientids 
+if (!require("digest")) install.packages("digest") #In order to hash patientids 
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
