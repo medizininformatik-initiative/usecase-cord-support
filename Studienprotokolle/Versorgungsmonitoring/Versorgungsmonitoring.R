@@ -174,7 +174,7 @@ df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "le
 df_merged$patient_id <- lapply(df_merged$patient_id, digest, algo="md5")
 
 # create prefinal dataframe with only relevant columns
-df_result <- df_merged[,c('patient_id','age','gender','hospital_name', 'patient_zip','diagnosis')]
+df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
 # after hashing, patientid becomes a list and not characters, list could not be written to CSV directly, as a result convert all rows in string 
 df_result <- as.matrix(df_result)
