@@ -42,7 +42,12 @@ default:
   icd_code_system:          'http://fhir.de/CodeSystem/dimdi/icd-10-gm'
 
 # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
-  recordedDate_col:         ''
+  recordedDate_col:            ''
+
+# if you have data only for a specific timeinterval for example from 2010 to 2021 then, to include diagnosis recorded date 
+# use this parameter  
+  recordedDate_fromcol:        ''
+  recordedDate_tocol:          ''
 
 # uncomment, to load patients until 2021-12-31
   #enddate:                  2021-12-31	
