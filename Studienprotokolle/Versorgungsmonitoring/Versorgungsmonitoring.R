@@ -138,7 +138,7 @@ if (exists("orpha_system", where = conf) && nchar(conf$orpha_system) >= 1) {
 conditions_tmp <- conditions_tmp[complete.cases(conditions_tmp[ , c('patient_id')]), ]
 
 # remove duplicate patients
-conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
+conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp[c("patient_id","diagnosis","recorded_date")]),]
 #conditions_tmp <- conditions_tmp %>% group_by(condition_id, recorded_date, diagnosis, system, encounter_id, patient_id) %>% summarise(patient_id,.groups = "keep")
 
 
