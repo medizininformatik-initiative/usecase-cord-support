@@ -114,7 +114,7 @@ patients_raw <- dfs$patients
 # unnest raw conditions dataframe columns diagnosis, system
 conditions_tmp <- fhir_melt(conditions_raw,
                             columns = c('condition_id','recorded_date','diagnosis','system','encounter_id','patient_id'),
-                            brackets = c('[',']'), sep = '|', all_columns = TRUE,)
+                            brackets = c('[',']'), sep = " || ", all_columns = TRUE,)
 
 #conditions_tmp <- fhir_melt(conditions_tmp,
 #                            columns = c('condition_id','recorded_date','diagnosis','system','encounter_id','patient_id'),
@@ -130,6 +130,9 @@ if (exists("orpha_system", where = conf) && nchar(conf$orpha_system) >= 1) {
 } else {
   conditions_tmp <- conditions_tmp [(conditions_tmp$system == 'http://fhir.de/CodeSystem/bfarm/icd-10-gm') | (conditions_tmp$system == 'http://fhir.de/CodeSystem/dimdi/icd-10-gm') ,] 
 }
+
+# remove NA 
+conditions_tmp <- conditions_tmp[complete.cases(conditions_tmp[ , c('patient_id')]), ]
 
 # remove duplicate patients
 conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp$patient_id,conditions_tmp$diagnosis),]
@@ -163,7 +166,7 @@ df_merged$patient_zip <- stringr::str_pad(df_merged$patient_zip, 5, side = "left
 df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "left", pad = 0)
 
 # create prefinal dataframe with only relevant columns
-df_result <- df_merged[,c('patient_id','age','gender','hospital_name', 'patient_zip','diagnosis')]
+df_result <- df_merged[,c('age','gender','hospital_name', 'patient_zip','diagnosis')]
 
 # write csv with ";" to file
 write.csv2(df_result,file=conf$cracked_result,row.names=F,quote=F)

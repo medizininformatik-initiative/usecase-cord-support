@@ -1,7 +1,7 @@
 default:
   serverbase:       'https://mii-agiop-cord.life.uni-leipzig.de/fhir/' # replace the server base with your FHIR Server URL
-  hospital_name:    'Abbreviation for your center'
-  hospital_zip:     'Postal code of your center'
+  hospital_name:    'Abbreviation for your center' # replace this value
+  hospital_zip:     'Postal code of your center' # replace this vale
 
   # You can set max bundles for fhir_search, default = Inf
   max_bundles:              ''
