@@ -174,5 +174,8 @@ df_merged$patient_id <- lapply(df_merged$patient_id, digest, algo="md5")
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name', 'patient_zip','diagnosis')]
 
+# after hashing, patientid becomes a list and not characters, list could not be written to CSV directly, as a result convert all rows in string 
+df_result <- as.matrix(df_result)
+
 # write csv with ";" to file
 write.csv2(df_result,file=conf$cracked_result,row.names=F,quote=F)
