@@ -2,11 +2,12 @@ if (!require('fhircrackr')) install.packages('fhircrackr')# In order to flatten 
 if (!require('config')) install.packages('config')
 if (!require('stringr')) install.packages('stringr')#In order to add leading zeros to make zip codes five digits
 if (!require('dplyr')) install.packages('dplyr')# In order to remove duplicates and summarise
-
+if (!require("digest")) {install.packages("digest");#In order to hash patientids 
 
 library(fhircrackr) # to flatten the Resources 
 library(config)# to read variables from a config file
 library(dplyr) # to remove duplicates and group by patient id and summarise 
+library(digest)# to prevent patientids from being exposed
 brackets = c("[", "]")
 sep = " || "
 
@@ -165,8 +166,11 @@ df_merged$hospital_zip <- conf$hospital_zip
 df_merged$patient_zip <- stringr::str_pad(df_merged$patient_zip, 5, side = "left", pad = 0)
 df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "left", pad = 0)
 
+#Hash Patient ids
+df_merged$patient_id <- lapply(df_merged$patient_id, digest, algo="md5")
+
 # create prefinal dataframe with only relevant columns
-df_result <- df_merged[,c('age','gender','hospital_name', 'patient_zip','diagnosis')]
+df_result <- df_merged[,c('patient_id','age','gender','hospital_name', 'patient_zip','diagnosis')]
 
 # write csv with ";" to file
 write.csv2(df_result,file=conf$cracked_result,row.names=F,quote=F)
