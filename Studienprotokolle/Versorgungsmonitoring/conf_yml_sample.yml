@@ -19,8 +19,10 @@ default:
 # if department name not available then set department_identifier to NULL
   department_identifier: 'https://replace_fhir.de/identifier/organization|KI,OK,M1,FK'
   #department_identifier: ''
-# stationaer
-  inpatient: 'stationaer'
+
+# stationaer, if Fall Art stationär is available uncomment the below line else set it to NULL
+  #inpatient: 'stationaer'
+  inpatient: NULL
 # orpha system
   orpha_system: 'http://www.orpha.net'
 
