@@ -130,5 +130,7 @@ df_merged$hospital_zip <- stringr::str_pad(df_merged$hospital_zip, 5, side = "le
 # create prefinal dataframe with only relevant columns
 df_result <- df_merged[,c('patient_id','age','gender','hospital_name','hospital_zip','patient_zip','diagnosis')]
 
+an.error.occured <- FALSE
+
 # write csv with ";" to file
 write.csv2(df_result,file=conf$cracked_result,row.names=F,quote=F)
