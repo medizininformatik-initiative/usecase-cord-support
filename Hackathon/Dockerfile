@@ -14,7 +14,7 @@ RUN echo "options('repos' = 'http://cran.rstudio.com/')" >> /usr/local/lib/R/etc
 
 # install R packages required 
 # (change it dependeing on the packages you need)
-RUN R -e "install.packages(c('dplyr', 'ggmap', 'ggplot2', 'knitr', 'leaflet', 'pander', 'readr', 'sf', 'stringr', 'tidygeocoder', 'tidyr', 'fhircrackr', 'readxl', 'config', 'tidyverse', 'geosphere', 'tibble'))"
+RUN R -e "install.packages(setdiff(c('dplyr', 'ggmap', 'ggplot2', 'knitr', 'leaflet', 'pander', 'readr', 'sf', 'stringr', 'tidygeocoder', 'tidyr', 'config','fhircrackr', 'readxl', 'config', 'tidyverse', 'geosphere', 'tibble'), rownames(installed.packages())))"
 
 #create script folders in container
 RUN mkdir -p /srv/shiny-server/data
@@ -30,9 +30,7 @@ COPY Team2_Distance/distance.r /srv/shiny-server/Team2_Distance/script2.r
 COPY Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar /srv/shiny-server/Team3_Aggregation/script3.jar
 COPY Team4_Geoviz/shinyapp.r /srv/shiny-server/app.r
 COPY build/data.RData /srv/shiny-server/data.RData
-COPY data/PLZ_manual_correction.cleaned.csv /srv/shiny-server/data/PLZ_manual_correction.cleaned.csv
-
-#COPY cord/gadm36_DEU_gpkg.zip /srv/shiny-server/data/gadm36_DEU_gpkg.zip
+COPY build/PLZ_manual_correction.cleaned.csv /srv/shiny-server/data/PLZ_manual_correction.cleaned.csv
 
 COPY Team4_Geoviz/visualization.Rmd /srv/shiny-server/Team4_Geoviz/visualization.Rmd
 
