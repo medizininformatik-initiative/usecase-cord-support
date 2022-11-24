@@ -286,6 +286,11 @@ agg7.mapdata <- shapes.bundeslaender %>%
 # Transform shapes to EPSG3857 coordinate system used by ggmap
 agg7.mapdata3857 <- st_transform(agg7.mapdata, 3857)
 
+# set count to 1 on all states if just 1 state with values
+if (sum(is.na(agg7.mapdata3857$count))==15){
+  agg7.mapdata3857$count[is.na(agg7.mapdata3857$count)]<-1
+}
+
 # Loop over ICD10-GM chapters
 agg7.chapter_maps <- NULL
 for(code in levels(as.factor(agg7.chapters$chapter_code))) {
