@@ -29,14 +29,16 @@ Rscript Versorgungsmonitoring.R
 ### Pre-requisite
    Docker installed 
 
-### 4. Unzip the Stichprobe file
-    1. Unzip the Stichprobe.zip file
-    2. navigate to the Stichprobe folder 
+### 4. unzip the Stichprobe file
+ 1. after cloning the repository, inside Versorgungsmonitoring folder you can find a zip file named as 'Stichprobe.zip', unzip the Stichprobe.zip file
+ 2. navigate to the Stichprobe folder
+
 ```
 cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/Stichprobe
 ``` 
-    3. after navigating to the Stichprobe folder there should be a config folder, docker-compose.yaml file, runscript_1234.sh file and a Versorgungsmonitoring.r file 
-    4. from Stichprobe folder execute the following command
+
+3. after navigating to the Stichprobe folder there should be a config folder, docker-compose.yaml file, runscript_1234.sh file and a Versorgungsmonitoring.r file 
+ 4. from Stichprobe folder execute the following command
 ```
 docker-compose up
 ``` 
