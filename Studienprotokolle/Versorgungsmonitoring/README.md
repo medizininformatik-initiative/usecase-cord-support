@@ -23,3 +23,24 @@ cp conf_yml_sample.yml conf.yml
 ```
 Rscript Versorgungsmonitoring.R
 ```
+
+## Spot Test
+
+### Pre-requisite
+   Docker installed 
+
+### 4. Unzip the Stichprobe file
+    1. Unzip the Stichprobe.zip file
+    2. navigate to the Stichprobe folder 
+```
+cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/Stichprobe
+``` 
+    3. after navigating to the Stichprobe folder there should be a config folder, docker-compose.yaml file, runscript_1234.sh file and a Versorgungsmonitoring.r file 
+    4. from Stichprobe folder execute the following command
+```
+docker-compose up
+``` 
+    5. Wait for few minutes, then try to access http://localhost:3838/  on a webbrowser. If an interface with title 'CORD Schaufenster Visualisierung' is visible then your setup and parameters from config folders are correctly configured in test. You can make use of these configurations to create your own conf.yml file in Versorgungsmonitoring folder. If not then your Docker installation is not correct please contact your admin team and get docker installed
+
+
+
