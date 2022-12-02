@@ -15,8 +15,9 @@ default:
 
 # Identify the customised prefix element, referenced in the subject of Condition resource. This is where you find the referenced Patient 
 # default value is "Patient/"
+#encounter_element_prefix : ''
   subject_element_prefix: '' 
-  #encounter_element_prefix : ''
+  
 
 # four departments that we would like to filter from Encounters are KI,OK,M1,FK
 # Find the system name from Encounter resource location-->identifier  and replace the system name after '=' sign till pipe sign '|'
