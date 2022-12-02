@@ -2,13 +2,13 @@
 
 # Table of Contents 
 
-A. [RCode understanding for Versorgungsmonitoring usecase](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
+A. [To understand RCode behind Versorgungsmonitoring usecase](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
 
-B. [Spot Test](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
+B. [To Carry out Spot Test](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
 
-C. To calculate the aggregate corresponding to Versorgungsmonitoring
+C. To calculate the aggregate corresponding to Versorgungsmonitoring needed for Data maagement team 
 
-## A. RCode understanding for Versorgungsmonitoring usecase
+## A. To understand RCode behind Versorgungsmonitoring usecase
 ### 1. clone repository and checkout branch cf_script
 
 ```
@@ -31,7 +31,7 @@ cp conf_yml_sample.yml conf.yml
 Rscript Versorgungsmonitoring.R
 ```
 
-## B. Spot Test
+## B. To Carry out Spot Test
 
 ### Pre-requisite
    Docker installed 
@@ -56,7 +56,7 @@ docker-compose up
 docker-compose down
 ``` 
 
-## C. To calculate the aggregate corresponding to Versorgungsmonitoring based on new tracer diagnosis list using docker Version 
+## C. To calculate the aggregate corresponding to Versorgungsmonitoring based on new tracer diagnosis list using docker Version and provide result to datamanagement team
 
 ### Pre-requisite
    Docker installed  
