@@ -4,9 +4,9 @@
 
 A. [To understand RCode behind Versorgungsmonitoring usecase](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
 
-B. [To Carry out Spot Test](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
+B. [To Carry out Spot Test for docker (Recommended)](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
 
-C. To calculate the aggregate corresponding to Versorgungsmonitoring needed for Data maagement team 
+C. To calculate the aggregate corresponding to Versorgungsmonitoring needed for Data management team 
 
 ## A. To understand RCode behind Versorgungsmonitoring usecase
 ### 1. clone repository and checkout branch cf_script
@@ -31,7 +31,7 @@ cp conf_yml_sample.yml conf.yml
 Rscript Versorgungsmonitoring.R
 ```
 
-## B. To Carry out Spot Test
+## B. To Carry out Spot Test for docker (Recommended)
 
 ### Pre-requisite
    Docker installed 
