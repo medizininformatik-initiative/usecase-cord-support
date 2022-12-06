@@ -114,7 +114,7 @@ conditions <- fhir_table_description(resource = "Condition",
 design <- fhir_design(conditions, patients)
 
 # download fhir bundles , setting verbose to 2 to view the actual FHIR search statement
-bundles <- fhir_search(request = Condition_department, username = conf$username, password = conf$password, verbose = 2, max_bundles = max_bundles_custom )
+bundles <- fhir_search(request = Condition_request, username = conf$username, password = conf$password, verbose = 2, max_bundles = max_bundles_custom )
 
 # crack fhir bundles
 dfs <- fhir_crack(bundles, design)
