@@ -107,7 +107,7 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
 
    ### Changes to support birthdate that conatins only year (in YYYY format)
 
-   If the birthdate of a patient is in 'YYYY' format in Patient Resource of FHIR server then it had to changed to 'YYYY-MM-DD' format otherwise following error will occur while computing the age of the pattient 
+   If the birthdate of a patient is in 'YYYY' format in Patient Resource of FHIR server then birthdate had to be changed to include 'YYYY-MM-DD' format. Otherwise following error will occur while computing the age of the patient 
 ```
       Error in charToDate(x):
            character string is not in standard unambiguous format
@@ -116,7 +116,8 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    ```
    ### Solution to convert format from 'yyyy' to 'yyyy-mm-dd'
    To convert birthdate from 'yyyy' to 'yyyy-mm-dd' format, use the following command 
-     ```
+   
+   ```
       df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
    ```
 
