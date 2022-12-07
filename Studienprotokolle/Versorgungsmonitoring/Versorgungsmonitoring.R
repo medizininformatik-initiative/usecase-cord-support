@@ -165,6 +165,9 @@ conditions_tmp$patient_id <- sub(subject_element_prefix, "", conditions_tmp[,"pa
 # merge conditions and patients dataframe
 df_conditions_patients <- base::merge(conditions_tmp, patients_tmp, by = "patient_id")
 
+#Check birthdate format if it contains 'yyyy-mm-dd', if it contains only year ('yyyy') then include '01-01' to it
+df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
+
 # calculate age in years by birthdate conditions and patients dataframe must of same length
 df_conditions_patients$age <- round( as.double( as.Date( df_conditions_patients$recorded_date ) - as.Date( df_conditions_patients$birthdate ) ) / 365.25, 0 )
 

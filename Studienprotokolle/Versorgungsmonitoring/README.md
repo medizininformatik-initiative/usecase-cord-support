@@ -102,3 +102,21 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    On this user interface, there is a button named 'Download data.zip' made available for you. To download the results in a zip file named 'data.zip' click on this 'Download data.zip' button
 
    8. unzip 'data.zip' file. After successful execution contact @rajesh-murali datamanagement team corresponding to usecase 4 
+
+   ## Changelog
+
+   ### Changes to support birthdate that conatins only year (in YYYY format)
+
+   If the birthdate of a patient is in 'YYYY' format in Patient Resource of FHIR server then it had to changed to 'YYYY-MM-DD' format otherwise following error will occur while computing the age of the pattient 
+```
+      Error in charToDate(x):
+           character string is not in standard unambiguous format
+            Calls: as.Date -> as.Date.character -> charToDate
+            Execution halted.
+   ```
+   ### Solution to convert format from 'yyyy' to 'yyyy-mm-dd'
+   To convert birthdate from 'yyyy' to 'yyyy-mm-dd' format, use the following command 
+     ```
+      df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
+   ```
+

@@ -4,7 +4,7 @@ services:
   versorgungsmonitoring_UKEr:
     # build:                                                                    # zum image selber builden auskommentieren
     #   context: .                                                              # zum image selber builden auskommentieren
-    image: ghcr.io/rajesh-murali/versorgungsmonitoring:006
+    image: ghcr.io/rajesh-murali/versorgungsmonitoring:007
     restart: unless-stopped
     ports:
       - "3838:3838"
