@@ -37,7 +37,7 @@ default:
 
   # configure, to use Diagnose Sicherheit for resource analyzation
   use_diag_sicherheit:      FALSE
-  
+
   # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
   recordedDate_col:         ''
 
