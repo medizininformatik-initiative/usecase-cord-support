@@ -78,6 +78,12 @@ if (exists("count", where = conf) && nchar(conf$count) >= 1) {
   count_custom <- c("_count" = 100)
 }
 
+if (exists ("use_diag_sicherheit", where = conf) && (conf$use_diag_sicherheit) ) {
+  use_diag_sicherheit <- TRUE
+} else {
+  use_diag_sicherheit <- FALSE
+}
+
 rare_icd10codes <- "E84.0,E84.1,E84.8,E84.80,E84.87,E84.88,E84.9"
 
 search_request_pat <- fhir_url(url = conf$serverbase,
@@ -301,11 +307,12 @@ df_conditions_patients <- mutate(df_conditions_patients, birthdate = ifelse(ncha
 df_conditions_cf <- subset(df_conditions_patients, grepl("^E84", diagnosis))
 df_conditions_cf$diagnosis <- "E84*"
 
-if (diag_sicherheit) {
+if ((diag_sicherheit) && (use_diag_sicherheit)) {
   df_conditions_cf <- subset(df_conditions_cf, grepl("G", diag_sicherheit))
+  message ("Using Diagnosesicherheit for evaluation.")
 } else {
   df_conditions_cf <- df_conditions_cf
-} 
+}
 
 # filter conditions for ICD-Codes for Birth O* and Z37, Z38
 df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
