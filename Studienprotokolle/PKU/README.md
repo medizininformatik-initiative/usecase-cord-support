@@ -1,10 +1,10 @@
 # Script to calculate the aggregate of patients corresponding to Mukoviszidose/CF Cystic Fibrosis and Birth
 
 
-### 1. clone repository and checkout branch cf_script
+### 1. clone repository
 
 ```
-git clone --branch cf_script https://github.com/medizininformatik-initiative/usecase-cord-support.git
+git clone https://github.com/medizininformatik-initiative/usecase-cord-support.git
 
 cd usecase-cord-support/Studienprotokolle/PKU/
 ```
