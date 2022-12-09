@@ -130,6 +130,10 @@ ftd_patients <- fhir_table_description(resource = "Patient"
 
 df_patients_raw <- fhir_crack(patient_bundle, ftd_patients, sep = "|", brackets = c("[", "]"), verbose = 2)
 
+if (nrow(df_patients_raw) == 0) {
+  stop('No patients found...exiting')
+}
+
 df_patients_tmp <- fhir_melt(df_patients_raw,
                              columns = c("patient_zip", "countrycode"),
                              brackets = c("[", "]"), sep = "|", all_columns = TRUE)
