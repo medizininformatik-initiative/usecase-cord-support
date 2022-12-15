@@ -21,7 +21,7 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    ```
 cp conf_yml_sample.yml conf.yml
 ```
-   1. Then edit the conf.yml file with parameters correspoding to your Institution like FHIR server name, hospital name, areacode, location identfier system, diagnosis from date, diagnosis to date, subject reference prefix etc  and then save it. Please see the (know-how)[https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring/README.md#know-how] section on how to set the diagnosis from date and diagnosis to date using the recordedDate_fromcol and recordedDate_tocol parameter for recorded-date    <br>
+   1. Then edit the conf.yml file with parameters correspoding to your Institution like FHIR server name, hospital name, areacode, location identfier system, diagnosis from date, diagnosis to date, subject reference prefix etc  and then save it. Please see the [know-how](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring/README.md#know-how) section on how to set the diagnosis from date and diagnosis to date using the recordedDate_fromcol and recordedDate_tocol parameter for recorded-date    <br>
   2. If value for a parameter is not available in your FHIR Server, for example inpatient parameter does not have a value called 'stationaer', then you can set it to NULL (inpatient: NULL) <br>
   3. If parameter 'department_identifier' is not availble then you can set it to '' like in conf_yml_sample2.yml <br>
 
