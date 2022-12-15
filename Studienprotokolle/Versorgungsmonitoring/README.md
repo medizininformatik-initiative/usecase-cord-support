@@ -21,7 +21,7 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    ```
 cp conf_yml_sample.yml conf.yml
 ```
-   1. Then edit the conf.yml file with parameters correspoding to your Institution like FHIR server name, hospital name, areacode, location identfier system, diagnosis from date, diagnosis to date, subject reference prefix etc  and then save it <br>
+   1. Then edit the conf.yml file with parameters correspoding to your Institution like FHIR server name, hospital name, areacode, location identfier system, diagnosis from date, diagnosis to date, subject reference prefix etc  and then save it. Please see the (know-how)[https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring/README.md#know-how] section on how to set the diagnosis from date and diagnosis to date using the recordedDate_fromcol and recordedDate_tocol parameter for recorded-date    <br>
   2. If value for a parameter is not available in your FHIR Server, for example inpatient parameter does not have a value called 'stationaer', then you can set it to NULL (inpatient: NULL) <br>
   3. If parameter 'department_identifier' is not availble then you can set it to '' like in conf_yml_sample2.yml <br>
 
@@ -120,4 +120,28 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    ```
       df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
    ```
-
+   
+   ## Know-how
+   
+   ### How to set the recorded-date parameter
+   
+   The recorded date parameter will provide a time frame filter for the fhir search. For example if you have data from 2019 till end of 2021 in your FHIR server then you can set the 'recordedDate_fromcol' and 'recordedDate_tocol' parmeter like as follows:
+   
+   ```  
+     recordedDate_fromcol:        'ge2019-01-01' 
+   ``` 
+   and
+   
+   ```  
+   recordedDate_tocol:          'le2021-12-31'
+   ```
+   
+   ### What actions does the docker container perform?
+   
+   The docker container at first executes the versorgungsmonitoring.r script then it executes the following scripts in order <br>
+    
+   [distance.r](https://github.com/medizininformatik-initiative/usecase-cord-support/blob/master/Hackathon/Team2_Distance/distance.r), <br>
+   
+   [cord-anonymization-v0.0.1.jar](https://github.com/medizininformatik-initiative/usecase-cord-support/blob/master/Hackathon/Team3_Aggregation/jars/cord-anonymization-v0.0.1.jar), <br>
+   
+   [visualization.Rmd](https://github.com/medizininformatik-initiative/usecase-cord-support/blob/master/Hackathon/Team4_Geoviz/visualization.Rmd)  
