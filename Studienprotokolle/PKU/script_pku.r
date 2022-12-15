@@ -408,9 +408,6 @@ df_pku_1_g31 <- df_pku_1_g31 %>% select(-contains("resource_identifier"))
 
 # combine all comorbidities into one df
 df_pku_result_primaer <- rbind(df_pku_0_n18, df_pku_1_n18, df_pku_0_f32, df_pku_1_f32, df_pku_0_f33, df_pku_1_f33, df_pku_0_f34, df_pku_1_f34, df_pku_0_g31, df_pku_1_g31)
-if (nrow(df_pku_result_primaer) == 0) {
-  stop('No comorbidities found...exiting')
-}
 
 df_pku_result_primaer_0 <- subset(df_pku_result_primaer, grepl("^E70.0", diagnosis.x))
 df_pku_result_primaer_1 <- subset(df_pku_result_primaer, grepl("^E70.1", diagnosis.x))
@@ -478,14 +475,6 @@ df_result_sekundaer_c <- mutate(df_result_sekundaer_c, Anzahl = ifelse(Anzahl > 
 
 now <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
-# display the final output
-df_result_primaer
-result_sekundaer_a
-df_result_sekundaer_b_0
-df_result_sekundaer_b_1
-df_result_sekundaer_b_ges
-df_result_sekundaer_c
-
 write.csv(df_result_primaer, file = paste0("results/",now,"_result_primaer.csv"), row.names = FALSE)
 write.csv(result_sekundaer_a, file = paste0("results/",now,"_result_sekundaer_a.csv"), row.names = FALSE)
 if (nrow(df_result_sekundaer_b_0) != 0) {
@@ -503,4 +492,11 @@ if (nrow(df_result_sekundaer_c) != 0) {
 
 end_time <- Sys.time()
 run_time <- end_time - start_time
+# display the final output
+df_result_primaer
+result_sekundaer_a
+df_result_sekundaer_b_0
+df_result_sekundaer_b_1
+df_result_sekundaer_b_ges
+df_result_sekundaer_c
 print(run_time)
