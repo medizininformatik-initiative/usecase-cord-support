@@ -41,5 +41,5 @@ default:
   # change, if your local fhir server does not have recordedDate, e.g. onsetDateTime
   recordedDate_col:         ''
 
-  # uncomment, to load patients until 2021-12-31
+  # uncomment, to load patients until 2021-12-31 (default 2019-12-31)
   #enddate:                  2021-12-31
