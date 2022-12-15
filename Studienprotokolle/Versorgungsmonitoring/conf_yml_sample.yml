@@ -57,9 +57,6 @@ default:
   recordedDate_fromcol:        NULL #default
   recordedDate_tocol:          NULL #default
 
-# set custom reference prefix on subject element in Condition resource, default = "Patient/" 
-  subject_element_prefix:   ''
-
 # uncomment, to load patients until 2021-12-31
   #enddate:                  2021-12-31	
 

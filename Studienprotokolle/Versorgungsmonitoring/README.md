@@ -105,7 +105,7 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
 
    ## Changelog
 
-   ### Changes to support birthdate that conatins only year (in YYYY format)
+   ### Changes to support birthdate that contains only year (in YYYY format)
 
    If the birthdate of a patient is in 'YYYY' format in Patient Resource of FHIR server then it had to changed to 'YYYY-MM-DD' format otherwise following error will occur while computing the age of the pattient 
 ```
@@ -120,3 +120,11 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
       df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
    ```
 
+
+   ### How to set the recorded-date parameter
+   
+   the recorded date parameter will provide a time frame filter for the fhir search. For example if you have data from 2019 till end of 2021 then you can set the 'recordedDate_fromcol' and 'recordedDate_tocol' parmeter like as follows
+    ```  
+   recordedDate_fromcol:        'ge2019-01-01' and
+   recordedDate_tocol:          'le2021-12-31'
+    ```

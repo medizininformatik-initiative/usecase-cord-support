@@ -37,6 +37,9 @@ if (exists("subject_element_prefix", where = conf) && nchar(conf$subject_element
   subject_element_prefix <- "Patient/"
 }
 
+if (exists("ssl_verify_peer", where = conf) && (!conf$ssl_verify_peer) ) {
+  httr::set_config(httr::config(ssl_verifypeer = 0L))
+}
 ####check for department id if it exits and defined in conf file 
 if (exists("department_identifier", where = conf) && nchar(conf$department_identifier) >= 1) {
   Condition_request <- fhir_url(url = conf$serverbase,
