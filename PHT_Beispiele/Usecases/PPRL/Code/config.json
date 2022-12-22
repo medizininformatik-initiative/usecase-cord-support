@@ -1,0 +1,60 @@
+{
+  "bloomFilter": {
+    "charset": "UTF-8",
+    "filterType": "CLKRBF",
+    "hashStrategy": "RANDOM_SHA256",
+    "hashValues": 5,
+    "tokenSize": 2,
+    "seed": 1337,
+    "key": "s3cr3t",
+    "salt": "s4ltY"
+  },
+  "clientConfig": {
+    "domain": "default",
+    "attributes": ["firstName", "lastName", "birthDate", "gender", "contact.city"]
+  },
+  "schemas": [
+    {
+      "attributeName": "firstName",
+      "dataType": "string",
+      "averageTokenCount": 7.444,
+      "weight": 7.559948494910831
+    },
+    {
+      "attributeName": "lastName",
+      "dataType": "string",
+      "averageTokenCount": 7.677,
+      "weight": 7.4101235522312985
+    },
+    {
+      "attributeName": "birthDate",
+      "dataType": "datetime",
+      "averageTokenCount": 8.609,
+      "weight": 5.755032930788518,
+      "options": {
+        "sourceFormat": "yyyy-MM-dd'T'HH:mm:ss",
+        "targetFormat": "yyyyMMdd"
+      }
+    },
+    {
+      "attributeName": "gender",
+      "dataType": "string",
+      "averageTokenCount": 2.0,
+      "weight": 1.9996508396313202
+    },
+    {
+      "attributeName": "contact[0].city",
+      "dataType": "string",
+      "averageTokenCount": 9.978,
+      "weight": 7.553139895649384
+    }
+  ],
+  "metadataSpecification": [
+    {
+      "name": "createdAt",
+      "dataType": "datetime",
+      "decisionRule": "keepLatest",
+      "source": "personCreated"
+    }
+  ]
+}
