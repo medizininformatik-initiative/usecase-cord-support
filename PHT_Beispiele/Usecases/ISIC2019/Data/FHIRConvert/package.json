@@ -1,0 +1,10 @@
+{
+    "name": "isic-data-preparation",
+    "version": "1.0.0",
+    "description": "",
+    "main": "convert.js",
+    "dependencies": {
+        "csv-parser": "^2.3.3",
+        "uuid": "^8.3.0"
+    }
+}

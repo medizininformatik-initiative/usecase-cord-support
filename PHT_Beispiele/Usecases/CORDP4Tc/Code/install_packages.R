@@ -1,0 +1,7 @@
+install.packages('devtools')
+library(devtools)
+install_github("POLAR-fhiR/fhircrackr")
+install.packages('dplyr')
+install.packages('tibble')
+install.packages('stringr')
+install.packages('tidyr')
