@@ -440,7 +440,7 @@ if (nrow(df_pku_result_primaer) == 0) {
   # sum all pku 
   result_sekundaer_a <- round(sum(as.numeric(df_result_primaer$Anzahl)) / count_patients_e70_ges * 100, 2)
 }
-result_sekundaer_a <- paste0(result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
+result_sekundaer_a <- paste0(conf$hospital_name,": ",result_sekundaer_a, "% aller PKU Patient:innen haben internistische, neurologische und psychiatrische Komorbiditäten.")
 
 df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
