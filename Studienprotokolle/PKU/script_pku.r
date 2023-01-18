@@ -8,6 +8,7 @@ if (!require("fhircrackr")) {install.packages("fhircrackr"); library(fhircrackr)
 if (!require("config")) {install.packages("config"); library(config)}
 if (!require("dplyr")) {install.packages("dplyr"); library(dplyr)}
 
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 dir.create(file.path(getwd(),"results"), showWarnings = FALSE)
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
@@ -456,7 +457,7 @@ df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnos
 
 df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 
-df_pku_birth <- base::merge(df_conditions_pku, df_conditions_birth, by = "patient_id")
+df_pku_birth <- base::merge(df_conditions_pku, df_conditions_birth_all, by = "patient_id")
 df_pku_birth <- df_pku_birth[!duplicated(df_pku_birth$patient_id), ]
 df_pku_birth <- subset(df_pku_birth, !grepl("^Z38", diagnosis.x))
 df_pku_birth <- subset(df_pku_birth, !grepl("^Z38", diagnosis))
