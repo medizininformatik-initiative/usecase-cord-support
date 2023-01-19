@@ -8,7 +8,14 @@ if (!require("fhircrackr")) {install.packages("fhircrackr"); library(fhircrackr)
 if (!require("config")) {install.packages("config"); library(config)}
 if (!require("dplyr")) {install.packages("dplyr"); library(dplyr)}
 
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+if (rstudioapi::isAvailable()){
+  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+  message("setting working directory to: ", getwd())
+} else {
+  setwd(getwd())
+  message("setting working directory to: ", getwd())
+}
+
 dir.create(file.path(getwd(),"results"), showWarnings = FALSE)
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
