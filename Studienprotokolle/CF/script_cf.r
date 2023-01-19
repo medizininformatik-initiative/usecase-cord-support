@@ -329,7 +329,7 @@ df_cf_birth_all <- distinct(df_cf_birth_all, patient_id, diagnosis.x, hospital_i
 # filter all "children"
 df_cf_birth_all <- subset(df_cf_birth_all, !grepl("^Z38", diagnosis.y))
 
-result_primaer_count <- ifelse(length(df_cf_birth_all$patient_id) <= 5, "<5", length(df_cf_birth_all$patient_id))
+result_primaer_count <- ifelse(length(unique(df_cf_birth_all$patient_id)) <= 5, "<5", length(unique(df_cf_birth_all$patient_id)))
 
 #df_result_primaer_count <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = "O80 etc.") %>% summarise(Anzahl = n()) )
 df_result_primaer_count <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = "O80 etc.") %>% summarise(Anzahl = result_primaer_count) )
