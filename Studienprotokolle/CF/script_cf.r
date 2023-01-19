@@ -323,7 +323,8 @@ df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnos
 
 # merge CF and Birth dataframes by patient
 df_cf_birth_all <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
-df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$encounter_id.y), ]
+df_cf_birth_all <- distinct(df_cf_birth_all, patient_id, diagnosis.x, hospital_id.x, gender.x, birthdate.x, diagnosis.y, encounter_id.y, .keep_all= TRUE)
+#df_cf_birth_all <- df_cf_birth_all[!duplicated(df_cf_birth_all$encounter_id.y), ]
 
 # filter all "children"
 df_cf_birth_all <- subset(df_cf_birth_all, !grepl("^Z38", diagnosis.y))
