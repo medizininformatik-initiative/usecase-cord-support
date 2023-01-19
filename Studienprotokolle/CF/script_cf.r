@@ -336,9 +336,11 @@ df_result_primaer_count <- mutate(df_result_primaer_count, Anzahl = ifelse(Anzah
 df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Einrichtungsindikator = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
-df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
+df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
+#df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
-df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
+#df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
+df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
 df_cf_complication <- base::merge(df_cf_complication, df_conditions_complication, by = "patient_id")
 df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$encounter_id), ]
 df_cf_complication <- subset(df_cf_complication, !grepl("^Z38", diagnosis.y))
