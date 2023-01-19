@@ -433,6 +433,7 @@ df_result_primaer <- as.data.frame(df_pku_result_primaer %>% group_by(Klinikum =
 
 # create final df with comorbidities ans 0-count
 df_result_primaer <- rbind(df_result_primaer,df_rare_komorb_icd10codes_combined)
+df_result_primaer <- distinct(df_result_primaer, Klinikum, Diagn1, Diagn2, .keep_all= TRUE)
 
 if (nrow(df_pku_result_primaer) == 0) {
   result_sekundaer_a <- 0
