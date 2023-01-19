@@ -8,6 +8,7 @@ if (!require("fhircrackr")) {install.packages("fhircrackr"); library(fhircrackr)
 if (!require("config")) {install.packages("config"); library(config)}
 if (!require("dplyr")) {install.packages("dplyr"); library(dplyr)}
 
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 dir.create(file.path(getwd(),"results"), showWarnings = FALSE)
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
