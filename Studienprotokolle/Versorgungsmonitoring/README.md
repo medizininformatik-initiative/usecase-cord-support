@@ -1,3 +1,42 @@
+<a name="readme-top"></a>
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+         <a href="#a. to understand rcode behind versorgungsmonitoring usecase"> To understand RCode behind Versorgungsmonitoring usecase</a>
+       <ul>
+        <li><a href="#Clone">Clone respository</a></li>
+        <li><a href="#Create">Create config.yml</a></li>
+        <li><a href="#Start">Start Calculation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#Stich Probe">To carry out spot test for docker</a>
+      <ul>
+        <li><a href="#prerequisites">Pre-requisite</a></li>
+        <li><a href="#unzip">Unzip the stichprobe file</a></li>
+         <li><a href="#execute">Navigate to stichprobe folder and execute docker compose </a></li>
+      </ul>
+    </li>
+     <li>
+      <a href="#Aggregate">To calculate the aggregate of Versorgungsmonitoring </a>
+      <ul>
+        <li><a href="#prerequisites2">Pre-requisite</a></li>
+        <li><a href="#cloneagg">Clone respository</a></li>
+        <li><a href="#Createagg">Create config.yml</a></li>
+         <li><a href="#Startagg">start calculation</a></li>
+      </ul>
+    </li> 
+     <li><a href="#changelog">Changelog</a></li>
+     <li><a href="#know-how">Know-how</a></li>
+     <li><a href="#roadmap">Roadmap</a></li>
+     <li><a href="#contact">Contact</a></li>
+     <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
 # Script to calculate the aggregate of patients corresponding to Versorgungsmonitoring based on new tracer diagnosis list
 
 # Table of Contents 
@@ -7,6 +46,8 @@ A. [To understand RCode behind Versorgungsmonitoring usecase](https://github.com
 B. [To Carry out Spot Test for docker (Recommended)](https://github.com/medizininformatik-initiative/usecase-cord-support/tree/cf_script/Studienprotokolle/Versorgungsmonitoring#spot-test)
 
 C. To calculate the aggregate corresponding to Versorgungsmonitoring needed for Data management team 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## A. To understand RCode behind Versorgungsmonitoring usecase
 ### 1. clone repository and checkout branch cf_script
@@ -32,6 +73,8 @@ cp conf_yml_sample.yml conf.yml
 Rscript Versorgungsmonitoring.R
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## B. To Carry out Spot Test for docker (Recommended)
 
 ### Pre-requisite
@@ -45,7 +88,7 @@ Rscript Versorgungsmonitoring.R
 cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/Stichprobe
 ``` 
 
-3. After navigating to the Stichprobe folder, there should be a config folder, docker-compose.yaml file, runscript_1234.sh file and a Versorgungsmonitoring.r file available
+ 3. After navigating to the Stichprobe folder, there should be a config folder, docker-compose.yaml file, runscript_1234.sh file and a Versorgungsmonitoring.r file available
  4. from Stichprobe folder execute the following command
 ```
 docker-compose up
@@ -56,6 +99,8 @@ docker-compose up
 ```
 docker-compose down
 ``` 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## C. To calculate the aggregate corresponding to Versorgungsmonitoring based on new tracer diagnosis list using docker Version and provide result to datamanagement team
 
@@ -103,12 +148,62 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
 
    8. unzip 'data.zip' file. After successful execution contact @rajesh-murali datamanagement team corresponding to usecase 4 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+   ## Additional non-mandatory step to build docker image without using docker Compose yaml file
+   1.  clone the repository, checkout branch cf_script and then navigate to the clonedrepository using the following command
+
+   ```
+    git clone --branch cf_script https://github.com/medizininformatik-initiative/usecase-cord-support.git
+  
+   cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
+   ```
+
+   2. build image using the following command 
+
+   ```
+    docker build -t cordversorgungsmonitoring .
+   ```
+
+   3. after successful image build step, set the parameters in config.yml file. This step is similar to the description in part B of the task as well as Part C of the task
+
+   4. start the docker container using the following command
+
+   ```
+    docker run --name cordversorgungsmonitoring
+   ```
+
+
    ## Changelog
 
+   ### HTTP Code 503
+
+   If the FHIR search query to your FHIRserver returned a HTTP code 503, then check your environment variables whether no_proxy parameter contains your FHIRserver fully qualified name as well as your FHIRserver IP address. This error is caused due to the network settings that is preventing access to your FHIR Server. In the server machine where you are executing this code, must enable permanent access to your FHIRserver. This is missing. By defining your environment variables from bash terminal, the environment variable setting is not saved permanently. It is only temporary and overridden by your server machine default settings and it will return HTTP Code 503.
+
+   The following is an example of HTTPcode 503 error message
+
+   ```
+    Error in check_response(response = response, log_errors = log_errors) :
+      Your request generated a server error, HTTP code 503. To print more detailed error information to a file, set argument log_errors to a filename and rerun fhir_search().
+    Calls: fhir_search -> get_bundle -> check_response
+    Execution halted
+   ```
+   Check whether you have your proxy server name with fully qualified name as well as IP address  correctly included in 'http_proxy' and 'https_proxy' variables in config.yml file. Check whether you can view the same variable names 'http_proxy', 'https_proxy' with same values from your config.yml file in your system environment variables as well
+
+   ### Solution
+   Set no_proxy system environment variable using the following line:
+
+    ```
+     Sys.setenv(no_proxy = '<your fully qualified FHIR Server name here>')
+    ```
+   
+   In linux operating system, you can include the above line of code in Versorgungsmonitoring.R file.
+   To have consistent environment variable settings, the environment variables must be defined in your bash profile file (.bashrc file)
    ### Changes to support birthdate that contains only year (in YYYY format)
 
    If the birthdate of a patient is in 'YYYY' format in Patient Resource of FHIR server then birthdate had to be changed to include 'YYYY-MM-DD' format. Otherwise following error will occur while computing the age of the patient 
-```
+
+   ```
       Error in charToDate(x):
            character string is not in standard unambiguous format
             Calls: as.Date -> as.Date.character -> charToDate
@@ -120,6 +215,8 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    ```
       df_conditions_patients <- df_conditions_patients %>% mutate(birthdate= ifelse(nchar(birthdate) >=10, birthdate, paste0(birthdate, "-01-01")))
    ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
    ## Know-how
    
    ### How to set the recorded-date parameter
@@ -135,6 +232,23 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    recordedDate_tocol:          'le2021-12-31'
    ```
    
+   ### Check country Code in Patient Resource
+
+   The country code of Patient Resource in Germany is by default coded with two alphabets "DE". If in your FHIR server, in Patient resource if country code is coded differently then that particular code must be included in the Versorgungsmonitoring.R.
+
+   default filter for country-code "DE" in line 162 of Versorgugsmonitoring.R is as follows:
+
+   ``` 
+    patients_tmp <- patients_tmp[(patients_tmp$countrycode == "DE")
+   ```
+    
+   If country is coded with alphabet "D" in Patient resource, then the filter to accept country-code "D" as well must be included as follows:
+   
+   ``` 
+   patients_tmp <- patients_tmp[(patients_tmp$countrycode == "DE") | (patients_tmp$countrycode == "D"), ]
+   ``` 
+   please contact [@rajesh.murali](rajesh.murali@uk-erlangen.de) if country is coded differently other than "DE" for Germany
+
    ### What actions does the docker container perform?
    
    The docker container at first executes the versorgungsmonitoring.r script then it executes the following scripts in order <br>
@@ -145,3 +259,32 @@ cd usecase-cord-support/Studienprotokolle/Versorgungsmonitoring/
    
    [visualization.Rmd](https://github.com/medizininformatik-initiative/usecase-cord-support/blob/master/Hackathon/Team4_Geoviz/visualization.Rmd)  
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Add Changelog
+- [x] Add dockerfile for building docker image manually
+- [x] Add know-how
+- [x] Add contact, acknowledgments back to top links
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- CONTACT -->
+## Contact
+
+Your Name - [@rajesh.murali](rajesh.murali@uk-erlangen.de) 
+
+Project Link: [https://forschen-fuer-gesundheit.de/projekt_cord_monitoring.php](https://forschen-fuer-gesundheit.de/projekt_cord_monitoring.php)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+This part of the task is created during the project "Collaboration on Rare Disease" (CORD) from Medical Informatics Initiative(MII). If you are using this code for any task kindly mention this source as well as the Project name CORD

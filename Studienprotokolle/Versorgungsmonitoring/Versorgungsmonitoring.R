@@ -159,7 +159,7 @@ conditions_tmp <- conditions_tmp[!duplicated(conditions_tmp[c("patient_id","diag
 # check if country code column exists. if yes then filter Patient by country code to obtain only Patients from Germany 
 if ("countrycode" %in% colnames(patients_tmp))
 {
-  patients_tmp <- patients_tmp[patients_tmp$countrycode == "DE", ]
+  patients_tmp <- patients_tmp[(patients_tmp$countrycode == "DE"), ]
 }
 
 # remove the "Patient/" tag from patient id in condition resource using subject_element_prefix variable
