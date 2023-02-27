@@ -86,7 +86,7 @@ if (exists("count", where = conf) && nchar(conf$count) >= 1) {
   count_custom <- c("_count" = 100)
 }
 
-if (exists ("use_diag_sicherheit", where = conf) && (conf$use_diag_sicherheit) ) {
+if (exists("use_diag_sicherheit", where = conf) && (conf$use_diag_sicherheit) ) {
   use_diag_sicherheit <- TRUE
 } else {
   use_diag_sicherheit <- FALSE
@@ -102,6 +102,7 @@ search_request_pat <- fhir_url(url = conf$serverbase,
                                  # blaze server takes 10x more time for the query with last _has
                                  #"_has:Encounter:patient:date" = "le2022",
                                  count_custom
+                                 #,"_include" = "Patient:link"
                                )
 )
 
@@ -113,28 +114,40 @@ patient_bundle <- fhir_search(request = search_request_pat,
                               max_bundles = max_bundles_custom)
 
 ftd_conditions <- fhir_table_description(resource = "Condition"
-                                     ,cols = c(diagnosis = "code/coding/code",
-                                              display = "code/coding/display",
-                                              system = "code/coding/system",
-                                              diag_sicherheit_url = "code/coding/extension",
-                                              diag_sicherheit_system = "code/coding/extension/valueCoding/system",
-                                              diag_sicherheit = "code/coding/extension/valueCoding/code",
-                                              recorded_date = recorded_date_custom,
-                                              patient_id = "subject/reference",
-                                              encounter_id = "encounter/reference"
-                                              )
+                                         ,cols = c(diagnosis = "code/coding/code",
+                                                   display = "code/coding/display",
+                                                   system = "code/coding/system",
+                                                   extension_url = "code/coding/extension",
+                                                   extension_system = "code/coding/extension/valueCoding/system",
+                                                   extension_code = "code/coding/extension/valueCoding/code",
+                                                   recorded_date = recorded_date_custom,
+                                                   patient_id = "subject/reference",
+                                                   encounter_id = "encounter/reference"
+                                         )
 )
 
 ftd_patients <- fhir_table_description(resource = "Patient"
-                                   ,cols = c(patient_id = "id",
-                                            #hospital_id = "meta/source",
-                                            hospital_id = "identifier/assigner/identifier/value",
-                                            gender = "gender",
-                                            birthdate = "birthDate",
-                                            patient_zip = "address/postalCode",
-                                            countrycode = "address/country"
-                                            )
+                                       ,cols = c(patient_id = "id",
+                                                 #hospital_id = "meta/source",
+                                                 hospital_id = "identifier/assigner/identifier/value",
+                                                 gender = "gender",
+                                                 birthdate = "birthDate",
+                                                 patient_zip = "address/postalCode",
+                                                 countrycode = "address/country",
+                                                 link = "link/other/reference"
+                                       )
 )
+
+# ToDo kindliches Outcome
+#-------------
+#ftd_patients <- fhir_table_description(resource = "Patient"
+#                                       ,cols = NULL
+#)
+
+# ftd_measurements <- fhir_table_description(resource = "Measure"
+#                                            ,cols = NULL
+# )
+#-------------
 
 df_patients_raw <- fhir_crack(patient_bundle, ftd_patients, sep = "|", brackets = c("[", "]"), verbose = 2)
 
@@ -165,11 +178,11 @@ while(any(nchar > nchar_for_ids)){
 }
 
 komorb_icd10codes <- paste0(
-  ",J18.0,J18.1,J18.2,J18.8,J18.9"
+  "J18.0,J18.1,J18.2,J18.8,J18.9"
 )
 
 con_icd10codes <- paste0(
-  rare_icd10codes,
+  rare_icd10codes,",",
   komorb_icd10codes,
   ",O09.0%21,O09.1%21,O09.2%21,O09.3%21,O09.4%21,O09.5%21,O09.6%21,O09.7%21,O09.9%21",
   ",O09.0,O09.1,O09.2,O09.3,O09.4,O09.5,O09.6,O09.7,O09.9",
@@ -228,7 +241,7 @@ invisible({
     )
 
     condition_bundle <<- append(condition_bundle,fhir_search(request = search_request_con, username = conf$username, password = conf$password, token = conf$token, verbose = 2, max_bundles = max_bundles_custom))
-    
+
   })
 })
 #bring condition results together and flatten
@@ -265,13 +278,9 @@ if (nrow(df_conditions_raw) == 0) {
   df_conditions_raw <- fhir_crack(condition_bundle, ftd_conditions, sep = "|", brackets = c("[", "]"), verbose = 2)
 }
 
-if (!any(grepl('diagnosesicherheit', df_conditions_raw$diag_sicherheit_url, ignore.case = TRUE)) ) {
-  message("Diagnosesicherheit not found.")
-  diag_sicherheit <- FALSE
-} else {
-  message("Diagnosesicherheit found.")
-  diag_sicherheit <- TRUE
-} 
+if (nrow(df_conditions_raw) == 0) {
+  stop('No conditions found...exiting')
+}
 
 df_conditions_tmp <- df_conditions_raw
 
@@ -319,9 +328,17 @@ df_conditions_patients <- mutate(df_conditions_patients, birthdate = ifelse(ncha
 df_conditions_cf <- subset(df_conditions_patients, grepl("^E84", diagnosis))
 df_conditions_cf$diagnosis <- "E84*"
 
-if ((diag_sicherheit) && (use_diag_sicherheit)) {
-  df_conditions_cf <- subset(df_conditions_cf, grepl("G", diag_sicherheit))
-  message ("Using Diagnosesicherheit for evaluation.")
+if (!any(grepl('diagnosesicherheit', df_conditions_raw$extension_url, ignore.case = TRUE)) ) {
+  #message("Diagnosesicherheit not found.")
+  diag_sicherheit_found <- FALSE
+} else {
+  message("Diagnosesicherheit found. Please check conf.yml.sample for configuration.")
+  diag_sicherheit_found <- TRUE
+}
+
+if ((diag_sicherheit_found) && (use_diag_sicherheit)) {
+  df_conditions_cf <- subset(df_conditions_cf, grepl("G", extension_code))
+  message("Using Diagnosesicherheit for evaluation.")
 } else {
   df_conditions_cf <- df_conditions_cf
 }
@@ -337,6 +354,57 @@ df_cf_birth_all <- distinct(df_cf_birth_all, patient_id, diagnosis.x, hospital_i
 # filter all "children"
 df_cf_birth_all <- subset(df_cf_birth_all, !grepl("^Z38", diagnosis.y))
 
+# ToDo kindliches Outcome
+#-------------------
+# mother_ids <- unique(df_cf_birth_all$patient_id)
+
+# search_request_children <- fhir_url(url = conf$serverbase,
+#                                     resource = "Patient",
+#                                     parameters = c(
+#                                     "link" = paste(as.character(mother_ids), collapse=","),
+#                                     count_custom
+#                                     )
+# )
+
+# children_bundle <- fhir_search(request = search_request_children,
+#                                username = conf$username,
+#                                password = conf$password,
+#                                token = conf$token,
+#                                verbose = 2,
+#                                max_bundles = max_bundles_custom)
+  
+# df_children_raw <- fhir_crack(children_bundle, ftd_patients, sep = "|", brackets = c("[", "]"), verbose = 2)
+
+# df_children_tmp <- fhir_melt(df_children_raw,
+#                              columns = c("patient_zip", "countrycode"),
+#                              brackets = c("[", "]"), sep = "|", all_columns = TRUE)
+
+# df_children_tmp <- fhir_rm_indices(df_children_tmp, brackets = c("[", "]"))
+
+# # remove duplicate entries
+# df_children_tmp <- df_children_tmp[!duplicated(df_children_tmp$patient_id), ]
+
+# children_ids <- paste0(subject_reference_prefix,unique(df_children_tmp$patient_id))
+
+# search_request_mea <- fhir_url(url = conf$serverbase,
+#                                resource = "Measure",
+#                                parameters = c(
+#                                "subject" = paste(as.character(children_ids), collapse=","),
+#                                count_custom
+#                              )
+# )
+
+# children_mea_bundle <- fhir_search(request = search_request_mea,
+#                                    username = conf$username,
+#                                    password = conf$password,
+#                                    token = conf$token,
+#                                    verbose = 2,
+#                                    max_bundles = max_bundles_custom)
+
+# df_children_mea_raw <- fhir_crack(children_mea_bundle, ftd_measurements, sep = "|", brackets = c("[", "]"), verbose = 2)
+
+#----------------------
+
 result_primaer_count <- ifelse(length(unique(df_cf_birth_all$patient_id)) <= 5, "<5", length(unique(df_cf_birth_all$patient_id)))
 
 #df_result_primaer_count <- as.data.frame(df_cf_birth_all %>% group_by(Klinikum = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = "O80 etc.") %>% summarise(Anzahl = n()) )
@@ -346,10 +414,9 @@ df_result_primaer_count <- mutate(df_result_primaer_count, Anzahl = ifelse(Anzah
 df_result_primaer <- as.data.frame(df_cf_birth_all %>% group_by(Klinikum = df_cf_birth_all$hospital_id.x, Diagn1 = df_cf_birth_all$diagnosis.x, Diagn2 = df_cf_birth_all$diagnosis.y) %>% summarise(Anzahl = n()) )# %>% mutate(Haeufigkeit = paste0(round(100 * n() / sum(n()), 0), "%")))
 df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anzahl <= 5, "<5", Anzahl))
 
-df_conditions_birth_all <- subset(df_conditions_patients, grepl("^O|^Z", diagnosis))
 #df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
-#df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth, by = "patient_id")
+
 df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
 df_cf_complication <- base::merge(df_cf_complication, df_conditions_complication, by = "patient_id")
 df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$encounter_id), ]

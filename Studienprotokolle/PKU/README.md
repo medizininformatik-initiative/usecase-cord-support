@@ -1,4 +1,4 @@
-# Script to calculate the aggregate of patients corresponding to Mukoviszidose/CF Cystic Fibrosis and Birth
+# Script to calculate the aggregate of patients corresponding to PKU with Comorbidities and Birth
 
 
 ### 1. clone repository
