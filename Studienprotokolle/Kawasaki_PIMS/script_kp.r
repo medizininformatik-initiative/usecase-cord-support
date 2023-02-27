@@ -9,7 +9,14 @@ if (!require("config")) {install.packages("config"); library(config)}
 if (!require("dplyr")) {install.packages("dplyr"); library(dplyr)}
 if (!require("stringr")) {install.packages("stringr"); library(stringr)}
 
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+if (rstudioapi::isAvailable()){
+  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+  message("setting working directory to: ", getwd())
+} else {
+  setwd(getwd())
+  message("setting working directory to: ", getwd())
+}
+
 dir.create(file.path(getwd(),"results"), showWarnings = FALSE)
 
 conf <- config::get(file = paste(getwd(), "/conf.yml", sep = ""))
@@ -38,7 +45,7 @@ if (exists("recordedDate_col", where = conf) && nchar(conf$recordedDate_col) >= 
 if (exists("enddate", where = conf) && nchar(conf$enddate) >= 1) {
   enddate_custom <- conf$enddate
 } else {
-  enddate_custom <- "2022-12-31"
+  enddate_custom <- "2021-12-31"
 }
 
 search_date <- paste0("", strsplit(recorded_date_custom, "Date")[[1]][1],  "-date")
