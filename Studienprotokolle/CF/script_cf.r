@@ -416,6 +416,7 @@ df_result_primaer <- mutate(df_result_primaer, Anzahl = ifelse(Anzahl > 0 & Anza
 
 #df_conditions_birth <- subset(df_conditions_patients, grepl("^O09|^O3|^O63|^O8|^Z", diagnosis))
 df_conditions_complication <- subset(df_conditions_patients, grepl("^O64|^O75|^O24", diagnosis))
+
 df_cf_complication <- base::merge(df_conditions_cf, df_conditions_birth_all, by = "patient_id")
 df_cf_complication <- base::merge(df_cf_complication, df_conditions_complication, by = "patient_id")
 df_cf_complication <- df_cf_complication[!duplicated(df_cf_complication$encounter_id), ]

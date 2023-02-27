@@ -1,0 +1,6 @@
+Stations have 0 instances with complete attributes missing 
+Station has 128 instances whose attribute "age" is missing
+Station has 111 instances whose attribute "gender" is missing
+Station has 706 instances whose attribute "bodySite" is missing
+Class Distribution:       MEL      NV    BCC     AK    BKL    DF  VASC    SCC
+0  1197.0  3413.0  910.0  227.0  701.0  55.0  79.0  173.0 
