@@ -343,14 +343,8 @@ df_conditions_patients$diagnosis[grepl("R57",df_conditions_patients$diagnosis)] 
 df_conditions_patients$diagnosis[grepl("R65",df_conditions_patients$diagnosis)] <- "A48.3, R57.8, R65.*"
 df_conditions_patients$diagnosis[grepl("U10",df_conditions_patients$diagnosis)] <- "U10.9"
 
-zip_community_code_list <- read.csv(file = 'zip_community_code_list.csv', sep = ";", colClasses = c(zip_code="character", community_code="character"), stringsAsFactors = FALSE)
-#zip_community_code_list <- distinct(zip_community_code_list, zip_code, community, community_code)
+zip_community_code_list <- read.csv(file = 'kreis_plz.csv', sep = ";", colClasses = c(zip_code="character", community_code="character"), stringsAsFactors = FALSE)
 
-#write.csv2()
-#write.csv2(zip_community_code_list, file = "zip_community_code_list.csv", row.names = FALSE)
-
-#df_conditions_patients_bak <- df_conditions_patients
-#df_conditions_patients <- df_conditions_patients_bak
 df_conditions_patients <- base::merge(df_conditions_patients, zip_community_code_list, by.x = "patient_zip", by.y = "zip_code", all.x = TRUE)
 
 df_encounter_conditions <- data.frame(encounter_id = df_conditions_tmp$encounter_id, diagnosis = df_conditions_tmp$diagnosis)
