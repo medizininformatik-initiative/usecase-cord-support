@@ -256,7 +256,7 @@ melt <- TRUE
 while (melt == TRUE) {
   columns <- data_frame()
   for ( column in colnames(df_conditions_tmp) ) {
-    row <- c(column,str_locate(pattern = "]",df_conditions_tmp[column])[1])
+    row <- c(column,str_locate(pattern = "]",na.omit(df_conditions_tmp[column]))[1])
     columns <- rbind(columns,row)
   }
   colnames(columns) <- c("name","position")
