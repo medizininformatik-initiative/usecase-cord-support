@@ -206,9 +206,9 @@ invisible({
                                      count_custom
                                    )
     )
-    
+
     condition_bundle <<- append(condition_bundle,fhir_search(request = search_request_con, username = conf$username, password = conf$password, token = conf$token, verbose = 2, max_bundles = max_bundles_custom))
-    
+
   })
 })
 #bring condition results together and flatten
@@ -327,13 +327,13 @@ if (!any(grepl('diagnosesicherheit', df_conditions_raw$extension_url, ignore.cas
 }
 
 # set age groups
-x_ag_0_19_99 <- c(0, 19, 99)
+x_ag_0_19_99 <- c(0, 19, 199)
 x_m <- c(1, 3, 12)
-x <- c(1, 3, 5, 10, 15, 18, 20, 99)
-df_conditions_patients$age_group_ag_0_19_99 <- cut(df_conditions_patients$age_dec, x_ag_0_19_99, breaks = c(0, 19, 99), labels = c("[0,18]", "[19,99]"))
+x <- c(1, 3, 5, 10, 15, 18, 20, 199)
+df_conditions_patients$age_group_ag_0_19_99 <- cut(df_conditions_patients$age_dec, x_ag_0_19_99, breaks = c(0, 19, 199), labels = c("[0,18]", "[19,99]"))
 df_conditions_patients$age_group_m <- cut(df_conditions_patients$age_dec*12, x_m, breaks = c(0, 3, 12), labels = c("[0,3m]", "[3,12m]"))
-df_conditions_patients$age_group <- cut(df_conditions_patients$age, x, breaks = c(1, 3, 5, 10, 15, 18, 20, 99), labels = c("[1,3]", "[4,5]", "[6,10]", "[11,15]", "[16,18]", "[19,20]", "[21,99]"))
-df_conditions_patients$age_group_ag_0_5_15_18_99 <- cut(df_conditions_patients$age, x, breaks = c(0, 5, 15, 18, 99), labels = c("[0,5]", "[6,15]", "[16,18]", "[19,99]"))
+df_conditions_patients$age_group <- cut(df_conditions_patients$age, x, breaks = c(1, 3, 5, 10, 15, 18, 20, 199), labels = c("[1,3]", "[4,5]", "[6,10]", "[11,15]", "[16,18]", "[19,20]", "[21,99]"))
+df_conditions_patients$age_group_ag_0_5_15_18_99 <- cut(df_conditions_patients$age, x, breaks = c(0, 5, 15, 18, 199), labels = c("[0,5]", "[6,15]", "[16,18]", "[19,99]"))
 df_conditions_patients <- df_conditions_patients %>% mutate(age_group = coalesce(age_group_m,age_group))
 
 df_conditions_patients$recorded_year <- format(df_conditions_patients$recorded_date, format="%Y")
