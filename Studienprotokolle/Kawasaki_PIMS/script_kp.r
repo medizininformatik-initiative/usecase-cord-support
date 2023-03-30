@@ -959,7 +959,7 @@ write.csv(df_result_sekundaer_2015_2021_ag_0_5_15_18_99, file = paste0("results/
 write.csv(df_result_sekundaer_2020_2021, file = paste0("results/",now,"_result_sekundaer_2020_2021.csv"), row.names = FALSE)
 write.csv(df_result_sekundaer_2020_2021_gender, file = paste0("results/",now,"_result_sekundaer_2020_2021_gender.csv"), row.names = FALSE)
 write.csv(df_result_sekundaer_2020_2021_ag_0_5_15_18_99, file = paste0("results/",now,"_result_sekundaer_2020_2021_agegroups.csv"), row.names = FALSE)
-if (nrow(df_covid_komorb) != 0) {
+if (length(na.omit(df_covid_komorb$community.x)) != 0) {
   write.csv(df_result_sekundaer_2020_2021_community, file = paste0("results/",now,"_result_sekundaer_2020_2021_community.csv"), row.names = FALSE)
 }
 
