@@ -910,7 +910,7 @@ df_result_sekundaer_2020_2021_ag_0_5_15_18_99 <- mutate(df_result_sekundaer_2020
 #df_result_sekundaer_2020_2021_ag_0_5_15_18_99_lt20 <- df_result_sekundaer_2020_2021_ag_0_5_15_18_99[df_result_sekundaer_2020_2021_ag_0_5_15_18_99$Alter != "[19,99]", ]
 #df_result_sekundaer_2020_2021_ag_0_5_15_18_99_gt20 <- df_result_sekundaer_2020_2021_ag_0_5_15_18_99[df_result_sekundaer_2020_2021_ag_0_5_15_18_99$Alter == "[19,99]", ]
 
-if (nrow(df_covid_komorb) != 0) {
+if ((nrow(df_covid_komorb) != 0) || (!is.null(nrow(na.omit(df_covid_komorb$community.x))))) {
   # create table with all possible komorbidities for 0-count in result df
   df_con_icd10codes_combined_ag_0_19_99_diagn2_community <- data.frame()
   for ( year in c("2020", "2021")){
