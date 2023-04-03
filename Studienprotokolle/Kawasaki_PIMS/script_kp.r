@@ -259,6 +259,7 @@ while (melt == TRUE) {
     row <- c(column,str_locate(pattern = "]",na.omit(df_conditions_tmp[column]))[1])
     columns <- rbind(columns,row)
   }
+  columns <- na.omit(columns)
   colnames(columns) <- c("name","position")
   columns$position <- as.integer(columns$position)
   i <- max(unlist(na.omit(columns$position)))
@@ -267,9 +268,10 @@ while (melt == TRUE) {
   df_conditions_tmp <- fhir_melt(df_conditions_tmp,
                                  columns = melt_columns,
                                  brackets = c("[", "]"), sep = "|", all_columns = TRUE)
-  if (i == 12) {
+  if (i == 8) {
     
     df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
+    df_conditions_tmp <- na.omit(df_conditions_tmp)
     melt = FALSE
   }
 }
