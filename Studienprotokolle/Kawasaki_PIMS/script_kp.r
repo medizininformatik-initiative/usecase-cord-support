@@ -271,7 +271,7 @@ while (melt == TRUE) {
   if (i == 8) {
     
     df_conditions_tmp <- fhir_rm_indices(df_conditions_tmp, brackets = c("[", "]"))
-    df_conditions_tmp <- na.omit(df_conditions_tmp, diagnosis)
+    df_conditions_tmp <- na.omit(df_conditions_tmp$diagnosis)
     melt = FALSE
   }
 }
